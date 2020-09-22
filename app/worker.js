@@ -4,8 +4,6 @@ import toArrayBuffer from 'to-arraybuffer'
 import chunker from 'stream-chunker'
 import Resampler from 'libsamplerate.js'
 import CodecsBrowser from 'mumble-client-codecs-browser'
-
-// Polyfill nested webworkers for https://bugs.chromium.org/p/chromium/issues/detail?id=31666
 import 'subworkers'
 
   let sampleRate
@@ -171,7 +169,7 @@ import 'subworkers'
     pushProp(id, user, 'channel', (it) => it ? it.id : it)
     let props = [
       'uniqueId', 'username', 'mute', 'deaf', 'suppress', 'selfMute', 'selfDeaf',
-      'texture', 'textureHash', 'comment'
+      'texture', 'textureHash'
     ]
     for (let prop of props) {
       pushProp(id, user, prop)

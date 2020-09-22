@@ -1,0 +1,53 @@
+{
+  "connectdialog": {
+    "title": "Connecter au serveur",
+    "address": "Adresse du serveur",
+    "port": "Port de serveur",
+    "username": "Nom d'utilisateur",
+    "password": "Mot de passe",
+    "cancel": "Annuler",
+    "connect": "Relier",
+    "error": {
+      "title": "Échec de connexion",
+      "reason": {
+        "refused": "La connexion a été refusée.",
+        "version": "Le serveur utilise une version incompatible.",
+        "username": "Votre nom d'utilisateur a été rejeté. Peut-être en essayer un autre?",
+        "userpassword": "Le mot de passe donné est incorrect.\nLe nom d'utilisateur que vous avez choisi nécessite un nom spécial.",
+        "serverpassword": "Le mot de passe donné est incorrect.",
+        "username_in_use": "Le nom d'utilisateur que vous avez choisi est déjà utilisé.",
+        "full": "Le serveur est plein.",
+        "clientcert": "Le serveur vous demande de fournir un certificat client qui n'est pas pris en charge par cette application Web.",
+        "server": "Le serveur rapporte:"
+      },
+      "retry": "Recommencez",
+      "cancel": "Annuler"
+    }
+  },
+  "joindialog": {
+    "title": "Conférence Mumble Voice",
+    "connect": "Rejoindre la conférence"
+  },
+  "connectinfo": {
+    "title": "Informations sur la transmission audio",
+    "server": "Détails du serveur audio",
+    "webapp": "Statistiques de cette application Web",
+    "native": "Application mobile / de bureau"
+  },
+  "settingsdialog": {
+    "title": "Les paramètres audio",
+    "transmission": "Transmission",
+    "cont": "Permanente",
+    "ptt": "Appuyez pour parler (PTT)",
+    "ptt_key": "Bouton de PTT",
+    "audio_quality": "Qualité audio",
+    "packet": "Audio par paquet",
+    "close": "Annuler",
+    "submit": "Appliquer"
+  },
+  "chat": {
+    "channel_message_placeholder": "Tapez un message à tout le monde ici...",
+    "user_message_placeholder": "Tapez ici le message à l’utilisateur '%1'..."
+  }
+}
+

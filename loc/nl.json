@@ -1,0 +1,53 @@
+{
+  "connectdialog": {
+    "title": "Connecteer met de server",
+    "address": "server adres",
+    "port": "Server poort",
+    "username": "Gebruikersnaam",
+    "password": "Wachtwoord",
+    "cancel": "Annuleer",
+    "connect": "Aansluiten",
+    "error": {
+      "title": "Kon niet verbinden",
+      "reason": {
+        "refused": "De verbinding is geweigerd.",
+        "version": "De server gebruikt een incompatibele versie.",
+        "username": "Uw gebruikersnaam is geweigerd. Misschien een andere proberen?",
+        "userpassword": "Het opgegeven wachtwoord is onjuist.\nDe gebruikersnaam die u heeft gekozen, vereist een speciale naam.",
+        "serverpassword": "Het opgegeven wachtwoord is onjuist.",
+        "username_in_use": "De gebruikersnaam die u heeft gekozen, is al in gebruik.",
+        "full": "De server is vol.",
+        "clientcert": "De server vereist dat u een clientcertificaat verstrekt dat niet wordt ondersteund door deze webtoepassing.",
+        "server": "De server rapporteert:"
+      },
+      "retry": "Probeer het opnieuw",
+      "cancel": "Annuleer"
+    }
+  },
+  "joindialog": {
+    "title": "Mumble Spraakconferentie",
+    "connect": "Deelnemen aan de conferentie"
+  },
+  "connectinfo": {
+    "title": "Audio-overdracht info",
+    "server": "Details audioserver",
+    "webapp": "Statistieken voor deze webapp",
+    "native": "Desktopclient / mobiele app"
+  },
+  "settingsdialog": {
+    "title": "Geluidsinstellingen",
+    "transmission": "Overdragen",
+    "cont": "Voortdurend",
+    "ptt": "Push om te praten",
+    "ptt_key": "Push-to-talk-toets",
+    "audio_quality": "Geluidskwaliteit",
+    "packet": "Audio per pakket",
+    "close": "Annuleer",
+    "submit": "Van toepassing zijn"
+  },
+  "chat": {
+    "channel_message_placeholder": "Typ hier een bericht voor iedereen...",
+    "user_message_placeholder": "Typ hier een bericht aan gebruiker '%1'..."
+  }
+}
+

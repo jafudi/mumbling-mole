@@ -3,7 +3,6 @@ import MicrophoneStream from 'microphone-stream'
 import audioContext from 'audio-context'
 import getUserMedia from './getusermedia'
 import keyboardjs from 'keyboardjs'
-import vad from 'voice-activity-detection'
 import DropStream from 'drop-stream'
 
 class VoiceHandler extends Writable {
@@ -98,66 +97,6 @@ export class PushToTalkVoiceHandler extends VoiceHandler {
   }
 }
 
-export class VADVoiceHandler extends VoiceHandler {
-  constructor (client, settings) {
-    super(client, settings)
-    let level = settings.vadLevel
-    const self = this
-    this._vad = vad(audioContext(), theUserMedia, {
-      onVoiceStart () {
-        console.log('vad: start')
-        self._active = true
-      },
-      onVoiceStop () {
-        console.log('vad: stop')
-        self._stopOutbound()
-        self._active = false
-      },
-      onUpdate (val) {
-        self._level = val
-        self.emit('level', val)
-      },
-      noiseCaptureDuration: 0,
-      minNoiseLevel: level,
-      maxNoiseLevel: level
-    })
-    // Need to keep a backlog of the last ~150ms (dependent on sample rate)
-    // because VAD will activate with ~125ms delay
-    this._backlog = []
-    this._backlogLength = 0
-    this._backlogLengthMin = 1024 * 6 * 4 // vadBufferLen * (vadDelay + 1) * bytesPerSample
-  }
-
-  _write (data, _, callback) {
-    if (this._active && !this._mute) {
-      if (this._backlog.length > 0) {
-        for (let oldData of this._backlog) {
-          this._getOrCreateOutbound().write(oldData)
-        }
-        this._backlog = []
-        this._backlogLength = 0
-      }
-      this._getOrCreateOutbound().write(data, callback)
-    } else {
-      // Make sure we always keep the backlog filled if we're not (yet) talking
-      this._backlog.push(data)
-      this._backlogLength += data.length
-      // Check if we can discard the oldest element without becoming too short
-      if (this._backlogLength - this._backlog[0].length > this._backlogLengthMin) {
-        this._backlogLength -= this._backlog.shift().length
-      }
-      callback()
-    }
-  }
-
-  _final (callback) {
-    super._final(e => {
-      this._vad.destroy()
-      callback(e)
-    })
-  }
-}
-
 var theUserMedia = null
 
 export function initVoice (onData, onUserMediaError) {
@@ -166,7 +105,7 @@ export function initVoice (onData, onUserMediaError) {
       onUserMediaError(err)
     } else {
       theUserMedia = userMedia
-      var micStream = new MicrophoneStream(userMedia, { objectMode: true, bufferSize: 1024 })
+      var micStream = new MicrophoneStream(userMedia, { objectMode: true})
       micStream.on('data', data => {
         onData(Buffer.from(data.getChannelData(0).buffer))
       })

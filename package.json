@@ -33,7 +33,6 @@
     "extract-loader": "^5.0.1",
     "file-loader": "^4.3.0",
     "fs": "0.0.1-security",
-    "webrtc-adapter": "^7.7.0",
     "html-loader": "^0.5.5",
     "json-loader": "^0.5.7",
     "keyboardjs": "^2.5.1",
@@ -50,14 +49,14 @@
     "regexp-replace-loader": "1.0.1",
     "sass-loader": "^8.0.2",
     "stream-chunker": "^1.2.8",
-    "subworkers": "^1.0.1",
     "to-arraybuffer": "^1.0.1",
     "transform-loader": "^0.2.4",
-    "voice-activity-detection": "johni0702/voice-activity-detection#9f8bd90",
     "web-audio-buffer-queue": "^1.1.0",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11",
-    "worker-loader": "^2.0.0"
+    "worker-loader": "^2.0.0",
+    "webrtc-adapter": "^7.7.0",
+    "subworkers": "^1.0.1"
   },
   "optionalDependencies": {}
 }

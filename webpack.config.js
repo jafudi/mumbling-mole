@@ -9,8 +9,7 @@ module.exports = {
       './app/index.html'
     ],
     config: './app/config.js',
-    theme: './app/theme.js',
-    matrix: './app/matrix.js'
+    theme: './app/theme.js'
   },
   devtool: "cheap-source-map",
   output: {

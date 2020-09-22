@@ -1,0 +1,53 @@
+{
+  "connectdialog": {
+    "title": "连接到服务器",
+    "address": "服务器地址",
+    "port": "端口",
+    "username": "用户名",
+    "password": "密码",
+    "cancel": "取消",
+    "connect": "连接",
+    "error": {
+      "title": "连接失败",
+      "reason": {
+        "refused": "连接已被拒绝。",
+        "version": "服务器使用了不兼容的版本。",
+        "username": "您的用户名被拒绝。也许尝试另一个？",
+        "userpassword": "输入的密码不正确。\n您选择的用户名需要一个特殊的用户名。",
+        "serverpassword": "输入的密码不正确。",
+        "username_in_use": "您选择的用户名已被使用。",
+        "full": "服务器已满。",
+        "clientcert": "服务器要求您提供此Web应用程序不支持的客户端证书。",
+        "server": "服务器报告："
+      },
+      "retry": "重试",
+      "cancel": "取消"
+    }
+  },
+  "joindialog": {
+    "title": "Mumble语音会议",
+    "connect": "参加会议"
+  },
+  "connectinfo": {
+    "title": "音频传输信息",
+    "server": "音频服务器详细信息",
+    "webapp": "此网络应用程序的统计信息",
+    "native": "桌面客户端/移动应用"
+  },
+  "settingsdialog": {
+    "title": "音讯设定",
+    "transmission": "传播",
+    "cont": "连续",
+    "ptt": "一键通",
+    "ptt_key": "PTT 一键通键",
+    "audio_quality": "音质",
+    "packet": "每包音频",
+    "close": "取消",
+    "submit": "应用"
+  },
+  "chat": {
+    "channel_message_placeholder": "在这里向所有人输入消息",
+    "user_message_placeholder": "在此处向用户'％1'输入消息"
+  }
+}
+

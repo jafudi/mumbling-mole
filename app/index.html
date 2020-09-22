@@ -18,14 +18,15 @@
     <script src="config.js"></script>
     <script src="config.local.js"></script>
     <script src="theme.js"></script>
-    <script src="matrix.js"></script>
   </head>
   <body>
     <div class="loading-container" data-bind="css: { loaded: true }">
       <div class="loading-circle" data-bind="css: { loaded: true }"></div>
     </div>
-    <div id="container" style="display: none" data-bind="visible: true,
-                                                         css: { minimal: minimalView }">
+    <div id="container" style="display: none" data-bind="visible: true">
+        <div class="guacamole">
+            <iframe src="/guacamole/"></iframe>
+        </div>
       <!-- ko with: connectDialog --> 
       <div class="connect-dialog dialog" data-bind="visible: visible() && !joinOnly()">
           <div id="connect-dialog_title" class="dialog-header">
@@ -47,7 +48,7 @@
                 </tr>
                 <tr data-bind="if: $root.config.connectDialog.password">
                   <td id="connect-dialog_input_password">Password</td>
-                  <td><input id="password" type="password" data-bind="value: password"></td>
+                  <td><input id="password" type="password" autocomplete="off" data-bind="value: password"></td>
                 </tr>
                 <tr data-bind="if: $root.config.connectDialog.token">
                   <td id="connect-dialog_input_tokens">Tokens</td>
@@ -153,7 +154,7 @@
                 </tr>
                 <tr data-bind="if: type() == 3 || type() == 4">
                   <td class="alternate-password">Password</td>
-                  <td><input id="password" type="password" data-bind="value: password" required></td>
+                  <td><input id="password" type="password" autocomplete="off" data-bind="value: password" required></td>
                 </tr>
             </table>
             <div class="dialog-footer">
@@ -166,18 +167,14 @@
       <!-- /ko -->
       <!-- ko with: connectionInfo -->
       <div class="connection-info-dialog dialog" data-bind="visible: visible">
-        <div class="dialog-header">
-          Connection Information
+        <div id="connection-info_title" class="dialog-header">
+          Audio transmission info
         </div>
         <div class="dialog-content">
-          <h3>Version</h3>
+            <h3 id="connection-info_server">Audio server details</h3>
           <!-- ko with: serverVersion -->
-          Protocol
-          <span data-bind="text: major + '.' + minor + '.' + patch"></span>.
-          <br>
-          <br>
-          <span data-bind="text: release"></span>
-          <br>
+          Murmur version <span data-bind="text: release"></span>
+          <br>on
           <span data-bind="text: os"></span>
           <span data-bind="text: osVersion"></span>
           <br>
@@ -185,24 +182,18 @@
           <!-- ko if: !serverVersion() -->
           Unknown
           <!-- /ko -->
+            Bandwidth limited to
+          <span data-bind="text: (maxBandwidth()/1000).toFixed(1)"></span> kbits/s
 
-          <h3>Control channel</h3>
+          <h3 id="connection-info_webapp">Statistics for this web app</h3>
+          Sending <span data-bind="text: (currentBandwidth()/1000).toFixed(1)"></span> kbits/s
+          (<span data-bind="text: (currentBitrate()/1000).toFixed(1)"></span> kbits/s payload)
+          <br>
           <span data-bind="text: latencyMs().toFixed(2)"></span> ms average latency
           (<span data-bind="text: latencyDeviation().toFixed(2)"></span> deviation)
-          <br>
-          <br>
-          Remote host <span data-bind="text: remoteHost"></span>
-          (port <span data-bind="text: remotePort"></span>)
-          <br>
 
-          <h3>Audio bandwidth</h3>
-          Maximum <span data-bind="text: (maxBitrate()/1000).toFixed(1)"></span> kbits/s
-          (<span data-bind="text: (maxBandwidth()/1000).toFixed(1)"></span> kbits/s with overhead)
-          <br>
-          Current <span data-bind="text: (currentBitrate()/1000).toFixed(1)"></span> kbits/s
-          (<span data-bind="text: (currentBandwidth()/1000).toFixed(1)"></span> kbits/s with overhead)
-          <br>
-          Codec: <span data-bind="text: codec"></span>
+          <h3 id="connection-info_native">Desktop client / mobile app</h3>
+          <a href="https://www.mumble.info/downloads/" target="_blank">Offical download page</a>
         </div>
         <div class="dialog-footer">
           <input class="dialog-close" type="button" data-bind="click: hide" value="OK">
@@ -211,40 +202,27 @@
       <!-- /ko -->
       <!-- ko with: settingsDialog -->
       <div class="settings-dialog dialog" data-bind="visible: $data">
-          <div class="dialog-header">
-            Settings
+          <div id="settings-dialog_title" class="dialog-header">
+            Audio settings
           </div>
           <form data-bind="submit: $root.applySettings">
             <table>
                 <tr>
-                  <td>Transmission</td>
+                  <td id="settings-dialog_transmission">Transmission</td>
                   <td>
                     <select data-bind='value: voiceMode'>
-                      <option value="cont">Continuous</option>
-                      <option value="vad">Voice Activity</option>
-                      <option value="ptt">Push To Talk</option>
-                  </td>
-                </tr>
-                <tr data-bind="visible: voiceMode() == 'vad'">
-                  <td colspan="2">
-                    <div class="mic-volume-container">
-                      <div class="mic-volume" data-bind="style: {
-                          width: testVadLevel()*100 + '%',
-                          background: testVadActive() ? 'green' : 'red'
-                        }"></div>
-                    </div>
-                    <input type="range" min="0" max="1" step="0.01"
-                           data-bind="value: vadLevel">
+                      <option id="settings-dialog_cont" value="cont">Continuous</option>
+                      <option id="settings-dialog_ptt" value="ptt">Push To Talk</option>
                   </td>
                 </tr>
                 <tr data-bind="visible: voiceMode() == 'ptt'">
-                  <td>PTT Key</td>
+                  <td id="settings-dialog_ptt_key">PTT Key</td>
                   <td>
                     <input type="button" data-bind="value: pttKeyDisplay, click: recordPttKey">
                   </td>
                 </tr>
                 <tr>
-                  <td>Audio Quality</td>
+                  <td id="settings-dialog_audio_quality">Audio Quality</td>
                   <td><span data-bind="text: (audioBitrate()/1000).toFixed(1)"></span> kbit/s</td>
                 </tr>
                 <tr>
@@ -254,7 +232,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>Audio per packet</td>
+                  <td id="settings-dialog_packet">Audio per packet</td>
                   <td><span data-bind="text: msPerPacket"></span> ms</td>
                 </tr>
                 <tr>
@@ -275,376 +253,37 @@
                     <span data-bind="text: (overheadBandwidth()/1000).toFixed(1)"></span>)
                   </td>
                 </tr>
-                <tr>
-                  <td>Show Avatars</td>
-                  <td>
-                    <select data-bind='value: showAvatars'>
-                      <option value="always">Always</option>
-                      <option value="own_channel">Same Channel</option>
-                      <option value="linked_channel">Linked Channels</option>
-                      <option value="minimal_only">Minimal View</option>
-                      <option value="never">Never</option>
-                  </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <input type="checkbox" data-bind="checked: userCountInChannelName">
-                        Show user count after channel name
-                    </td>
-                </tr>
             </table>
             <div class="dialog-footer">
-              <input class="dialog-close" type="button" data-bind="click: $root.closeSettings" value="Cancel">
-              <input class="dialog-submit" type="submit" value="Apply">
+              <input id="settings-dialog_close" class="dialog-close" type="button" data-bind="click: $root.closeSettings" value="Cancel">
+              <input id="settings-dialog_submit" class="dialog-submit" type="submit" value="Apply">
             </div>
           </form>
         </div>
       <!-- /ko -->
-      <img class="avatar-view" data-bind="visible: avatarView, attr: { src: avatarView },
-                                          click: function () { avatarView(null) }"></img>
-      <!-- ko with: userContextMenu -->
-      <ul class="context-menu user-context-menu" data-bind="if: target,
-                                          style: { left: posX() + 'px',
-                                                   top:  posY() + 'px' }">
-
-        <!-- ko with: target -->
-        <li data-bind="css: { disabled: !canChangeMute() }"
-            class="mute">
-          Mute
-        </li>
-        <li data-bind="css: { disabled: !canChangeDeafen() }"
-            class="deafen">
-          Deafen
-        </li>
-        <li data-bind="css: { disabled: !canChangePrioritySpeaker() }"
-            class="priority-speaker">
-          Priority Speaker
-        </li>
-
-        <li data-bind="css: { disabled: !canLocalMute() }"
-            class="local-mute">
-          Local Mute
-        </li>
-        <li data-bind="css: { disabled: !canIgnoreMessages() }"
-            class="ignore-messages">
-          Ignore Messages
-        </li>
-
-        <li data-bind="css: { disabled: !canChangeComment() }, visible: comment"
-            class="view-comment">
-          View Comment
-        </li>
-        <!-- ko if: $data === $root.thisUser() -->
-        <li data-bind="css: { disabled: !canChangeComment() }, visible: true"
-            class="change-comment">
-          Change Comment
-        </li>
-        <!-- /ko -->
-        <!-- ko if: $data !== $root.thisUser() -->
-        <li data-bind="css: { disabled: !canChangeComment() }, visible: comment"
-            class="reset-comment">
-          Reset Comment
-        </li>
-        <!-- /ko -->
-
-        <li data-bind="css: { disabled: !canChangeAvatar() }, visible: texture,
-                       click: viewAvatar"
-            class="view-avatar">
-          View Avatar
-        </li>
-        <!-- ko if: $data === $root.thisUser() -->
-        <li data-bind="css: { disabled: !canChangeAvatar() }, visible: true,
-                       click: changeAvatar"
-            class="change-avatar">
-          Change Avatar
-        </li>
-        <!-- /ko -->
-        <li data-bind="css: { disabled: !canChangeAvatar() }, visible: texture,
-                       click: removeAvatar",
-            class="reset-avatar">
-          Reset Avatar
-        </li>
-
-        <li data-bind="css: { disabled: true }, visible: true"
-            class="send-message">
-          Send Message
-        </li>
-        <li data-bind="css: { disabled: true }, visible: true"
-            class="information">
-          Information
-        </li>
-
-        <li data-bind="visible: $data === $root.thisUser(),
-                       css: { checked: selfMute },
-                       click: toggleMute"
-            class="self-mute">
-          Self Mute
-        </li>
-        <li data-bind="visible: $data === $root.thisUser(),
-                       css: { checked: selfDeaf },
-                       click: toggleDeaf"
-            class="self-deafen">
-          Self Deafen
-        </li>
-
-        <!-- ko if: $data !== $root.thisUser() -->
-        <li data-bind="css: { disabled: true }, visible: true"
-            class="add-friend">
-          Add Friend
-        </li>
-        <li data-bind="css: { disabled: true }, visible: false"
-            class="remove-friend">
-          Remove Friend
-        </li>
-        <!-- /ko -->
-
-        <!-- /ko -->
-      </ul>
-      <!-- /ko -->
-      <!-- ko with: channelContextMenu -->
-      <ul class="context-menu channel-context-menu" data-bind="if: target,
-                                          style: { left: posX() + 'px',
-                                                   top:  posY() + 'px' }">
-
-        <!-- ko with: target -->
-        <li data-bind="visible: users.indexOf($root.thisUser()) === -1,
-                       css: { disabled: !canJoin() },
-                       click: $root.requestMove.bind($root, $root.thisUser())"
-            class="join">
-          Join Channel
-        </li>
-        <li data-bind="css: { disabled: !canAdd() }"
-            class="add">
-          Add
-        </li>
-        <li data-bind="css: { disabled: !canEdit() }"
-            class="edit">
-          Edit
-        </li>
-        <li data-bind="css: { disabled: !canRemove() }"
-            class="remove">
-          Remove
-        </li>
-
-        <li data-bind="css: { disabled: !canLink() }"
-            class="link">
-          Link
-        </li>
-        <li data-bind="css: { disabled: !canUnlink() }"
-            class="unlink">
-          Unlink
-        </li>
-        <li data-bind="css: { disabled: !canUnlink() }"
-            class="unlink-all">
-          Unlink All
-        </li>
-
-        <li data-bind="css: { disabled: true }"
-            class="copy-mumble-url">
-          Copy Mumble URL
-        </li>
-        <li data-bind="css: { disabled: true }"
-            class="copy-mumble-web-url">
-          Copy Mumble-Web URL
-        </li>
-        <li data-bind="css: { disabled: !canSendMessage() }"
-            class="send-message">
-          Send Message
-        </li>
-
-        <!-- /ko -->
-      </ul>
-      <!-- /ko -->
-      <script type="text/html" id="user-tag">
-        <span class="user-tag" data-bind="text: name"></span>
-      </script>
-      <script type="text/html" id="channel-tag">
-        <span class="channel-tag" data-bind="text: name"></span>
-      </script>
-      <div class="toolbar" data-bind="css: { 'toolbar-horizontal': toolbarHorizontal(),
-                                             'toolbar-vertical': !toolbarHorizontal() }">
-        <img class="handle-horizontal" src="/svg/handle_horizontal.svg"
-             data-bind="click: toggleToolbarOrientation">
-        <img class="handle-vertical" src="/svg/handle_vertical.svg"
-             data-bind="click: toggleToolbarOrientation">
-        <img class="tb-connect" data-bind="visible: !connectDialog.joinOnly(),
-                                           click: connectDialog.show"
-                      rel="connect" src="/svg/applications-internet.svg">
-        <img class="tb-information" rel="information" src="/svg/information_icon.svg"
-             data-bind="click: connectionInfo.show,
-                        css: { disabled: !thisUser() }">
-        <div class="divider"></div>
+      <form class="toolbar-horizontal" data-bind="submit: submitMessageBox">
         <img class="tb-mute" data-bind="visible: !selfMute(),
-                              click: function () { requestMute(thisUser()) }"
-                      rel="mute" src="/svg/audio-input-microphone.svg">
+            click: function () { requestMute(thisUser()) }"
+            rel="mute" src="/svg/audio-input-microphone.svg">
         <img class="tb-unmute tb-active" data-bind="visible: selfMute,
-                              click: function () { requestUnmute(thisUser()) }"
-                      rel="unmute" src="/svg/audio-input-microphone-muted.svg">
+            click: function () { requestUnmute(thisUser()) }"
+            rel="unmute" src="/svg/audio-input-microphone-muted.svg">
         <img class="tb-deaf" data-bind="visible: !selfDeaf(),
-                              click: function () { requestDeaf(thisUser()) }"
-                      rel="deaf" src="/svg/audio-output.svg">
+            click: function () { requestDeaf(thisUser()) }"
+            rel="deaf" src="/svg/audio-output.svg">
         <img class="tb-undeaf tb-active" data-bind="visible: selfDeaf,
-                              click: function () { requestUndeaf(thisUser()) }"
-                      rel="undeaf" src="/svg/audio-output-deafened.svg">
-        <img class="tb-record" data-bind="click: function(){}"
-                      rel="record" src="/svg/media-record.svg">
-        <div class="divider"></div>
-        <img class="tb-comment" data-bind="click: commentDialog.show"
-                      rel="comment" src="/svg/toolbar-comment.svg">
-        <div class="divider"></div>
+            click: function () { requestUndeaf(thisUser()) }"
+            rel="undeaf" src="/svg/audio-output-deafened.svg">
+        <input id="message-box" type="text" data-bind="
+            attr: { placeholder: messageBoxHint }, textInput: messageBox">
+        <img class="tb-information" rel="information" src="/svg/applications-internet.svg"
+            data-bind="click: connectionInfo.show">
         <img class="tb-settings" data-bind="click: openSettings"
-                      rel="settings" src="/svg/config_basic.svg">
-        <div class="divider"></div>
+            rel="settings" src="/svg/config_basic.svg">
         <img class="tb-sourcecode" data-bind="click: openSourceCode"
-                      rel="Source Code" src="/svg/source-code.svg">
-      </div>
-      <div class="chat">
-        <script type="text/html" id="log-generic">
-          <span data-bind="text: value"></span>
-        </script>
-        <script type="text/html" id="log-welcome-message">
-          Welcome message: <span data-bind="html: message"></span>
-        </script>
-        <script type="text/html" id="log-chat-message">
-          <span data-bind="visible: channel">
-            (Channel)
-          </span>
-          <span data-bind="template: { name: 'user-tag', data: user }"></span>:
-          <span class="message-content" data-bind="html: message"></span>
-        </script>
-        <script type="text/html" id="log-chat-message-self">
-          To
-          <span data-bind="template: { if: $data.channel, name: 'channel-tag', data: $data.channel }">
-          </span><span data-bind="template: { if: $data.user, name: 'user-tag', data: $data.user }">
-          </span>:
-          <span class="message-content" data-bind="html: message"></span>
-        </script>
-        <script type="text/html" id="log-disconnect">
-        </script>
-        <div class="log" data-bind="foreach: {
-          data: log,
-          afterRender: function (e) {
-            [].forEach.call(e[1].getElementsByTagName('a'), function(e){e.target = '_blank'})
-          }
-        }">
-          <div class="log-entry">
-            <span class="log-timestamp" data-bind="text: $root.getTimeString()"></span>
-            <!-- ko template: { data: $data, name: function(l) { return 'log-' + l.type; } } -->
-            <!-- /ko -->
-          </div>
-        </div>
-        <form data-bind="submit: submitMessageBox">
-          <input id="message-box" type="text" data-bind="
-              attr: { placeholder: messageBoxHint }, textInput: messageBox">
-        </form>
-      </div>
-      <script type="text/html" id="channel">
-        <div class="channel" data-bind="
-            click: $root.select, 
-            event: {
-              contextmenu: openContextMenu,
-              dblclick: $root.requestMove.bind($root, $root.thisUser())
-            },
-            css: {
-              selected: $root.selected() === $data,
-              currentChannel: users.indexOf($root.thisUser()) !== -1
-            }">
-          <div class="channel-status">
-            <img class="channel-description" data-bind="visible: description"
-                alt="description" src="/svg/comment.svg">
-          </div>
-          <div data-bind="if: description">
-            <div class="channel-description tooltip" data-bind="html: description"></div>
-          </div>
-          <img class="channel-icon" src="/svg/channel.svg"
-            data-bind="visible: !linked() && $root.thisUser().channel() !== $data">
-          <img class="channel-icon-active" src="/svg/channel_active.svg"
-            data-bind="visible: $root.thisUser().channel() === $data">
-          <img class="channel-icon-linked" src="/svg/channel_linked.svg"
-            data-bind="visible: linked() && $root.thisUser().channel() !== $data">
-          <div class="channel-name">
-            <span data-bind="text: name"></span>
-            <!-- ko if: $root.settings.userCountInChannelName() && userCount() !== 0 -->
-            &nbsp;(<span data-bind="text: userCount()"></span>)
-            <!-- /ko -->
-          </div>
-        </div>
-        <!-- ko if: expanded -->
-        <!-- ko foreach: users -->
-        <div class="user-wrapper">
-          <div class="user-tree"></div>
-          <div class="user" data-bind="
-                click: $root.select,
-                event: {
-                  contextmenu: openContextMenu
-                },
-                css: {
-                  thisClient: $root.thisUser() === $data,
-                  selected: $root.selected() === $data
-                }">
-            <div class="user-status" data-bind="attr: { title: state }">
-              <img class="user-comment" data-bind="visible: comment"
-                  alt="comment" src="/svg/comment.svg">
-              <img class="user-server-mute" data-bind="visible: mute"
-                  alt="server mute" src="/svg/muted_server.svg">
-              <img class="user-suppress-mute" data-bind="visible: suppress"
-                  alt="suppressed" src="/svg/muted_suppressed.svg">
-              <img class="user-self-mute" data-bind="visible: selfMute" 
-                  alt="self mute" src="/svg/muted_self.svg">
-              <img class="user-server-deaf" data-bind="visible: deaf"
-                  alt="server deaf" src="/svg/deafened_server.svg">
-              <img class="user-self-deaf" data-bind="visible: selfDeaf"
-                  alt="self deaf" src="/svg/deafened_self.svg">
-              <img class="user-authenticated" data-bind="visible: uid"
-                  alt="authenticated" src="/svg/authenticated.svg">
-            </div>
-            <div data-bind="if: comment">
-              <div class="user-comment tooltip" data-bind="html: comment"></div>
-            </div>
-            <!-- ko if: show_avatar() -->
-            <img class="user-avatar" alt="avatar"
-                 data-bind="attr: { src: texture },
-                            css: { 'user-avatar-talk-off': talking() == 'off',
-                                   'user-avatar-talk-on': talking() == 'on',
-                                   'user-avatar-talk-whisper': talking() == 'whisper',
-                                   'user-avatar-talk-shout': talking() == 'shout' }">
-            <!-- /ko -->
-            <!-- ko ifnot: show_avatar() -->
-            <img class="user-talk user-talk-off" data-bind="visible: talking() == 'off'"
-                alt="talk off" src="/svg/talking_off.svg">
-            <img class="user-talk user-talk-on" data-bind="visible: talking() == 'on'"
-                alt="talk on" src="/svg/talking_on.svg">
-            <img class="user-talk user-talk-whisper" data-bind="visible: talking() == 'whisper'"
-                alt="whisper" src="/svg/talking_whisper.svg">
-            <img class="user-talk user-talk-shout" data-bind="visible: talking() == 'shout'"
-                alt="shout" src="/svg/talking_alt.svg">
-            <!-- /ko -->
-            <div class="user-name" data-bind="text: name"></div>
-          </div>
-        </div>
-        <!-- /ko -->
-        <!-- ko foreach: channels -->
-        <div class="channel-wrapper">
-          <!-- ko ifnot: users().length || channels().length -->
-          <div class="channel-tree"></div>
-          <!-- /ko -->
-          <div class="branch" data-bind="if: users().length || channels().length">
-            <img class="branch-open" src="/svg/branch_open.svg"
-                data-bind="click: expanded.bind($data, false), visible: expanded()">
-            <img class="branch-closed" src="/svg/branch_closed.svg"
-                data-bind="click: expanded.bind($data, true), visible: !expanded()">
-          </div>
-          <div class="channel-sub" data-bind="template: {name: 'channel', data: $data}"></div>
-        </div>
-        <!-- /ko -->
-        <!-- /ko -->
-      </script>
-      <div class="channel-root-container" data-bind="if: root, visible: !minimalView()">
-        <div class="channel-root" data-bind="template: {name: 'channel', data: root}"></div>
-      </div>
-      <div class="channel-root-container" data-bind="if: thisUser, visible: minimalView()">
-        <div class="channel-root" data-bind="template: {name: 'channel', data: thisUser().channel}"></div>
-      </div>
+            rel="Source Code" src="/svg/source-code.svg">
+
+      </form>
     </div>
   </body>
   <script src="index.js"></script>

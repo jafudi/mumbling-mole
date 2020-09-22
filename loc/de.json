@@ -5,11 +5,51 @@
     "port": "Port",
     "username": "Nutzername",
     "password": "Passwort",
-    "tokens": "Tokens",
-    "remove": "Entfernen",
-    "add": "Hinzufügen",
     "cancel": "Abbrechen",
-    "connect": "Verbinden"
+    "connect": "Verbinden",
+    "error": {
+      "title": "Verbindung nicht möglich",
+      "reason": {
+        "refused": "Die Verbindung wurde abgelehnt.",
+        "version": "Der Server verwendet eine inkompatible Version.",
+        "username": "Ihr Benutzername wurde abgelehnt. Vielleicht versuchen Sie es mit einem anderen?",
+        "userpassword": "Das angegebene Passwort ist falsch.\nDer von Ihnen gewählte Benutzername erfordert ein spezielles Passwort.",
+        "serverpassword": "Das angegebene Passwort ist falsch.",
+        "username_in_use": "Der von Ihnen gewählte Benutzername wird bereits verwendet.",
+        "full": "Der Server ist voll.",
+        "clientcert": "Der Server erfordert die Bereitstellung eines Client-Zertifikats, was von dieser Webanwendung nicht unterstützt wird.",
+        "server": "Der Server meldet:"
+      },
+      "retry": "Wiederholen",
+      "cancel": "Abbrechen"
+    }
+  },
+  "joindialog": {
+    "title": "Mumble Sprach-Konferenz",
+    "connect": "An der Konferenz teilnehmen"
+  },
+  "connectinfo": {
+    "title": "Infos zur Audio-Übertragung",
+    "server": "Details zum Audio-Server",
+    "webapp": "Statistiken zur Web-Anwendung",
+    "native": "Desktop-Anwendung / App"
+  },
+  "settingsdialog": {
+    "title": "Audio-Einstellungen",
+    "transmission": "Übertragung",
+    "cont": "Durchgehend",
+    "ptt": "Drücken-zum-Sprechen",
+    "ptt_key": "Sprech-Taste",
+    "audio_quality": "Audio-Qualität",
+    "packet": "Audio pro Paket",
+    "close": "Abbrechen",
+    "submit": "Anwenden"
+  },
+  "chat": {
+    "channel_message_placeholder": "Hier eine Nachricht an alle eintippen...",
+    "user_message_placeholder": "Hier eine Nachricht an Teilnehmer '%1' eintippen..."
   }
 }
+
+
 

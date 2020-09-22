@@ -18,9 +18,7 @@ module.exports = function (constraints, cb) {
         constraints = defaultOpts;
     }
 
-    // Safari supports 'MediaDevices.getUserMedia()' now
-    // which is used below, therefore it does not matter
-    // that 'navigator.getUserMedia' is undefined
+    // treat lack of browser support like an error
     if (typeof navigator === 'undefined') {
         // throw proper error per spec
         error = new Error('MediaStreamError');

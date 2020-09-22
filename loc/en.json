@@ -5,9 +5,6 @@
     "port": "Port",
     "username": "Username",
     "password": "Password",
-    "tokens": "Tokens",
-    "remove": "Remove",
-    "add": "Add",
     "cancel": "Cancel",
     "connect": "Connect",
     "error": {
@@ -31,47 +28,26 @@
     "title": "Mumble Voice Conference",
     "connect": "Join Conference"
   },
-  "usercontextmenu": {
-    "mute": "Mute",
-    "deafen": "Deafen",
-    "priority_speaker": "Priority Speaker",
-    "local_mute": "Local Mute",
-    "ignore_messages": "Ignore Messages",
-    "view_comment": "View Comment",
-    "change_comment": "Change Comment",
-    "reset_comment": "Reset Comment",
-    "view_avatar": "View Avatar",
-    "change_avatar": "Change Avatar",
-    "reset_avatar": "Reset Avatar",
-    "send_message": "Send Message",
-    "information": "Information",
-    "self_mute": "Self Mute",
-    "self_deafen": "Self Deafen",
-    "add_friend": "Add Friend",
-    "remove_friend": "Remove Friend"
+  "connectinfo": {
+    "title": "Audio transmission info",
+    "server": "Audio server details",
+    "webapp": "Statistics for this web app",
+    "native": "Desktop client / mobile app"
   },
-  "channelcontextmenu": {
-    "join": "Join Channel",
-    "add": "Add",
-    "edit": "Edit",
-    "remove": "Remove",
-    "link": "Link",
-    "unlink": "Unlink",
-    "unlink_all": "Unlink All",
-    "copy_mumble_url": "Copy Mumble URL",
-    "copy_mumble_web_url": "Copy Mumble-Web URL",
-    "send_message": "Send Message"
-  },
-  "logentry": {
-    "connecting": "Connecting to server",
-    "connected": "Connected!",
-    "connection_error": "Connection error:",
-    "unknown_voice_mode": "Unknown voice mode:",
-    "mic_init_error": "Cannot initialize user media. Microphone will not work:"
+  "settingsdialog": {
+    "title": "Audio settings",
+    "transmission": "Transmission",
+    "cont": "Continuous",
+    "ptt": "Push To Talk",
+    "ptt_key": "PTT Key",
+    "audio_quality": "Audio Quality",
+    "packet": "Audio per packet",
+    "close": "Cancel",
+    "submit": "Apply"
   },
   "chat": {
-    "channel_message_placeholder": "Type message to channel '%1' here",
-    "user_message_placeholder": "Type message to user '%1' here"
+    "channel_message_placeholder": "Type message to everyone here...",
+    "user_message_placeholder": "Type message to user '%1' here..."
   }
 }
 

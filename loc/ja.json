@@ -1,0 +1,53 @@
+{
+  "connectdialog": {
+    "title": "サーバーに接続",
+    "address": "アドレス",
+    "port": "ポート",
+    "username": "ユーザー名",
+    "password": "パスワード",
+    "cancel": "キャンセル",
+    "connect": "接続する",
+    "error": {
+      "title": "接続に失敗した。",
+      "reason": {
+        "refused": "接続が拒否されました。",
+        "version": "サーバーは互換性のないバージョンを使用しています。",
+        "username": "ユーザー名が拒否されました。たぶん別のものを試してみませんか？",
+        "userpassword": "指定されたパスワードは正しくありません。\n選択したユーザー名には特別な名前が必要です。",
+        "serverpassword": "指定されたパスワードは正しくありません。",
+        "username_in_use": "選択したユーザー名は既に使用されています。",
+        "full": "サーバーがいっぱいです。",
+        "clientcert": "サーバーでは、このWebアプリケーションでサポートされていないクライアント証明書を提供する必要があります。",
+        "server": "サーバーは次のように報告します:"
+      },
+      "retry": "リトライ",
+      "cancel": "キャンセル"
+    }
+  },
+  "joindialog": {
+    "title": "Mumble音声会議",
+    "connect": "会議に参加"
+  },
+  "connectinfo": {
+    "title": "音声送信情報",
+    "server": "サーバーの詳細",
+    "webapp": "このWebアプリの統計",
+    "native": "ネイティブアプリ"
+  },
+  "settingsdialog": {
+    "title": "オーディオ設定",
+    "transmission": "伝送",
+    "cont": "継続的",
+    "ptt": "プッシュトゥトーク",
+    "ptt_key": "PTT キー",
+    "audio_quality": "オーディオ品質",
+    "packet": "パケットあたり",
+    "close": "キャンセル",
+    "submit": "保存する"
+  },
+  "chat": {
+    "channel_message_placeholder": "ここに全員へのメッセージを入力...",
+    "user_message_placeholder": "ここにユーザー '％1'へのメッセージを入力してください..."
+  }
+}
+

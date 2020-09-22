@@ -1,0 +1,53 @@
+{
+  "connectdialog": {
+    "title": "Připojit k serveru",
+    "address": "adresa serveru",
+    "port": "Port serveru",
+    "username": "Uživatelské jméno",
+    "password": "Heslo",
+    "cancel": "Zrušení",
+    "connect": "Připojit",
+    "error": {
+      "title": "Nepodařilo se připojit",
+      "reason": {
+        "refused": "Připojení bylo odmítnuto.",
+        "version": "Server používá nekompatibilní verzi.",
+        "username": "Vaše uživatelské jméno bylo zamítnuto. Možná zkusit jiný?",
+        "userpassword": "Zadané heslo je nesprávné.\nUživatelské jméno, které jste si vybrali, vyžaduje speciální.",
+        "serverpassword": "Zadané heslo je nesprávné.",
+        "username_in_use": "Uživatelské jméno, které jste si vybrali, se již používá.",
+        "full": "Server je plný.",
+        "clientcert": "Server vyžaduje, abyste poskytli certifikát klienta, který tato webová aplikace nepodporuje.",
+        "server": "Server hlásí:"
+      },
+      "retry": "Zkuste to znovu",
+      "cancel": "Zrušení"
+    }
+  },
+  "joindialog": {
+    "title": "Mumble hlasová konference",
+    "connect": "Připojte se ke konferenci"
+  },
+  "connectinfo": {
+    "title": "Informace o přenosu zvuku",
+    "server": "Podrobnosti zvukového serveru",
+    "webapp": "Statistiky pro tuto webovou aplikaci",
+    "native": "Desktopový klient / mobilní aplikace"
+  },
+  "settingsdialog": {
+    "title": "Nastavení zvuku",
+    "transmission": "Přenos",
+    "cont": "Kontinuální",
+    "ptt": "Push To Talk",
+    "ptt_key": "Tlačítko Push To Talk",
+    "audio_quality": "Kvalita zvuku",
+    "packet": "Zvuk na balíček",
+    "close": "Zrušení",
+    "submit": "Aplikovat"
+  },
+  "chat": {
+    "channel_message_placeholder": "Sem napište zprávu všem...",
+    "user_message_placeholder": "Sem napište zprávu uživateli '%1'..."
+  }
+}
+

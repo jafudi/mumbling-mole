@@ -15,11 +15,9 @@ window.mumbleWebConfig = {
   // Default values for user settings
   // You can see your current value by typing `localStorage.getItem('mumble.$setting')` in the web console.
   'settings': {
-    'voiceMode': 'vad', // one of 'cont' (Continuous), 'ptt' (Push-to-Talk), 'vad' (Voice Activity Detection)
+    'voiceMode': 'cont', // one of 'cont' (Continuous), 'ptt' (Push-to-Talk)
     'pttKey': 'ctrl + shift',
-    'vadLevel': 0.3,
     'toolbarVertical': false,
-    'showAvatars': 'always', // one of 'always', 'own_channel', 'linked_channel', 'minimal_only', 'never'
     'userCountInChannelName': false,
     'audioBitrate': 40000, // bits per second
     'samplesPerPacket': 960
@@ -33,8 +31,6 @@ window.mumbleWebConfig = {
     'username': '',
     'password': '',
     'joinDialog': false, // replace whole dialog with single "Join Conference" button
-    'matrix': false, // enable Matrix Widget support (mostly auto-detected; implies 'joinDialog')
-    'avatarurl': '', // download and set the user's Mumble avatar to the image at this URL
     // General
     'theme': 'MetroMumbleLight'
   }

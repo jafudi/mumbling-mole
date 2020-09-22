@@ -1,0 +1,53 @@
+{
+  "connectdialog": {
+    "title": "Connetti al server",
+    "address": "indirizzo del server",
+    "port": "porta del server",
+    "username": "Nome utente",
+    "password": "Parola d'ordine",
+    "cancel": "Annulla",
+    "connect": "Collegare",
+    "error": {
+      "title": "Connessione fallita",
+      "reason": {
+        "refused": "La connessione è stata rifiutata.",
+        "version": "Il server utilizza una versione incompatibile.",
+        "username": "Il tuo nome utente è stato rifiutato. Forse provarne uno diverso?",
+        "userpassword": "La password fornita non è corretta.\nIl nome utente che hai scelto ne richiede uno speciale.",
+        "serverpassword": "La password fornita non è corretta.",
+        "username_in_use": "Il nome utente che hai scelto è già in uso.",
+        "full": "Il server è pieno.",
+        "clientcert": "Il server richiede di fornire un certificato client che non è supportato da questa applicazione web.",
+        "server": "Il server segnala:"
+      },
+      "retry": "Riprova",
+      "cancel": "Annulla"
+    }
+  },
+  "joindialog": {
+    "title": "Mumble Conferenza vocale",
+    "connect": "Partecipa alla conferenza"
+  },
+  "connectinfo": {
+    "title": "Informazioni sulla trasmissione audio",
+    "server": "Dettagli del server audio",
+    "webapp": "Statistiche per questa app web",
+    "native": "Client desktop / app mobile"
+  },
+  "settingsdialog": {
+    "title": "Impostazioni audio",
+    "transmission": "Trasmissione",
+    "cont": "Continua",
+    "ptt": "Spingere a parlare",
+    "ptt_key": "Pulsante di conversazione",
+    "audio_quality": "Qualità audio",
+    "packet": "Audio per pacchetto",
+    "close": "Annulla",
+    "submit": "Applicare"
+  },
+  "chat": {
+    "channel_message_placeholder": "Digita il messaggio per tutti qui...",
+    "user_message_placeholder": "Digita qui il messaggio per l'utente '%1'..."
+  }
+}
+

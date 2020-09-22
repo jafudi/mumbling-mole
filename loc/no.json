@@ -1,0 +1,53 @@
+{
+  "connectdialog": {
+    "title": "Koble til serveren",
+    "address": "Server adresse",
+    "port": "Serverport",
+    "username": "Brukernavn",
+    "password": "Passord",
+    "cancel": "Avbryt",
+    "connect": "Koble",
+    "error": {
+      "title": "Tilkobling mislyktes",
+      "reason": {
+        "refused": "Forbindelsen er nektet.",
+        "version": "Serveren bruker en inkompatibel versjon.",
+        "username": "Brukernavnet ditt ble avvist. Kanskje prøve en annen?",
+        "userpassword": "Det gitte passordet er feil.\nBrukernavnet du har valgt krever et spesielt.",
+        "serverpassword": "Det gitte passordet er feil.",
+        "username_in_use": "Brukernavnet du har valgt er allerede i bruk.",
+        "full": "Serveren er full.",
+        "clientcert": "Serveren krever at du oppgir et klientsertifikat som ikke støttes av dette webapplikasjonen.",
+        "server": "Serveren rapporterer:"
+      },
+      "retry": "Prøv på nytt",
+      "cancel": "Avbryt"
+    }
+  },
+  "joindialog": {
+    "title": "Mumble Talekonferanse",
+    "connect": "Bli med på konferansen"
+  },
+  "connectinfo": {
+    "title": "Info om lydoverføring",
+    "server": "Detaljer om lydserver",
+    "webapp": "Statistikk for denne nettappen",
+    "native": "Desktop-klient / mobilapp"
+  },
+  "settingsdialog": {
+    "title": "Lydinnstillinger",
+    "transmission": "Overføring",
+    "cont": "Kontinuerlige",
+    "ptt": "Trykk for å snakke",
+    "ptt_key": "Trykk og snakk-tast",
+    "audio_quality": "Lydkvalitet",
+    "packet": "Lyd per pakke",
+    "close": "Avbryt",
+    "submit": "Søke om"
+  },
+  "chat": {
+    "channel_message_placeholder": "Skriv melding til alle her...",
+    "user_message_placeholder": "Skriv meldingen til brukeren '%1' her..."
+  }
+}
+
