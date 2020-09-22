@@ -11,7 +11,7 @@ module.exports = {
     config: './app/config.js',
     theme: './app/theme.js'
   },
-  devtool: "cheap-source-map",
+  devtool: "",
   output: {
     path: path.join(__dirname, 'dist'),
     chunkFilename: '[chunkhash].js',
