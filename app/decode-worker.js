@@ -1,3 +1,4 @@
+import 'subworkers'
 import { Decoder as OpusDecoder } from 'libopus.js'
 import { Decoder as Celt7Decoder } from 'libcelt7.js'
 

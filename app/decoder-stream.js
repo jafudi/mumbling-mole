@@ -1,8 +1,9 @@
+import 'subworkers'
 import { Transform } from 'stream'
 import createPool from 'reuse-pool'
 import toArrayBuffer from 'to-arraybuffer'
-
 import DecodeWorker from './decode-worker'
+
 
 const pool = createPool(function () {
   return new DecodeWorker()
@@ -16,11 +17,6 @@ class DecoderStream extends Transform {
 
     this._worker = pool.get()
     this._worker.onmessage = msg => {
-      if (this._worker.objectURL) {
-        // The object URL can now be revoked as the worker has been loaded
-        window.URL.revokeObjectURL(this._worker.objectURL)
-        this._worker.objectURL = null
-      }
       this._onMessage(msg.data)
     }
   }

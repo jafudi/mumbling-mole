@@ -1,3 +1,4 @@
+import 'subworkers'
 import { Encoder as OpusEncoder, libopus } from 'libopus.js'
 import { Encoder as Celt7Encoder } from 'libcelt7.js'
 import toArrayBuffer from 'to-arraybuffer'

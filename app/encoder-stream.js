@@ -1,6 +1,6 @@
+import 'subworkers'
 import { Transform } from 'stream'
 import createPool from 'reuse-pool'
-
 import EncodeWorker from './encode-worker'
 
 const pool = createPool(function () {
@@ -17,11 +17,6 @@ class EncoderStream extends Transform {
 
     this._worker = pool.get()
     this._worker.onmessage = msg => {
-      if (this._worker.objectURL) {
-        // The object URL can now be revoked as the worker has been loaded
-        window.URL.revokeObjectURL(this._worker.objectURL)
-        this._worker.objectURL = null
-      }
       this._onMessage(msg.data)
     }
   }
