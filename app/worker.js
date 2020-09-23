@@ -1,9 +1,8 @@
 import { Transform } from 'stream'
-import mumbleConnect from 'mumble-client-websocket'
+import mumbleConnect from './mumble-websocket.js'
 import toArrayBuffer from 'to-arraybuffer'
 import chunker from 'stream-chunker'
 import Resampler from 'libsamplerate.js'
-import CodecsBrowser from 'mumble-client-codecs-browser'
 import 'subworkers'
 
   let sampleRate
@@ -215,7 +214,7 @@ import 'subworkers'
     if (method === '_init') {
       sampleRate = data.sampleRate
     } else if (method === '_connect') {
-      payload.args.codecs = CodecsBrowser
+      payload.args.codecs = require('./codecs-browser.js')
       mumbleConnect(payload.host, payload.args).then((client) => {
         let id = nextClientId++
         clients[id] = client
