@@ -285,6 +285,9 @@ class GlobalBindings {
 
       // Note: This call needs to be delayed until the user has interacted with
       // the page in some way (which at this point they have), see: https://goo.gl/7K7WLu
+      this.audioContext.resume().then(() => {
+        console.log('Playback resumed successfully');
+      });
       this.connector.setSampleRate(this.audioContext.sampleRate)
 
       // TODO: token
