@@ -1,8 +1,7 @@
-import { Transform } from 'stream'
+import { Transform, PassThrough } from 'stream'
 import mumbleConnect from './mumble-websocket.js'
 import toArrayBuffer from 'to-arraybuffer'
 import chunker from 'stream-chunker'
-import Resampler from 'libsamplerate.js'
 import 'subworkers'
 
   let sampleRate
@@ -63,11 +62,7 @@ import 'subworkers'
   }
 
   function setupOutboundVoice (voiceId, samplesPerPacket, stream) {
-    let resampler = new Resampler({
-      unsafe: true,
-      type: Resampler.Type.SINC_FASTEST,
-      ratio: 48000 / sampleRate
-    })
+    let resampler = new PassThrough()
 
     let buffer2Float32Array = new Transform({
       transform (data, _, callback) {
@@ -132,11 +127,7 @@ import 'subworkers'
       let target
 
       // We want to do as little on the UI thread as possible, so do resampling here as well
-      var resampler = new Resampler({
-        unsafe: true,
-        type: Resampler.Type.ZERO_ORDER_HOLD,
-        ratio: sampleRate / 48000
-      })
+      var resampler = new PassThrough()
 
       // Pipe stream into resampler
       stream.on('data', (data) => {

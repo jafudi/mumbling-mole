@@ -5,7 +5,7 @@ import ByteBuffer from 'bytebuffer'
 import MumbleClient from 'mumble-client'
 import WorkerBasedMumbleConnector from './worker-client'
 import BufferQueueNode from 'web-audio-buffer-queue'
-import audioContext from 'audio-context'
+import getAudioContext from 'audio-context'
 import ko from 'knockout'
 import _dompurify from 'dompurify'
 import keyboardjs from 'keyboardjs'
@@ -237,6 +237,7 @@ class GlobalBindings {
     this.selected = ko.observable()
     this.selfMute = ko.observable()
     this.selfDeaf = ko.observable()
+    this.audioContext = getAudioContext({latencyHint: 'interactive', sampleRate: 48000})
 
     this.selfMute.subscribe(mute => {
       if (voiceHandler) {
@@ -284,7 +285,7 @@ class GlobalBindings {
 
       // Note: This call needs to be delayed until the user has interacted with
       // the page in some way (which at this point they have), see: https://goo.gl/7K7WLu
-      this.connector.setSampleRate(audioContext().sampleRate)
+      this.connector.setSampleRate(this.audioContext.sampleRate)
 
       // TODO: token
       this.connector.connect(`wss://${host}:${port}`, {
@@ -446,9 +447,9 @@ class GlobalBindings {
       }).on('voice', stream => {
         console.log(`User ${user.username} started takling`)
         var userNode = new BufferQueueNode({
-          audioContext: audioContext()
+          audioContext: this.audioContext
         })
-        userNode.connect(audioContext().destination)
+        userNode.connect(this.audioContext.destination)
 
         stream.on('data', data => {
           if (data.target === 'normal') {
