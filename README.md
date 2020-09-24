@@ -4,8 +4,8 @@ mumble-web is an HTML5 [Mumble] client that runs directly in your browser. This 
 
 ## Improvements
 
-- Reduntanize the `libsamplerate.js`package weighing about 5 MB by making use of the native resampler contained in all modern browsers anyway
-
+- Reduntanize the `libsamplerate.js` package weighing about 5 MB by making use of the native resampler contained in all modern browsers anyway
+- Add Support for Safari 11+
 
 ## Installing
 
