@@ -1,11 +1,17 @@
 # Lite version of Mumble web app for all browsers
 
-mumble-web is an HTML5 [Mumble] client that runs directly in your browser. This variant dispenses entirely of the channel view and focuses on saving UI space and performance.
+mumble-web is an HTML5 [Mumble] client that runs directly in your browser. This variant is supposed to be used in conjunction with some remote desktop pice of software. Therefore it dispenses entirely of the channel view and ongoing voice acticity detection. Instead we focus on saving UI space and performance.
 
 ## Improvements
 
 - Reduntanize the `libsamplerate.js` package weighing about 5 MB by making use of the native resampler contained in all modern browsers anyway
 - Add Support for Safari 11+
+- Fix Docker image version in order to avoid unexpected failing of `docker build`
+- Increased default bit rate to 96 kbit/s to allow for better audio quality
+- Removed stubs in code and user interface
+- Integrated a proposed patch into the code base
+- Enable optimizations in webpack bundling
+- Added support for a couple of languages
 
 ## Installing
 
