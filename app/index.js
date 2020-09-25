@@ -1,4 +1,3 @@
-import 'stream-browserify' // see https://github.com/ericgundrum/pouch-websocket-sync-example/commit/2a4437b013092cc7b2cd84cf1499172c84a963a3
 import 'subworkers'
 import url from 'url'
 import ByteBuffer from 'bytebuffer'
