@@ -53,7 +53,8 @@
     "libcelt7.js": "0.0.1",
     "reuse-pool": "^1.0.2",
     "promise": "^7.1.1",
-    "websocket-stream": "^3.2.1"
+    "websocket-stream": "^3.2.1",
+    "psl": "^1.8.0"
   },
   "optionalDependencies": {}
 }

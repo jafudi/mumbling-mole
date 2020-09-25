@@ -9,6 +9,7 @@ import getAudioContext from 'audio-context'
 import ko from 'knockout'
 import _dompurify from 'dompurify'
 import keyboardjs from 'keyboardjs'
+import { parse as urlParse } from 'psl'
 
 import { ContinuousVoiceHandler, PushToTalkVoiceHandler, initVoice } from './voice'
 import {initialize as localizationInitialize, translate} from './loc';
@@ -874,6 +875,7 @@ function translateEverything() {
 }
 
 async function main() {
+  document.title = urlParse(window.location.hostname).subdomain;
   await localizationInitialize(navigator.language);
   translateEverything();
   initializeUI();
