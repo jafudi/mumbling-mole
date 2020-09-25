@@ -610,56 +610,36 @@ class GlobalBindings {
     }
 
     this.requestMute = user => {
-      if (user === this.thisUser()) {
-        this.selfMute(true)
-      }
+      if (user !== this.thisUser()) return
+      this.selfMute(true)
       if (this.connected()) {
-        if (user === this.thisUser()) {
-          this.client.setSelfMute(true)
-        } else {
-          user.model.setMute(true)
-        }
+        this.client.setSelfMute(true)
       }
     }
 
     this.requestDeaf = user => {
-      if (user === this.thisUser()) {
-        this.selfMute(true)
-        this.selfDeaf(true)
-      }
+      if (user !== this.thisUser()) return
+      this.selfMute(true)
+      this.selfDeaf(true)
       if (this.connected()) {
-        if (user === this.thisUser()) {
-          this.client.setSelfDeaf(true)
-        } else {
-          user.model.setDeaf(true)
-        }
+        this.client.setSelfDeaf(true)
       }
     }
 
     this.requestUnmute = user => {
-      if (user === this.thisUser()) {
-        this.selfMute(false)
-        this.selfDeaf(false)
-      }
+      if (user !== this.thisUser()) return
+      this.selfMute(false)
+      this.selfDeaf(false)
       if (this.connected()) {
-        if (user === this.thisUser()) {
           this.client.setSelfMute(false)
-        } else {
-          user.model.setMute(false)
-        }
       }
     }
 
     this.requestUndeaf = user => {
-      if (user === this.thisUser()) {
-        this.selfDeaf(false)
-      }
+      if (user !== this.thisUser()) return
+      this.selfDeaf(false)
       if (this.connected()) {
-        if (user === this.thisUser()) {
-          this.client.setSelfDeaf(false)
-        } else {
-          user.model.setDeaf(false)
-        }
+        this.client.setSelfDeaf(false)
       }
     }
 
