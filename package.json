@@ -7,10 +7,10 @@
     "prepare": "rm -rf dist && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Jonas Herzig <me@johni0702.de>",
+  "author": "Jafudi <socialnets@jafudi.com>",
   "license": "ISC",
-  "repository": "johni0702/mumble-web",
-  "homepage": "https://github.com/johni0702/mumble-web",
+  "repository": "jafudi/mumble-web",
+  "homepage": "https://github.com/jafudi/mumble-web",
   "files": [
     "dist"
   ],
