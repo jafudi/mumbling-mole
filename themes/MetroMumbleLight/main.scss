@@ -27,10 +27,15 @@ $dialog-input-border-color: $darkgray !default
 $dialog-input-bg-color: $white !default
 $dialog-input-color: $dialog-color !default
 
+@font-face {
+    font-family: 'carlito-regular-from-guacamole';
+    src: url('/guacamole/fonts/carlito/Carlito-Regular.woff') format('woff');
+}
+
 html, body {
   background-color: $bg-color;
   color: $font-color;
-  font-family: $font-family;
+  font-family: carlito-regular-from-guacamole, arial, sans-serif;
   font-display: swap;
   margin: 0;
   overflow: hidden;
