@@ -270,10 +270,6 @@ class GlobalBindings {
       this.settingsDialog(null)
     }
 
-    this.getTimeString = () => {
-      return '[' + new Date().toLocaleTimeString(navigator.language) + ']'
-    }
-
     this.connect = (username, host, port, tokens = [], password, channelName = "") => {
       this.resetClient()
 
@@ -282,12 +278,9 @@ class GlobalBindings {
 
       log(translate('logentry.connecting'), host)
 
-      // Note: This call needs to be delayed until the user has interacted with
-      // the page in some way (which at this point they have), see: https://goo.gl/7K7WLu
       this.audioContext.resume().then(() => {
         console.log('Playback resumed successfully');
       });
-      this.connector.setSampleRate(this.audioContext.sampleRate)
 
       // TODO: token
       this.connector.connect(`wss://${host}:${port}`, {
@@ -349,13 +342,6 @@ class GlobalBindings {
         this.root(client.root.__ui)
         // Upate linked channels
         this._updateLinks()
-        // Log welcome message
-        if (client.welcomeMessage) {
-          this.log.push({
-            type: 'welcome-message',
-            message: sanitize(client.welcomeMessage)
-          })
-        }
 
         // Startup audio input processing
         this._updateVoiceHandler()

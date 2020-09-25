@@ -4,7 +4,6 @@ import toArrayBuffer from 'to-arraybuffer'
 import chunker from 'stream-chunker'
 import 'subworkers'
 
-  let sampleRate
   let nextClientId = 1
   let nextVoiceId = 1
   let voiceStreams = []
@@ -195,16 +194,13 @@ import 'subworkers'
 
     pushProp(id, client, 'root', (it) => it.id)
     pushProp(id, client, 'self', (it) => it.id)
-    pushProp(id, client, 'welcomeMessage')
     pushProp(id, client, 'serverVersion')
     pushProp(id, client, 'maxBandwidth')
   }
 
   function onMessage (data) {
     let { reqId, method, payload } = data
-    if (method === '_init') {
-      sampleRate = data.sampleRate
-    } else if (method === '_connect') {
+    if (method === '_connect') {
       payload.args.codecs = require('./codecs-browser.js')
       mumbleConnect(payload.host, payload.args).then((client) => {
         let id = nextClientId++

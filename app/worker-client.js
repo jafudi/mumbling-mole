@@ -21,13 +21,6 @@ class WorkerBasedMumbleConnector {
     this._voiceStreams = {}
   }
 
-  setSampleRate (sampleRate) {
-    this._postMessage({
-      method: '_init',
-      sampleRate: sampleRate
-    })
-  }
-
   _postMessage (msg, transfer) {
     try {
       this._worker.postMessage(msg, transfer)
