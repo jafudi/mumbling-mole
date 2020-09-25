@@ -1,22 +1,21 @@
 # Lite version of Mumble web app for all browsers
 
-mumble-web is an HTML5 [Mumble] client for use in modern browsers.
+mumble-web is an HTML5 [Mumble] client that runs directly in your browser. This variant is supposed to be used in conjunction with some remote desktop pice of software. Therefore it dispenses entirely of the channel view and ongoing voice acticity detection. Instead we focus on saving UI space and performance.
 
-A live demo is running [here](https://voice.johni0702.de/?address=voice.johni0702.de&port=443/demo).
+## Improvements
 
-The Mumble protocol uses TCP for control and UDP for voice.
-Running in a browser, both are unavailable to this client.
-Instead Websockets are used for all communications.
+- Reduntanize the `libsamplerate.js` package weighing about 5 MB by making use of the native resampler contained in all modern browsers anyway
+- Add Support for Safari from version 11 upwards
+- Fix Docker image version in order to avoid unexpected failing of `docker build`
+- Increased default bit rate to 96 kbit/s to allow for better audio quality
+- Removed stubs in code and user interface
+- Integrated a proposed patch into the code base
+- Enable optimizations in webpack bundling
+- Added support for a couple of languages
 
-libopus, libcelt (0.7.1) and libsamplerate, compiled to JS via emscripten, are used for audio decoding.
-Therefore, at the moment only the Opus and CELT Alpha codecs are supported.
+## Installing
 
-Quite a few features, most noticeably all
-administrative functionallity, are still missing.
-
-### Installing
-
-#### Download
+### Download
 mumble-web can either be installed directly from npm with `npm install -g mumble-web`
 or from git:
 
@@ -32,7 +31,7 @@ to e.g. customize the theme before building it.
 
 Either way you will end up with a `dist` folder that contains the static page.
 
-#### Setup
+### Setup
 At the time of writing this there do not seem to be any Mumble servers
 which natively support Websockets. To use this client with any standard mumble
 server, websockify must be set up (preferably on the same machine that the
@@ -46,13 +45,13 @@ There are two basic ways you can use websockify with mumble-web:
 - Standalone, use websockify for both, websockets and serving static files
 - Proxied, let your favorite web server serve static files and proxy websocket connections to websockify
 
-##### Standalone
+#### Standalone
 This is the simplest but at the same time least flexible configuration. Replace `<mumbleserver>` with the URI of your mumble server. If `websockify` is running on the same machine as `mumble-server`, use `localhost`.
 ```
 websockify --cert=mycert.crt --key=mykey.key --ssl-only --ssl-target --web=path/to/dist 443 <mumbleserver>:64738
 ```
 
-##### Proxied
+#### Proxied
 This configuration allows you to run websockify on a machine that already has
 another webserver running. Replace `<mumbleserver>` with the URI of your mumble server. If `websockify` is running on the same machine as `mumble-server`, use `localhost`.
 
@@ -128,11 +127,11 @@ systemctl start mumble-web
 systemctl enable mumble-web
 ```
 
-### Configuration
+## Configuration
 The `app/config.js` file contains default values and descriptions for all configuration options.
 You can overwrite those by editing the `config.local.js` file within your `dist` folder. Make sure to back up and restore the file whenever you update to a new version.
 
-### Themes
+## Themes
 The default theme of mumble-web tries to mimic the excellent [MetroMumble]Light theme.
 mumble-web also includes a dark version, named MetroMumbleDark, which is heavily inspired by [MetroMumble]'s dark version.
 
@@ -141,7 +140,7 @@ E.g. [this](https://voice.johni0702.de/?address=voice.johni0702.de&port=443/demo
 
 Custom themes can be created by deriving them from the MetroMumbleLight/Dark themes just like the MetroMumbleDark theme is derived from the MetroMumbleLight theme.
 
-### License
+## License
 ISC
 
 [Mumble]: https://wiki.mumble.info/wiki/Main_Page
