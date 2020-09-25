@@ -875,7 +875,8 @@ function translateEverything() {
 }
 
 async function main() {
-  document.title = urlParse(window.location.hostname).subdomain;
+  var subdomain = require('psl').parse(window.location.hostname).subdomain;
+  document.title = subdomain;
   await localizationInitialize(navigator.language);
   translateEverything();
   initializeUI();
