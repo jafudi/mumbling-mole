@@ -10,7 +10,7 @@ import _dompurify from 'dompurify'
 import keyboardjs from 'keyboardjs'
 
 import { ContinuousVoiceHandler, PushToTalkVoiceHandler, initVoice } from './voice'
-import {initialize as localizationInitialize, translate} from './loc';
+import {initialize as localizationInitialize, translate} from './localize';
 
 const dompurify = _dompurify(window)
 
@@ -714,74 +714,6 @@ function userToState () {
 
 var voiceHandler
 var testVoiceHandler
-
-/**
- * @author svartoyg
- */
-function translatePiece(selector, kind, parameters, key) {
-  let element = document.querySelector(selector);
-  if (element !== null) {
-    const translation = translate(key);
-    switch (kind) {
-      default:
-        console.warn('unhandled dom translation kind "' + kind + '"');
-        break;
-      case 'textcontent':
-        element.textContent = translation;
-        break;
-      case 'attribute':
-        element.setAttribute(parameters.name || 'value', translation);
-        break;
-    }
-  } else {
-    console.warn(`translation selector "${selector}" for "${key}" did not match any element`)
-  }
-}
-
-/**
- * @author svartoyg
- */
-function translateEverything() {
-  translatePiece('#connect-dialog_title', 'textcontent', {}, 'connectdialog.title');
-  translatePiece('#connect-dialog_input_address', 'textcontent', {}, 'connectdialog.address');
-  translatePiece('#connect-dialog_input_port', 'textcontent', {}, 'connectdialog.port');
-  translatePiece('#connect-dialog_input_username', 'textcontent', {}, 'connectdialog.username');
-  translatePiece('#connect-dialog_input_password', 'textcontent', {}, 'connectdialog.password');
-  translatePiece('#connect-dialog_controls_cancel', 'attribute', {'name': 'value'}, 'connectdialog.cancel');
-  translatePiece('#connect-dialog_controls_connect', 'attribute', {'name': 'value'}, 'connectdialog.connect');
-  translatePiece('.connect-dialog.error-dialog .dialog-header', 'textcontent', {}, 'connectdialog.error.title');
-  translatePiece('.connect-dialog.error-dialog .reason .refused', 'textcontent', {}, 'connectdialog.error.reason.refused');
-  translatePiece('.connect-dialog.error-dialog .reason .version', 'textcontent', {}, 'connectdialog.error.reason.version');
-  translatePiece('.connect-dialog.error-dialog .reason .username', 'textcontent', {}, 'connectdialog.error.reason.username');
-  translatePiece('.connect-dialog.error-dialog .reason .userpassword', 'textcontent', {}, 'connectdialog.error.reason.userpassword');
-  translatePiece('.connect-dialog.error-dialog .reason .serverpassword', 'textcontent', {}, 'connectdialog.error.reason.serverpassword');
-  translatePiece('.connect-dialog.error-dialog .reason .username-in-use', 'textcontent', {}, 'connectdialog.error.reason.username_in_use');
-  translatePiece('.connect-dialog.error-dialog .reason .full', 'textcontent', {}, 'connectdialog.error.reason.full');
-  translatePiece('.connect-dialog.error-dialog .reason .clientcert', 'textcontent', {}, 'connectdialog.error.reason.clientcert');
-  translatePiece('.connect-dialog.error-dialog .reason .server', 'textcontent', {}, 'connectdialog.error.reason.server');
-  translatePiece('.connect-dialog.error-dialog .alternate-username', 'textcontent', {}, 'connectdialog.username');
-  translatePiece('.connect-dialog.error-dialog .alternate-password', 'textcontent', {}, 'connectdialog.password');
-  translatePiece('.connect-dialog.error-dialog .dialog-submit', 'attribute', {'name': 'value'}, 'connectdialog.error.retry');
-  translatePiece('.connect-dialog.error-dialog .dialog-close', 'attribute', {'name': 'value'}, 'connectdialog.error.cancel');
-
-  translatePiece('.join-dialog .dialog-header', 'textcontent', {}, 'joindialog.title');
-  translatePiece('.join-dialog .dialog-submit', 'attribute', {'name': 'value'}, 'joindialog.connect');
-
-  translatePiece('#connection-info_title', 'textcontent', {}, 'connectinfo.title');
-  translatePiece('#connection-info_server', 'textcontent', {}, 'connectinfo.server');
-  translatePiece('#connection-info_webapp', 'textcontent', {}, 'connectinfo.webapp');
-  translatePiece('#connection-info_native', 'textcontent', {}, 'connectinfo.native');
-
-  translatePiece('#settings-dialog_title', 'textcontent', {}, 'settingsdialog.title');
-  translatePiece('#settings-dialog_transmission', 'textcontent', {}, 'settingsdialog.transmission');
-  translatePiece('#settings-dialog_cont', 'textcontent', {}, 'settingsdialog.cont');
-  translatePiece('#settings-dialog_ptt', 'textcontent', {}, 'settingsdialog.ptt');
-  translatePiece('#settings-dialog_ptt_key', 'textcontent', {}, 'settingsdialog.ptt_key');
-  translatePiece('#settings-dialog_audio_quality', 'textcontent', {}, 'settingsdialog.audio_quality');
-  translatePiece('#settings-dialog_packet', 'textcontent', {}, 'settingsdialog.packet');
-  translatePiece('#settings-dialog_close', 'attribute', {'name': 'value'}, 'settingsdialog.close');
-  translatePiece('#settings-dialog_submit', 'attribute', {'name': 'value'}, 'settingsdialog.submit');
-}
 
 async function main() {
   document.title = window.location.hostname;

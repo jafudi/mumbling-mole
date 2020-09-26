@@ -34,47 +34,19 @@
         </div>
         <form data-bind="submit: connect">
             <table>
-                <tr data-bind="if: $root.config.connectDialog.address">
-                    <td id="connect-dialog_input_address">Address</td>
-                    <td><input id="address" type="text" data-bind="value: address" required></td>
-                </tr>
-                <tr data-bind="if: $root.config.connectDialog.port">
-                    <td id="connect-dialog_input_port">Port</td>
-                    <td><input id="port" type="text" data-bind="value: port" required></td>
-                </tr>
                 <tr data-bind="if: $root.config.connectDialog.username">
                     <td id="connect-dialog_input_username">Username</td>
-                    <td><input id="username" type="text" data-bind="value: username" required></td>
+                    <td><label>Your username<input id="username" type="text" data-bind="value: username" required></label></td>
                 </tr>
                 <tr data-bind="if: $root.config.connectDialog.password">
                     <td id="connect-dialog_input_password">Password</td>
-                    <td><input id="password" type="password" autocomplete="off" data-bind="value: password"></td>
+                    <td><label>Your password<input id="password" type="password" autocomplete="off" data-bind="value: password"></label></td>
                 </tr>
                 <tr data-bind="if: $root.config.connectDialog.token">
                     <td id="connect-dialog_input_tokens">Tokens</td>
                     <td>
                         <input type="text" data-bind='value: tokenToAdd, valueUpdate: "afterkeydown"'>
                     </td>
-                </tr>
-                <tr data-bind="if: $root.config.connectDialog.token">
-                    <td></td>
-                    <td>
-                        <button id="connect-dialog_controls_remove" class="dialog-submit" type="button"
-                                data-bind="enable: selectedTokens().length > 0, click: removeSelectedTokens()">Remove
-                        </button>
-                        <button id="connect-dialog_controls_add" class="dialog-submit" type="button"
-                                data-bind="enable: tokenToAdd().length > 0, click: addToken()">Add
-                        </button>
-                    </td>
-                </tr>
-                <tr data-bind="if: $root.config.connectDialog.token, visible: tokens().length > 0">
-                    <td></td>
-                    <td><select id="token" multiple="multiple" height="5"
-                                data-bind="options:tokens, selectedOptions:selectedTokens"></select></td>
-                </tr>
-                <tr data-bind="if: $root.config.connectDialog.channelName">
-                    <td>Channel</td>
-                    <td><input id="channelName" type="text" data-bind="value: channelName"></td>
                 </tr>
             </table>
             <div class="dialog-footer">
@@ -282,8 +254,11 @@
         <img class="tb-undeaf tb-active" alt="Turn sound back on" data-bind="visible: selfDeaf,
             click: function () { requestUndeaf(thisUser()) }"
              rel="undeaf" src="/svg/audio-output-deafened.svg">
-        <input id="message-box" type="text" data-bind="
-            attr: { placeholder: messageBoxHint }, textInput: messageBox">
+        <label>
+            Input a message to all other in this channel
+            <input id="message-box" type="text" data-bind="
+                attr: { placeholder: messageBoxHint }, textInput: messageBox">
+        </label>
         <img class="tb-information" alt="Show information about connection quality" rel="information" src="/svg/applications-internet.svg"
              data-bind="click: connectionInfo.show">
         <img class="tb-settings" alt="Open audio settings dialog" data-bind="click: openSettings"
