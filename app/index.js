@@ -370,19 +370,12 @@ class GlobalBindings {
         deaf: 'deaf',
         suppress: 'suppress',
         selfMute: 'selfMute',
-        selfDeaf: 'selfDeaf',
-        texture: 'rawTexture',
-        textureHash: 'textureHash'
+        selfDeaf: 'selfDeaf'
       }
       var ui = user.__ui = {
         model: user,
         talking: ko.observable('off'),
         channel: ko.observable()
-      }
-      ui.texture = ko.pureComputed(() => {
-        let raw = ui.rawTexture()
-        if (!raw || raw.offset >= raw.limit) return null
-        return 'data:image/*;base64,' + ByteBuffer.wrap(raw).toBase64()
       })
       ui.openContextMenu = (_, event) => openContextMenu(event, this.userContextMenu, ui)
 
@@ -424,9 +417,6 @@ class GlobalBindings {
           ui.channel().users.push(ui)
           ui.channel().users.sort(compareUsers)
           this._updateLinks()
-        }
-        if (properties.textureHash !== undefined) {
-          ui.rawTexture(null)
         }
       }).on('remove', () => {
         if (ui.channel()) {
