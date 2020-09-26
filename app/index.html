@@ -270,25 +270,25 @@
     </div>
     <!-- /ko -->
     <form class="toolbar-horizontal" data-bind="submit: submitMessageBox">
-        <img class="tb-mute" data-bind="visible: !selfMute(),
+        <img class="tb-mute" alt="Mute my microphone" data-bind="visible: !selfMute(),
             click: function () { requestMute(thisUser()) }"
              rel="mute" src="/svg/audio-input-microphone.svg">
-        <img class="tb-unmute tb-active" data-bind="visible: selfMute,
+        <img class="tb-unmute tb-active" alt="Unmute my microphone" data-bind="visible: selfMute,
             click: function () { requestUnmute(thisUser()) }"
              rel="unmute" src="/svg/audio-input-microphone-muted.svg">
-        <img class="tb-deaf" data-bind="visible: !selfDeaf(),
+        <img class="tb-deaf" alt="Turn off sound" data-bind="visible: !selfDeaf(),
             click: function () { requestDeaf(thisUser()) }"
              rel="deaf" src="/svg/audio-output.svg">
-        <img class="tb-undeaf tb-active" data-bind="visible: selfDeaf,
+        <img class="tb-undeaf tb-active" alt="Turn sound back on" data-bind="visible: selfDeaf,
             click: function () { requestUndeaf(thisUser()) }"
              rel="undeaf" src="/svg/audio-output-deafened.svg">
         <input id="message-box" type="text" data-bind="
             attr: { placeholder: messageBoxHint }, textInput: messageBox">
-        <img class="tb-information" rel="information" src="/svg/applications-internet.svg"
+        <img class="tb-information" alt="Show information about connection quality" rel="information" src="/svg/applications-internet.svg"
              data-bind="click: connectionInfo.show">
-        <img class="tb-settings" data-bind="click: openSettings"
+        <img class="tb-settings" alt="Open audio settings dialog" data-bind="click: openSettings"
              rel="settings" src="/svg/config_basic.svg">
-        <img class="tb-sourcecode" data-bind="click: openSourceCode"
+        <img class="tb-sourcecode" alt="Navigate to source code on Github" data-bind="click: openSourceCode"
              rel="Source Code" src="/svg/source-code.svg">
 
     </form>
