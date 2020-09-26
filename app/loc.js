@@ -63,7 +63,6 @@ export async function initialize (languageDefault, languageFallback = 'en') {
   _languageDefault = languageDefault;
   for (const language of [_languageFallback, _languageDefault]) {
     if (_data.hasOwnProperty(language)) continue;
-    console.log('--', 'loading localization data for language "' + language + '" ...');
     let data;
     try {
       data = await retrieveData(language);

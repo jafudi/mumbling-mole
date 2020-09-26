@@ -226,7 +226,6 @@ class GlobalBindings {
     this.connectErrorDialog = new ConnectErrorDialog(this.connectDialog)
     this.connectionInfo = new ConnectionInfo(this)
     this.settingsDialog = ko.observable()
-    this.log = ko.observableArray()
     this.remoteHost = ko.observable()
     this.remotePort = ko.observable()
     this.thisUser = ko.observable()
@@ -278,9 +277,7 @@ class GlobalBindings {
 
       log(translate('logentry.connecting'), host)
 
-      this.audioContext.resume().then(() => {
-        console.log('Playback resumed successfully');
-      });
+      this.audioContext.resume()
 
       // TODO: token
       this.connector.connect(`wss://${host}:${port}`, {
@@ -317,25 +314,6 @@ class GlobalBindings {
         client.on('newChannel', channel => this._newChannel(channel))
         // Register future users
         client.on('newUser', user => this._newUser(user))
-
-        // Handle messages
-        client.on('message', (sender, message, users, channels, trees) => {
-          sender = sender || { __ui: 'Server' }
-          ui.log.push({
-            type: 'chat-message',
-            user: sender.__ui,
-            channel: channels.length > 0,
-            message: sanitize(message)
-          })
-        })
-
-        // Log permission denied error messages
-        client.on('denied', (type) => {
-          ui.log.push({
-            type: 'generic',
-            value: 'Permission denied : '+ type
-          })
-        })
 
         // Set own user and root channel
         this.thisUser(client.self.__ui)
@@ -376,7 +354,7 @@ class GlobalBindings {
         model: user,
         talking: ko.observable('off'),
         channel: ko.observable()
-      })
+      }
       ui.openContextMenu = (_, event) => openContextMenu(event, this.userContextMenu, ui)
 
       ui.toggleMute = () => {
@@ -423,7 +401,6 @@ class GlobalBindings {
           ui.channel().users.remove(ui)
         }
       }).on('voice', stream => {
-        console.log(`User ${user.username} started takling`)
         var userNode = new BufferQueueNode({
           audioContext: this.audioContext
         })
@@ -439,7 +416,6 @@ class GlobalBindings {
           }
           userNode.write(data.buffer)
         }).on('end', () => {
-          console.log(`User ${user.username} stopped takling`)
           ui.talking('off')
           userNode.end()
         })
@@ -583,19 +559,6 @@ class GlobalBindings {
         }
         // Send message
         target.model.sendMessage(message)
-        if (target.users) { // Channel
-          this.log.push({
-            type: 'chat-message-self',
-            message: sanitize(message),
-            channel: target
-          })
-        } else { // User
-          this.log.push({
-            type: 'chat-message-self',
-            message: sanitize(message),
-            user: target
-          })
-        }
       }
     }
 
@@ -716,14 +679,6 @@ function initializeUI () {
 
 function log () {
   console.log.apply(console, arguments)
-  var args = []
-  for (var i = 0; i < arguments.length; i++) {
-    args.push(arguments[i])
-  }
-  ui.log.push({
-    type: 'generic',
-    value: args.join(' ')
-  })
 }
 
 function compareChannels (c1, c2) {
