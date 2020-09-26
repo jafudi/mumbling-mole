@@ -33,6 +33,7 @@ function ConnectDialog () {
   self.password = ko.observable('')
   self.channelName = ko.observable('')
   self.joinOnly = ko.observable(false)
+  self.guacSource = ko.observable("/guacamole/#/?username=guacadmin&password=guacadmin")
   self.visible = ko.observable(true)
   self.show = self.visible.bind(self.visible, true)
   self.hide = self.visible.bind(self.visible, false)
@@ -62,7 +63,6 @@ function ConnectErrorDialog (connectDialog) {
   self.password = connectDialog.password
   self.joinOnly = connectDialog.joinOnly
   self.visible = ko.observable(false)
-  self.guacSource = ko.observable("/guacamole/#/?username=guacadmin&password=guacadmin")
   self.show = self.visible.bind(self.visible, true)
   self.hide = self.visible.bind(self.visible, false)
   self.connect = () => {
