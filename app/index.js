@@ -10,7 +10,7 @@ import _dompurify from 'dompurify'
 import keyboardjs from 'keyboardjs'
 
 import { ContinuousVoiceHandler, PushToTalkVoiceHandler, initVoice } from './voice'
-import {initialize as localizationInitialize, translate} from './localize';
+import {initialize as localizationInitialize, translateEverything, translate} from './localize';
 
 const dompurify = _dompurify(window)
 
