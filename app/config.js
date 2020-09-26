@@ -5,9 +5,9 @@
 window.mumbleWebConfig = {
   // Which fields to show on the Connect to Server dialog
   'connectDialog': {
-    'address': true,
-    'port': true,
-    'token': true,
+    'address': false,
+    'port': false,
+    'token': false,
     'username': true,
     'password': true,
     'channelName': false
@@ -26,8 +26,7 @@ window.mumbleWebConfig = {
   'defaults': {
     // Connect Dialog
     'address': window.location.hostname,
-    'port': '443',
-    'token': '',
+    'port': '443/murmur',
     'username': '',
     'password': '',
     'joinDialog': false, // replace whole dialog with single "Join Conference" button

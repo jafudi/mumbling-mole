@@ -4,13 +4,6 @@
 
 let config = window.mumbleWebConfig // eslint-disable-line no-unused-vars
 
-config.connectDialog.address = false
-config.connectDialog.port = false
-config.connectDialog.token = false
-
-config.settings.toolbarVertical = false
 config.settings.audioBitrate = 96000
-config.settings.voiceMode = 'cont'
 
-config.defaults.port = '443/murmur'
 

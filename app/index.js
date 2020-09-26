@@ -35,27 +35,22 @@ function GuacamoleFrame () {
 
 function ConnectDialog () {
   var self = this
+  self.address = ko.observable('')
+  self.port = ko.observable('')
   self.username = ko.observable('')
   self.password = ko.observable('')
   self.joinOnly = ko.observable(false)
-  self.visible = ko.observable(false)
+  self.visible = ko.observable(true)
   self.show = self.visible.bind(self.visible, true)
   self.hide = self.visible.bind(self.visible, false)
   self.connect = function () {
     self.hide()
-    ui.connect(self.username(), self.address(), self.port(), self.tokens(), self.password(), self.channelName())
-  }
-
-  self.addToken = function() {
-    if ((self.tokenToAdd() != "") && (self.tokens.indexOf(self.tokenToAdd()) < 0)) {
-      self.tokens.push(self.tokenToAdd())
-    }
-    self.tokenToAdd("")
-  }
-
-  self.removeSelectedTokens = function() {
-      this.tokens.removeAll(this.selectedTokens())
-      this.selectedTokens([])
+    ui.connect(
+        username=self.username(),
+        host=self.address(),
+        port=self.port(),
+        password=self.password()
+    )
   }
 }
 
@@ -285,7 +280,6 @@ class GlobalBindings {
 
       this.audioContext.resume()
 
-      // TODO: token
       this.connector.connect(`wss://${host}:${port}`, {
         username: username,
         password: password,
@@ -661,13 +655,6 @@ function initializeUI () {
     ui.connectDialog.port(queryParams.port)
   } else {
     useJoinDialog = false
-  }
-  if (queryParams.token) {
-    var tokens = queryParams.token
-    if (!Array.isArray(tokens)) {
-      tokens = [tokens]
-    }
-    ui.connectDialog.tokens(tokens)
   }
   if (queryParams.username) {
     ui.connectDialog.username(queryParams.username)
