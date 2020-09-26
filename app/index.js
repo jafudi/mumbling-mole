@@ -22,19 +22,23 @@ function sanitize (html) {
 
 // GUI
 
-function ConnectDialog () {
+function GuacamoleFrame () {
   var self = this
   self.address = ko.observable('')
-  self.port = ko.observable('')
-  self.tokenToAdd = ko.observable('')
-  self.selectedTokens = ko.observableArray([])
-  self.tokens = ko.observableArray([])
   self.username = ko.observable('')
   self.password = ko.observable('')
-  self.channelName = ko.observable('')
-  self.joinOnly = ko.observable(false)
   self.guacSource = ko.observable("/guacamole/#/?username=guacadmin&password=guacadmin")
   self.visible = ko.observable(true)
+  self.show = self.visible.bind(self.visible, true)
+  self.hide = self.visible.bind(self.visible, false)
+}
+
+function ConnectDialog () {
+  var self = this
+  self.username = ko.observable('')
+  self.password = ko.observable('')
+  self.joinOnly = ko.observable(false)
+  self.visible = ko.observable(false)
   self.show = self.visible.bind(self.visible, true)
   self.hide = self.visible.bind(self.visible, false)
   self.connect = function () {
@@ -223,6 +227,7 @@ class GlobalBindings {
     this.settings = new Settings(config.settings)
     this.connector = new WorkerBasedMumbleConnector()
     this.client = null
+    this.guacamoleFrame = new GuacamoleFrame()
     this.connectDialog = new ConnectDialog()
     this.connectErrorDialog = new ConnectErrorDialog(this.connectDialog)
     this.connectionInfo = new ConnectionInfo(this)
@@ -286,6 +291,7 @@ class GlobalBindings {
         password: password,
         tokens: tokens
       }).done(client => {
+        this.guacamoleFrame.show()
         log(translate('logentry.connected'))
 
         this.client = client
