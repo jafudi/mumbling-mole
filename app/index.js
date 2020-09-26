@@ -45,12 +45,7 @@ function ConnectDialog () {
   self.hide = self.visible.bind(self.visible, false)
   self.connect = function () {
     self.hide()
-    ui.connect(
-        username=self.username(),
-        host=self.address(),
-        port=self.port(),
-        password=self.password()
-    )
+    ui.connect(self.address(), self.port(), self.username(), self.password())
   }
 }
 
@@ -270,7 +265,7 @@ class GlobalBindings {
       this.settingsDialog(null)
     }
 
-    this.connect = (username, host, port, tokens = [], password, channelName = "") => {
+    this.connect = (host, port, username, password, tokens = [], channelName = "") => {
       this.resetClient()
 
       this.remoteHost(host)
