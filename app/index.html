@@ -24,10 +24,10 @@
     <div class="loading-circle" data-bind="css: { loaded: true }"></div>
 </div>
 <div id="container" style="display: none" data-bind="visible: true">
-    <div class="guacamole">
-        <iframe src="/guacamole/#/?username=guacadmin&password=guacadmin" title="Guacamole Remote Desktop"></iframe>
-    </div>
     <!-- ko with: connectDialog -->
+    <div class="guacamole" data-bind="visible: !visible()">
+        <iframe data-bind="attr: { src: guacSource }" title="Guacamole Remote Desktop"></iframe>
+    </div>
     <div class="connect-dialog dialog" data-bind="visible: visible() && !joinOnly()">
         <div id="connect-dialog_title" class="dialog-header">
             Connect to Server
@@ -35,12 +35,12 @@
         <form data-bind="submit: connect">
             <table>
                 <tr data-bind="if: $root.config.connectDialog.username">
-                    <td id="connect-dialog_input_username">Username</td>
-                    <td><label>Your username<input id="username" type="text" data-bind="value: username" required></label></td>
+                    <td><label for="username" id="connect-dialog_input_username">Username</label></td>
+                    <td><input id="username" type="text" data-bind="value: username" required></td>
                 </tr>
                 <tr data-bind="if: $root.config.connectDialog.password">
-                    <td id="connect-dialog_input_password">Password</td>
-                    <td><label>Your password<input id="password" type="password" autocomplete="off" data-bind="value: password"></label></td>
+                    <td><label for="password" id="connect-dialog_input_password">Password</label></td>
+                    <td><input id="password" type="password" autocomplete="off" data-bind="value: password"></td>
                 </tr>
                 <tr data-bind="if: $root.config.connectDialog.token">
                     <td id="connect-dialog_input_tokens">Tokens</td>
@@ -128,11 +128,11 @@
                 </tr>
                 <tr data-bind="if: type() == 2 || type() == 3 || type() == 5">
                     <td class="alternate-username">Username</td>
-                    <td><input id="username" type="text" data-bind="value: username" required></td>
+                    <td><input id="alternate-username" type="text" data-bind="value: username" required></td>
                 </tr>
                 <tr data-bind="if: type() == 3 || type() == 4">
                     <td class="alternate-password">Password</td>
-                    <td><input id="password" type="password" autocomplete="off" data-bind="value: password" required>
+                    <td><input id="alternate-password" type="password" autocomplete="off" data-bind="value: password" required>
                     </td>
                 </tr>
             </table>
@@ -254,11 +254,8 @@
         <img class="tb-undeaf tb-active" alt="Turn sound back on" data-bind="visible: selfDeaf,
             click: function () { requestUndeaf(thisUser()) }"
              rel="undeaf" src="/svg/audio-output-deafened.svg">
-        <label>
-            Input a message to all other in this channel
-            <input id="message-box" type="text" data-bind="
-                attr: { placeholder: messageBoxHint }, textInput: messageBox">
-        </label>
+        <input id="message-box" type="text" data-bind="
+            attr: { placeholder: messageBoxHint }, textInput: messageBox">
         <img class="tb-information" alt="Show information about connection quality" rel="information" src="/svg/applications-internet.svg"
              data-bind="click: connectionInfo.show">
         <img class="tb-settings" alt="Open audio settings dialog" data-bind="click: openSettings"
