@@ -1,6 +1,6 @@
 # Lite version of Mumble web app for all browsers
 
-mumble-web is an HTML5 [Mumble] client that runs directly in your browser. This variant is supposed to be used in conjunction with some remote desktop pice of software. Therefore it dispenses entirely of the channel view and ongoing voice acticity detection. Instead we focus on saving UI space and performance.
+mumble-web is an HTML5 [Mumble] client that runs directly in your browser. This variant is supposed to be used in conjunction with some remote desktop piece of software. Therefore it dispenses entirely of the channel view and ongoing voice acticity detection. Instead we focus on saving UI space and performance.
 
 ## Improvements
 
