@@ -25,7 +25,7 @@
 </div>
 <div id="container" style="display: none" data-bind="visible: true">
     <!-- ko with: guacamoleFrame -->
-    <div class="guacamole" data-bind="visible: !visible()">
+    <div class="guacamole" data-bind="visible: visible()">
         <iframe data-bind="attr: { src: guacSource() }" title="Guacamole Remote Desktop"></iframe>
     </div>
     <!-- /ko -->

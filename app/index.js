@@ -28,7 +28,7 @@ function GuacamoleFrame () {
   self.username = ko.observable('')
   self.password = ko.observable('')
   self.guacSource = ko.observable("/guacamole/#/?username=guacadmin&password=guacadmin")
-  self.visible = ko.observable(true)
+  self.visible = ko.observable(false)
   self.show = self.visible.bind(self.visible, true)
   self.hide = self.visible.bind(self.visible, false)
 }
