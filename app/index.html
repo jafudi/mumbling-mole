@@ -37,8 +37,8 @@
                     href="mailto:socialnets@jens-fielenbach.de">email</a></dd>
         </dl>
     </div>
-    <div class="guacamole" data-bind="visible: visible()">
-        <iframe data-bind="attr: { src: guacSource() }" title="Guacamole Remote Desktop"></iframe>
+    <div class="guacamole" id="guacdiv" data-bind="visible: visible()">
+        <iframe id="guacframe" data-bind="attr: { src: guacSource() }" title="Guacamole Remote Desktop"></iframe>
     </div>
     <!-- /ko -->
     <!-- ko with: connectDialog -->
