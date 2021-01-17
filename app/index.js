@@ -704,21 +704,11 @@ function userToState () {
 var voiceHandler
 var testVoiceHandler
 
-var guacframe = document.getElementById('guacframe');
-
 async function main() {
   document.title = window.location.hostname;
   await localizationInitialize(navigator.language);
   translateEverything();
   initializeUI();
-  guacframe.addEventListener('mouseover', e => {
-    console.warn("Try tp give focus to guacamole iframe on mouseover.");
-    guacframe.focus()
-  });
-  guacframe.addEventListener('touchstart', e => {
-    console.warn("Try tp give focus to guacamole iframe on touchstart.");
-    guacframe.focus()
-  });
   initVoice(data => {
     if (testVoiceHandler) {
       testVoiceHandler.write(data)
