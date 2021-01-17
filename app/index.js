@@ -712,7 +712,7 @@ async function main() {
   await localizationInitialize(navigator.language);
   translateEverything();
   initializeUI();
-  guacdiv.addEventListener('mousedown', e => {
+  guacdiv.addEventListener('mouseover', e => {
     guacframe.focus()
   });
   guacdiv.addEventListener('touchstart', e => {
