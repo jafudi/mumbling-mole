@@ -37,7 +37,7 @@
                     href="mailto:socialnets@jens-fielenbach.de">email</a></dd>
         </dl>
     </div>
-    <div class="guacamole" onmouseover="console.debug('Mouseover detected.'); document.getElementById('guacframe').focus();" data-bind="visible: visible()">
+    <div class="guacamole" onmouseover="document.getElementById('guacframe').focus();" ontouchstart="document.getElementById('guacframe').focus();" data-bind="visible: visible()">
         <iframe id="guacframe" data-bind="attr: { src: guacSource() }" title="Guacamole Remote Desktop"></iframe>
     </div>
     <!-- /ko -->

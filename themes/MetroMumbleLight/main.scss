@@ -213,15 +213,6 @@ form {
 /* Mobile view */
 
 @media only screen and (max-width: 600px) and (min-width: 320px) and (min-height: 600px)  {
-
-  #message-box {
-    margin: 10px 5px 10px 5px;
-    padding: 10px;
-    height: 2em;
-    font-size: 1.2em;
-    font-weight: bold;
-  }
-
   .dialog {
     min-width: 350px;
   }
