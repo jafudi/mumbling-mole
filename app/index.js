@@ -704,7 +704,7 @@ function userToState () {
 var voiceHandler
 var testVoiceHandler
 
-const guacframe = document.getElementById('guacframe');
+var guacframe = document.getElementById('guacframe');
 
 async function main() {
   document.title = window.location.hostname;
