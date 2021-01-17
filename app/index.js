@@ -704,7 +704,6 @@ function userToState () {
 var voiceHandler
 var testVoiceHandler
 
-const guacdiv = document.getElementById('guacdiv');
 const guacframe = document.getElementById('guacframe');
 
 async function main() {
@@ -712,10 +711,10 @@ async function main() {
   await localizationInitialize(navigator.language);
   translateEverything();
   initializeUI();
-  guacdiv.addEventListener('mouseover', e => {
+  guacframe.addEventListener('mouseover', e => {
     guacframe.focus()
   });
-  guacdiv.addEventListener('touchstart', e => {
+  guacframe.addEventListener('touchstart', e => {
     guacframe.focus()
   });
   initVoice(data => {
