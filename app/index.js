@@ -231,7 +231,7 @@ class GlobalBindings {
     this.selected = ko.observable()
     this.selfMute = ko.observable()
     this.selfDeaf = ko.observable()
-    this.audioContext = getAudioContext({latencyHint: 'interactive', sampleRate: 48000})
+    this.audioContext = getAudioContext({latencyHint: 'interactive'})
 
     this.selfMute.subscribe(mute => {
       if (voiceHandler) {

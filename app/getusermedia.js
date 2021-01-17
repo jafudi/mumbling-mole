@@ -1,8 +1,3 @@
-// getUserMedia helper by @HenrikJoreteg used for navigator.getUserMedia shim
-// https://github.com/otalk/getUserMedia/releases/tag/2.0.1
-
-var adapter = require('webrtc-adapter');
-
 module.exports = function (constraints, cb) {
     var error;
     var haveOpts = arguments.length === 2;
