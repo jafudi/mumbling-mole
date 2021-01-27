@@ -5,5 +5,3 @@
 let config = window.mumbleWebConfig // eslint-disable-line no-unused-vars
 
 config.settings.audioBitrate = 96000
-
-

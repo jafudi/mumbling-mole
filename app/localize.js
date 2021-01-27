@@ -1,6 +1,6 @@
 /**
  * the default language to use
- * 
+ *
  * @var {string}
  * @author svartoyg
  */
@@ -9,7 +9,7 @@ var _languageDefault = null;
 
 /**
  * the fallback language to use
- * 
+ *
  * @var {string}
  * @author svartoyg
  */
@@ -18,7 +18,7 @@ var _languageFallback = null;
 
 /**
  * two level map with ISO-639-1 code as first key and translation id as second key
- * 
+ *
  * @var {Map<string,Map<string,string>>}
  * @author svartoyg
  */
@@ -161,4 +161,3 @@ export function translateEverything() {
   translatePiece('#settings-dialog_close', 'attribute', {'name': 'value'}, 'settingsdialog.close');
   translatePiece('#settings-dialog_submit', 'attribute', {'name': 'value'}, 'settingsdialog.submit');
 }
-

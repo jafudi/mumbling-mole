@@ -8,7 +8,7 @@ RUN echo http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories 
     mkdir -p /home/node && \
     mkdir -p /home/node/.npm-global && \
     mkdir -p /home/node/app  && \
-    chown -R node: /home/node 
+    chown -R node: /home/node
 
 USER node
 
@@ -17,7 +17,7 @@ ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 
 RUN cd /home/node && \
     npm install && \
-    npm run build 
+    npm run build
 
 USER root
 
@@ -31,4 +31,3 @@ ENV MUMBLE_SERVER="Please specify a Mumble server"
 
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD websockify --ssl-target --web=/home/node/dist 8081 "$MUMBLE_SERVER"
-
