@@ -99,7 +99,7 @@ export class PushToTalkVoiceHandler extends VoiceHandler {
 var theUserMedia = null
 
 export function initVoice (onData, onUserMediaError) {
-  getUserMedia({ audio: true }, (err, userMedia) => {
+  getUserMedia({ audio: {echoCancellation: true} }, (err, userMedia) => {
     if (err) {
       onUserMediaError(err)
     } else {
