@@ -27,7 +27,4 @@ USER node
 
 EXPOSE 8081
 
-ENV MUMBLE_SERVER="Please specify a Mumble server"
-
-ENTRYPOINT ["/sbin/tini", "--"]
-CMD websockify --ssl-target --web=/home/node/dist 8081 "$MUMBLE_SERVER"
+ENTRYPOINT ["docker-entrypoint.sh"]
