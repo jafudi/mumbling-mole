@@ -29,4 +29,4 @@ EXPOSE 8081
 
 RUN chmod +x /home/node/docker-entrypoint.sh
 
-ENTRYPOINT ["/home/node/docker-entrypoint.sh"]
+ENTRYPOINT ["/sbin/tini", "--", "/home/node/docker-entrypoint.sh"]
