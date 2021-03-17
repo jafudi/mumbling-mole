@@ -12,7 +12,7 @@ RUN echo http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories 
 
 USER node
 
-ENV PATH=/home/node/.npm-global/bin:$PATH
+ENV PATH=/home/node/.npm-global/bin:/home/node:$PATH
 ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 
 RUN cd /home/node && \
@@ -29,4 +29,4 @@ EXPOSE 8081
 
 RUN chmod +x /home/node/docker-entrypoint.sh
 
-ENTRYPOINT ["/sbin/tini", "--", "/home/node/docker-entrypoint.sh"]
+ENTRYPOINT ["/sbin/tini", "--", "docker-entrypoint.sh"]
