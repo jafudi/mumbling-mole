@@ -27,4 +27,4 @@ USER node
 
 EXPOSE 8081
 
-ENTRYPOINT ["docker-entrypoint.sh"]
+ENTRYPOINT ["/home/node/docker-entrypoint.sh"]
