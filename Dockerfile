@@ -3,7 +3,7 @@ FROM alpine:20200626
 COPY ./ /home/node
 
 RUN echo http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories && \
-    apk add --no-cache git nodejs npm tini websockify && \
+    apk add --no-cache git nodejs npm tini websockify bash && \
     adduser -D -g 1001 -u 1001 -h /home/node node && \
     mkdir -p /home/node && \
     mkdir -p /home/node/.npm-global && \
@@ -27,5 +27,6 @@ USER node
 
 EXPOSE 8081
 
-COPY docker-entrypoint.sh /
-ENTRYPOINT ["./docker-entrypoint.sh"]
+RUN chmod +x /home/node/docker-entrypoint.sh
+
+ENTRYPOINT ["/home/node/docker-entrypoint.sh"]
