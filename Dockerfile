@@ -27,4 +27,5 @@ USER node
 
 EXPOSE 8081
 
-ENTRYPOINT ["/home/node/docker-entrypoint.sh"]
+COPY docker-entrypoint.sh /
+ENTRYPOINT ["./docker-entrypoint.sh"]
