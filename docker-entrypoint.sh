@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
 
-echo Doing awsome stuff
+echo The password is "${GUACPWD}"
 
 websockify --ssl-target --web=/home/node/dist 8081 "$MUMBLE_SERVER"
