@@ -14,6 +14,8 @@ import {initialize as localizationInitialize, translateEverything, translate} fr
 
 const dompurify = _dompurify(window)
 
+import * as env from 'process';
+
 function sanitize (html) {
   return dompurify.sanitize(html, {
     ALLOWED_TAGS: ['br', 'b', 'i', 'u', 'a', 'span', 'p']
@@ -27,7 +29,7 @@ function GuacamoleFrame () {
   self.address = ko.observable('')
   self.username = ko.observable('')
   self.password = ko.observable('')
-  self.guacSource = ko.observable("/guacamole/#/?username=editor&password="+process.env.GUACPWD)
+  self.guacSource = ko.observable("/guacamole/#/?username=editor&password="+env.GUACPWD)
   self.visible = ko.observable(false)
   self.show = self.visible.bind(self.visible, true)
   self.hide = self.visible.bind(self.visible, false)
