@@ -22,12 +22,13 @@ function sanitize (html) {
 
 function getEnv (key) {
   if (typeof window === 'undefined') {
-    // node
+    console.log("we are on the server")
     val = process.env[key]
   } else {
-    // browser
+    console.log("we are in the browser")
     val = window.process.env[key]
   }
+  console.log("val="+val)
   if (typeof val === 'undefined') {
     return 'undefiniert'
   } else {
