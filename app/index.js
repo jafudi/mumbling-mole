@@ -20,21 +20,12 @@ function sanitize (html) {
   })
 }
 
-export const getEnv = key => {
-  if (typeof window === 'undefined') {
-    // node
-    return process.env[key]
-  }
-  // browser
-  return window.process.env[key]
-}
-
 function GuacamoleFrame () {
   var self = this
   self.address = ko.observable('')
   self.username = ko.observable('')
   self.password = ko.observable('')
-  self.guacSource = ko.observable("/guacamole/#/?username=editor&password="+getEnv("GUACPWD"))
+  self.guacSource = ko.observable("/guacamole/#/?username=editor&password="+globalThis.process.env("GUACPWD"])
   self.visible = ko.observable(false)
   self.show = self.visible.bind(self.visible, true)
   self.hide = self.visible.bind(self.visible, false)
