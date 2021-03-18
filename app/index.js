@@ -214,9 +214,9 @@ class GlobalBindings {
     this.settings = new Settings(config.settings)
     this.connector = new WorkerBasedMumbleConnector()
     this.client = null
-    this.guacamoleFrame = new GuacamoleFrame(this.connectDialog)
     this.connectDialog = new ConnectDialog()
     this.connectErrorDialog = new ConnectErrorDialog(this.connectDialog)
+    this.guacamoleFrame = new GuacamoleFrame(this.connectDialog)
     this.connectionInfo = new ConnectionInfo(this)
     this.settingsDialog = ko.observable()
     this.remoteHost = ko.observable()
