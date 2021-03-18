@@ -104,5 +104,8 @@ module.exports = {
       }
     ]
   },
-  target: 'web'
+  target: 'web',
+  optimization: {
+    minimize: false
+  }
 }
