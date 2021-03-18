@@ -20,28 +20,11 @@ function sanitize (html) {
   })
 }
 
-function getEnv (key) {
-  if (typeof window === 'undefined') {
-    console.log("we are on the server")
-    val = process.env[key]
-  } else {
-    console.log("we are in the browser")
-    val = window.process.env[key]
-  }
-  console.log("val="+val)
-  if (typeof val === 'undefined') {
-    return 'undefiniert'
-  } else {
-    return val
-  }
-}
-
-function GuacamoleFrame () {
+function GuacamoleFrame (connectDialog) {
   var self = this
-  self.address = ko.observable('')
-  self.username = ko.observable('')
-  self.password = ko.observable('')
-  self.guacSource = ko.observable("/guacamole/#/?username=editor&password="+getEnv("GUACPWD"))
+  self.username = connectDialog.username
+  self.password = connectDialog.password
+  self.guacSource = ko.observable("/guacamole/#/?username="+self.username()+"&password="+self.password())
   self.visible = ko.observable(false)
   self.show = self.visible.bind(self.visible, true)
   self.hide = self.visible.bind(self.visible, false)
@@ -231,7 +214,7 @@ class GlobalBindings {
     this.settings = new Settings(config.settings)
     this.connector = new WorkerBasedMumbleConnector()
     this.client = null
-    this.guacamoleFrame = new GuacamoleFrame()
+    this.guacamoleFrame = new GuacamoleFrame(this.connectDialog)
     this.connectDialog = new ConnectDialog()
     this.connectErrorDialog = new ConnectErrorDialog(this.connectDialog)
     this.connectionInfo = new ConnectionInfo(this)
