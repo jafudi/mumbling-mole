@@ -20,12 +20,27 @@ function sanitize (html) {
   })
 }
 
+function getEnv (key) {
+  if (typeof window === 'undefined') {
+    // node
+    val = process.env[key]
+  } else {
+    // browser
+    val = window.process.env[key]
+  }
+  if (typeof val === 'undefined') {
+    return 'undefiniert'
+  } else {
+    return val
+  }
+}
+
 function GuacamoleFrame () {
   var self = this
   self.address = ko.observable('')
   self.username = ko.observable('')
   self.password = ko.observable('')
-  self.guacSource = ko.observable("/guacamole/#/?username=editor&password="+globalThis.process.env("GUACPWD"])
+  self.guacSource = ko.observable("/guacamole/#/?username=editor&password="+getEnv("GUACPWD"))
   self.visible = ko.observable(false)
   self.show = self.visible.bind(self.visible, true)
   self.hide = self.visible.bind(self.visible, false)
