@@ -214,7 +214,7 @@ class GlobalBindings {
     this.client = null
     this.connectDialog = new ConnectDialog()
     this.connectErrorDialog = new ConnectErrorDialog(this.connectDialog)
-    this.guacamoleFrame = new GuacamoleFrame(this.connectDialog)
+    this.guacamoleFrame = new GuacamoleFrame()
     this.connectionInfo = new ConnectionInfo(this)
     this.settingsDialog = ko.observable()
     this.remoteHost = ko.observable()
