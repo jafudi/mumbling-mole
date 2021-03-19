@@ -277,6 +277,7 @@ class GlobalBindings {
         password: password,
         tokens: tokens
       }).done(client => {
+        this.guacamoleFrame = new GuacamoleFrame(this.connectDialog)
         this.guacamoleFrame.show()
         log(translate('logentry.connected'))
 
