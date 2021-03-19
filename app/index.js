@@ -20,11 +20,9 @@ function sanitize (html) {
   })
 }
 
-function GuacamoleFrame (connectDialog) {
+function GuacamoleFrame () {
   var self = this
-  self.username = connectDialog.username
-  self.password = connectDialog.password
-  self.guacSource = ko.observable("/guacamole/#/?username="+self.username()+"&password="+self.password())
+  self.guacSource = ko.observable("/guacamole/")
   self.visible = ko.observable(false)
   self.show = self.visible.bind(self.visible, true)
   self.hide = self.visible.bind(self.visible, false)
@@ -216,7 +214,7 @@ class GlobalBindings {
     this.client = null
     this.connectDialog = new ConnectDialog()
     this.connectErrorDialog = new ConnectErrorDialog(this.connectDialog)
-    // this.guacamoleFrame = new GuacamoleFrame(this.connectDialog)
+    this.guacamoleFrame = new GuacamoleFrame(this.connectDialog)
     this.connectionInfo = new ConnectionInfo(this)
     this.settingsDialog = ko.observable()
     this.remoteHost = ko.observable()
@@ -277,7 +275,7 @@ class GlobalBindings {
         password: password,
         tokens: tokens
       }).done(client => {
-        this.guacamoleFrame = new GuacamoleFrame(this.connectDialog)
+        this.guacamoleFrame.guacSource("/guacamole/#/?username="+this.connectDialog.username()+"&password="+this.connectDialog.password())
         this.guacamoleFrame.show()
         log(translate('logentry.connected'))
 
