@@ -1,4 +1,4 @@
-FROM alpine:20200626
+FROM alpine:20210212
 
 COPY ./ /home/node
 
