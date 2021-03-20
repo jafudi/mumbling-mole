@@ -261,6 +261,23 @@ class GlobalBindings {
     }
 
     this.connect = (host, port, username, password, tokens = [], channelName = "") => {
+
+      initVoice(data => {
+        if (testVoiceHandler) {
+          testVoiceHandler.write(data)
+        }
+        if (!ui.client) {
+          if (voiceHandler) {
+            voiceHandler.end()
+          }
+          voiceHandler = null
+        } else if (voiceHandler) {
+          voiceHandler.write(data)
+        }
+      }, err => {
+        log(translate('logentry.mic_init_error'), err)
+      })
+
       this.resetClient()
 
       this.remoteHost(host)
@@ -705,21 +722,6 @@ async function main() {
   await localizationInitialize(navigator.language);
   translateEverything();
   initializeUI();
-  initVoice(data => {
-    if (testVoiceHandler) {
-      testVoiceHandler.write(data)
-    }
-    if (!ui.client) {
-      if (voiceHandler) {
-        voiceHandler.end()
-      }
-      voiceHandler = null
-    } else if (voiceHandler) {
-      voiceHandler.write(data)
-    }
-  }, err => {
-    log(translate('logentry.mic_init_error'), err)
-  })
 }
 
 window.onload = main
