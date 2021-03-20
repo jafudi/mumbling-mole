@@ -59,22 +59,16 @@
                     <td><label for="password" id="connect-dialog_input_password">Password</label></td>
                     <td><input id="password" type="password" autocomplete="off" data-bind="value: password"></td>
                 </tr>
+                <tr>
+                    <td><label for="audioSource">Mikrofon</label></td>
+                    <td><select id="audioSource"></select></td>
+                </tr>
             </table>
             <div class="dialog-footer">
                 <input id="connect-dialog_controls_cancel" class="dialog-close" type="button" data-bind="click: hide"
                        value="Cancel">
                 <input id="connect-dialog_controls_connect" class="dialog-submit" type="submit" value="Connect">
             </div>
-        </form>
-    </div>
-    <!-- /ko -->
-    <!-- ko with: connectDialog -->
-    <div class="join-dialog dialog" data-bind="visible: visible() && joinOnly()">
-        <div class="dialog-header">
-            Mumble Voice Conference
-        </div>
-        <form data-bind="submit: connect">
-            <input class="dialog-submit" type="submit" value="Join Conference">
         </form>
     </div>
     <!-- /ko -->

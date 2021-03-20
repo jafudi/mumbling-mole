@@ -9,7 +9,7 @@ import ko from 'knockout'
 import _dompurify from 'dompurify'
 import keyboardjs from 'keyboardjs'
 
-import { ContinuousVoiceHandler, PushToTalkVoiceHandler, initVoice } from './voice'
+import { ContinuousVoiceHandler, PushToTalkVoiceHandler, initVoice, enumMicrophones } from './voice'
 import {initialize as localizationInitialize, translateEverything, translate} from './localize';
 
 const dompurify = _dompurify(window)
@@ -722,6 +722,7 @@ async function main() {
   await localizationInitialize(navigator.language);
   translateEverything();
   initializeUI();
+  enumMicrophones();
 }
 
 window.onload = main
