@@ -262,13 +262,17 @@
              rel="undeaf" src="/svg/audio-output-deafened.svg">
         <input id="message-box" type="text" data-bind="
             attr: { placeholder: messageBoxHint }, textInput: messageBox">
+        <img class="tb-sourcecode" alt="Send mail (attachment) to shared desktop" data-bind="click: openSourceCode"
+             rel="Source Code" src="/svg/mail-attachment.svg">
         <img class="tb-information" alt="Show information about connection quality" rel="information"
-             src="/svg/applications-internet.svg"
+             src="/svg/mumble.svg"
              data-bind="click: connectionInfo.show">
         <img class="tb-settings" alt="Open audio settings dialog" data-bind="click: openSettings"
              rel="settings" src="/svg/config_basic.svg">
         <img class="tb-sourcecode" alt="Navigate to source code on Github" data-bind="click: openSourceCode"
              rel="Source Code" src="/svg/source-code.svg">
+        <img class="tb-sourcecode" alt="Open a support request" data-bind="click: openSourceCode"
+             rel="Source Code" src="/svg/system-help.svg">
 
     </form>
 </div>
