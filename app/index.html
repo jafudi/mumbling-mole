@@ -38,7 +38,7 @@
         </dl>
     </div>
     <div class="guacamole" onmouseover="document.getElementById('guacframe').focus();" data-bind="visible: visible()">
-        <iframe id="guacframe" data-bind="attr: { src: guacSource() }" title="Guacamole Remote Desktop"></iframe>
+        <iframe id="guacframe" data-bind="attr: { src: guacSource() }" title="Guacamole Remote Desktop" allow="clipboard-read; clipboard-write"></iframe>
     </div>
     <!-- /ko -->
     <!-- ko with: connectDialog -->
