@@ -40,6 +40,7 @@ function ConnectDialog () {
   self.hide = self.visible.bind(self.visible, false)
   self.connect = function () {
     self.hide()
+    initClipboard()
     ui.connect(self.address(), self.port(), self.username(), self.password())
   }
 }
@@ -277,8 +278,6 @@ class GlobalBindings {
       }, err => {
         log(translate('logentry.mic_init_error'), err)
       })
-
-      initClipboard()
 
       this.resetClient()
 
