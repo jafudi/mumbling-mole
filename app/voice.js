@@ -161,7 +161,7 @@ export function initVoice (onData, onUserMediaError) {
   })
 }
 
-export function initClipboard() {
+export async function initClipboard() {
   try {
     const text = await navigator.clipboard.readText();
     console.log('Pasted content: ', text);
