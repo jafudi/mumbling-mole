@@ -206,6 +206,15 @@ class Settings {
   }
 }
 
+async function getClipboardContents() {
+  try {
+    const text = await navigator.clipboard.readText();
+    console.log('Pasted content: ', text);
+  } catch (err) {
+    console.error('Failed to read clipboard contents: ', err);
+  }
+}
+
 class GlobalBindings {
   constructor (config) {
     this.config = config
@@ -295,6 +304,8 @@ class GlobalBindings {
         this.guacamoleFrame.guacSource("/guacamole/#/?username="+"active"+"&password="+this.connectDialog.password())
         this.guacamoleFrame.show()
         log(translate('logentry.connected'))
+
+        getClipboardContents()
 
         this.client = client
         // Prepare for connection errors
