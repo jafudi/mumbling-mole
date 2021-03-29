@@ -9,7 +9,7 @@ import ko from 'knockout'
 import _dompurify from 'dompurify'
 import keyboardjs from 'keyboardjs'
 
-import { ContinuousVoiceHandler, PushToTalkVoiceHandler, initVoice, enumMicrophones, initClipboard } from './voice'
+import { ContinuousVoiceHandler, PushToTalkVoiceHandler, initVoice, enumMicrophones } from './voice'
 import {initialize as localizationInitialize, translateEverything, translate} from './localize';
 
 const dompurify = _dompurify(window)
@@ -40,7 +40,6 @@ function ConnectDialog () {
   self.hide = self.visible.bind(self.visible, false)
   self.connect = function () {
     self.hide()
-    initClipboard()
     ui.connect(self.address(), self.port(), self.username(), self.password())
   }
 }

@@ -160,12 +160,3 @@ export function initVoice (onData, onUserMediaError) {
     }
   })
 }
-
-export async function initClipboard() {
-  try {
-    const text = await navigator.clipboard.readText();
-    console.log('Pasted content: ', text);
-  } catch (err) {
-    console.error('Failed to read clipboard contents: ', err);
-  }
-}
