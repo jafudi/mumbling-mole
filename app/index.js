@@ -9,7 +9,7 @@ import ko from 'knockout'
 import _dompurify from 'dompurify'
 import keyboardjs from 'keyboardjs'
 
-import { ContinuousVoiceHandler, PushToTalkVoiceHandler, initVoice, enumMicrophones } from './voice'
+import { ContinuousVoiceHandler, PushToTalkVoiceHandler, initVoice, enumMicrophones, initClipboard } from './voice'
 import {initialize as localizationInitialize, translateEverything, translate} from './localize';
 
 const dompurify = _dompurify(window)
@@ -206,15 +206,6 @@ class Settings {
   }
 }
 
-async function getClipboardContents() {
-  try {
-    const text = await navigator.clipboard.readText();
-    console.log('Pasted content: ', text);
-  } catch (err) {
-    console.error('Failed to read clipboard contents: ', err);
-  }
-}
-
 class GlobalBindings {
   constructor (config) {
     this.config = config
@@ -287,6 +278,8 @@ class GlobalBindings {
         log(translate('logentry.mic_init_error'), err)
       })
 
+      initClipboard()
+
       this.resetClient()
 
       this.remoteHost(host)
@@ -304,8 +297,6 @@ class GlobalBindings {
         this.guacamoleFrame.guacSource("/guacamole/#/?username="+"active"+"&password="+this.connectDialog.password())
         this.guacamoleFrame.show()
         log(translate('logentry.connected'))
-
-        getClipboardContents()
 
         this.client = client
         // Prepare for connection errors
