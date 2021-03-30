@@ -54,10 +54,10 @@ html, body {
   margin-bottom: 2px;
   width: 100%;
   height: calc(99% - 38px);
-  background-image: url('img/Bildschirmfoto.png');
+  background-image: url('img/SplashScreen.png');
   background-repeat: no-repeat;
   background-position: bottom;
-  background-size: contain;
+  background-size: cover;
 }
 
 iframe {
