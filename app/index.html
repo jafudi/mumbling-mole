@@ -27,14 +27,7 @@
     <!-- ko with: guacamoleFrame -->
     <div class="guacamole-placeholder" data-bind="visible: !visible()">
         <h1>Welcome to PairPac</h1>
-        <dl>
-            <dt><b>For best experience</b></dt>
-            <dd>use Chrome and please maximize your browser window.</dd>
-            <dt><b>We are smarter than the bloody 🦠</b></dt>
-            <dd>Made with enthusiasm in Heidelberg during Corona winter 2020/21.</dd>
-            <dt><b>Hire me if you can</b></dt>
-            <dd>I am always open to new data challenges with the right team. You can find my CV on <a href="https://www.linkedin.com/in/jens-fielenbach-b2b977b6/">LinkedIn</a> or <a href="https://www.xing.com/profile/Jens_Fielenbach/cv">XING</a>.</dd>
-        </dl>
+        <h2>We enable voice-centered hands-on co-creation everywhere</h2>
     </div>
     <div class="guacamole" onmouseover="document.getElementById('guacframe').focus();" data-bind="visible: visible()">
         <iframe id="guacframe" data-bind="attr: { src: guacSource() }" title="Guacamole Remote Desktop" allow="clipboard-read; clipboard-write"></iframe>
