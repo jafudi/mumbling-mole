@@ -8,7 +8,6 @@ $white: #fff !default
 $font-color: $black !default
 $font-family: Arial, sans-serif !default
 $chat-input-color: $font-color !default
-$mic-volume-border-color: $black !default
 
 $toolbar-hover-bg-color: $lightgray !default
 $toolbar-hover-border-color: $gray !default
@@ -127,12 +126,17 @@ form {
   border-radius: 3px;
   background-color: $dialog-button-bg-color;
   color: $dialog-button-color;
-  padding: 1px;
+  padding: 5px;
   cursor: pointer;
 }
 .connect-dialog table {
-  text-align: center;
   width: 100%
+}
+.connect-dialog td {
+  text-align: left;
+}
+.connect-dialog td:first-child {
+  text-align: right;
 }
 .dialog {
   position: absolute;
@@ -165,26 +169,6 @@ form {
 .settings-dialog table input[type="checkbox"] {
   width: auto;
   margin: auto;
-}
-.settings-dialog .mic-volume-container {
-  height: 10px;
-  border: 3px solid $mic-volume-border-color;
-}
-.settings-dialog .mic-volume {
-  height: 100%;
-}
-.join-dialog {
-  width: 300px;
-  height: 100px;
-  top: 50%;
-  left: 50%;
-}
-.join-dialog .dialog-submit {
-  float: none;
-  width: 200px;
-  position: absolute;
-  top: calc(50% - 10px);
-  left: calc(50% - 100px);
 }
 .connect-dialog input[type=text], select {
   font-size: 15px;

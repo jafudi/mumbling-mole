@@ -651,12 +651,6 @@ window.mumbleUi = ui
 function initializeUI () {
   var queryParams = url.parse(document.location.href, true).query
   queryParams = Object.assign({}, window.mumbleWebConfig.defaults, queryParams)
-  if (queryParams.address) {
-    ui.connectDialog.address(queryParams.address)
-  }
-  if (queryParams.port) {
-    ui.connectDialog.port(queryParams.port)
-  }
   if (queryParams.username) {
     ui.connectDialog.username(queryParams.username)
   }
