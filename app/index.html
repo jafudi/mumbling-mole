@@ -40,7 +40,7 @@
             Connect to Server
         </div>
         <form data-bind="submit: connect">
-            <table align="right | left">
+            <table>
                 <tr data-bind="if: $root.config.connectDialog.username">
                     <td><label for="username" id="connect-dialog_input_username">Username</label></td>
                     <td><input id="username" type="text" data-bind="value: username" required></td>
@@ -59,6 +59,7 @@
                 </tr>
             </table>
             <div class="dialog-footer">
+                <input class="dialog-close" type="button" value="Cancel" hidden="hidden" disabled>
                 <input id="connect-dialog_controls_connect" class="dialog-submit" type="submit" value="Connect">
             </div>
         </form>
