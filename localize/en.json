@@ -5,7 +5,8 @@
     "port": "Port",
     "username": "Username",
     "password": "Password",
-    "cancel": "Cancel",
+    "microphone": "Microphone",
+    "headphones": "Please use headphones. Thank you.",
     "connect": "Connect",
     "error": {
       "title": "Failed to connect",

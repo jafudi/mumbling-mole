@@ -5,7 +5,8 @@
     "port": "porta del server",
     "username": "Nome utente",
     "password": "Parola d'ordine",
-    "cancel": "Annulla",
+    "microphone": "Microfono",
+    "headphones": "Si prega di utilizzare le cuffie. Grazie.",
     "connect": "Collegare",
     "error": {
       "title": "Connessione fallita",

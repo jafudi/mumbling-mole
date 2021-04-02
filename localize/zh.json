@@ -5,7 +5,8 @@
     "port": "端口",
     "username": "用户名",
     "password": "密码",
-    "cancel": "取消",
+    "microphone": "麦克风",
+    "headphones": "请使用耳机。谢谢你。",
     "connect": "连接",
     "error": {
       "title": "连接失败",

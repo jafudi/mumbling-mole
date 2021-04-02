@@ -127,8 +127,7 @@ export function translateEverything() {
   translatePiece('#connect-dialog_input_username', 'textcontent', {}, 'connectdialog.username');
   translatePiece('#connect-dialog_input_password', 'textcontent', {}, 'connectdialog.password');
   translatePiece('#connect-dialog_select_microphone', 'textcontent', {}, 'connectdialog.microphone');
-  translatePiece('#connect-dialog_audio_output', 'textcontent', {}, 'connectdialog.output');
-  translatePiece('#connect-dialog_headphones_hint', 'textcontent', {}, 'connectdialog.headphones');
+  translatePiece('#connect-dialog_headphones', 'textcontent', {}, 'connectdialog.headphones');
   translatePiece('#connect-dialog_controls_connect', 'attribute', {'name': 'value'}, 'connectdialog.connect');
   translatePiece('.connect-dialog.error-dialog .dialog-header', 'textcontent', {}, 'connectdialog.error.title');
   translatePiece('.connect-dialog.error-dialog .reason .refused', 'textcontent', {}, 'connectdialog.error.reason.refused');

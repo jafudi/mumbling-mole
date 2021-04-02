@@ -5,7 +5,8 @@
     "port": "Puerto de servicio",
     "username": "Nombre de usuario",
     "password": "Contraseña",
-    "cancel": "Cancelar",
+    "microphone": "Micrófono",
+    "headphones": "Utilice auriculares. Gracias.",
     "connect": "Conectar",
     "error": {
       "title": "No se pudo conectar",

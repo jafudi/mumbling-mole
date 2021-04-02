@@ -6,7 +6,8 @@
     "username": "ユーザー名",
     "password": "パスワード",
     "cancel": "キャンセル",
-    "connect": "接続する",
+    "microphone": "マイクロフォン",
+    "headphones": "ヘッドホンをご利用ください。ありがとうございました。",
     "error": {
       "title": "接続に失敗した。",
       "reason": {

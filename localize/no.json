@@ -5,7 +5,8 @@
     "port": "Serverport",
     "username": "Brukernavn",
     "password": "Passord",
-    "cancel": "Avbryt",
+    "microphone": "Mikrofon",
+    "headphones": "Bruk hodetelefoner. Takk skal du ha.",
     "connect": "Koble",
     "error": {
       "title": "Tilkobling mislyktes",

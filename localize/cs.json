@@ -5,7 +5,8 @@
     "port": "Port serveru",
     "username": "Uživatelské jméno",
     "password": "Heslo",
-    "cancel": "Zrušení",
+    "microphone": "Mikrofon",
+    "headphones": "Použijte sluchátka. Děkuji mnohokrát.",
     "connect": "Připojit",
     "error": {
       "title": "Nepodařilo se připojit",

@@ -5,7 +5,8 @@
     "port": "Port de serveur",
     "username": "Nom d'utilisateur",
     "password": "Mot de passe",
-    "cancel": "Annuler",
+    "microphone": "Microphone",
+    "headphones": "Veuillez utiliser des écouteurs. Merci.",
     "connect": "Relier",
     "error": {
       "title": "Échec de connexion",

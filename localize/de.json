@@ -6,8 +6,7 @@
     "username": "Nutzername",
     "password": "Passwort",
     "microphone": "Mikrofon",
-    "output": "Audio-Ausgabe",
-    "headphones": "Bitte Kopfhörer benutzen. Danke.",
+    "headphones": "Bitte benutze Kopfhörer. Danke sehr.",
     "cancel": "Abbrechen",
     "connect": "Verbinden",
     "error": {
