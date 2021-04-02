@@ -132,6 +132,9 @@ form {
 .connect-dialog td:first-child {
   text-align: right;
 }
+.connect-dialog .dialog-close {
+  opacity: 0;
+}
 .dialog {
   position: absolute;
   max-height: calc(100% - 20px);
