@@ -24,10 +24,6 @@
       "cancel": "Zrušení"
     }
   },
-  "joindialog": {
-    "title": "Mumble hlasová konference",
-    "connect": "Připojte se ke konferenci"
-  },
   "connectinfo": {
     "title": "Informace o přenosu zvuku",
     "server": "Podrobnosti zvukového serveru",

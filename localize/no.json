@@ -24,10 +24,6 @@
       "cancel": "Avbryt"
     }
   },
-  "joindialog": {
-    "title": "Mumble Talekonferanse",
-    "connect": "Bli med på konferansen"
-  },
   "connectinfo": {
     "title": "Info om lydoverføring",
     "server": "Detaljer om lydserver",

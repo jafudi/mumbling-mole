@@ -34,7 +34,6 @@ function ConnectDialog () {
   self.port = ko.observable('')
   self.username = ko.observable('')
   self.password = ko.observable('')
-  self.joinOnly = ko.observable(false)
   self.visible = ko.observable(true)
   self.show = self.visible.bind(self.visible, true)
   self.hide = self.visible.bind(self.visible, false)
@@ -50,7 +49,6 @@ function ConnectErrorDialog (connectDialog) {
   self.reason = ko.observable('')
   self.username = connectDialog.username
   self.password = connectDialog.password
-  self.joinOnly = connectDialog.joinOnly
   self.visible = ko.observable(false)
   self.show = self.visible.bind(self.visible, true)
   self.hide = self.visible.bind(self.visible, false)
@@ -653,21 +651,14 @@ window.mumbleUi = ui
 function initializeUI () {
   var queryParams = url.parse(document.location.href, true).query
   queryParams = Object.assign({}, window.mumbleWebConfig.defaults, queryParams)
-  var useJoinDialog = queryParams.joinDialog
   if (queryParams.address) {
     ui.connectDialog.address(queryParams.address)
-  } else {
-    useJoinDialog = false
   }
   if (queryParams.port) {
     ui.connectDialog.port(queryParams.port)
-  } else {
-    useJoinDialog = false
   }
   if (queryParams.username) {
     ui.connectDialog.username(queryParams.username)
-  } else {
-    useJoinDialog = false
   }
   if (queryParams.password) {
     ui.connectDialog.password(queryParams.password)
@@ -675,7 +666,6 @@ function initializeUI () {
   if (queryParams.channelName) {
     ui.connectDialog.channelName(queryParams.channelName)
   }
-  ui.connectDialog.joinOnly(useJoinDialog)
   ko.applyBindings(ui)
 }
 

@@ -29,7 +29,6 @@ window.mumbleWebConfig = {
     'port': '443/murmur',
     'username': '',
     'password': '',
-    'joinDialog': false, // replace whole dialog with single "Join Conference" button
     // General
     'theme': 'MetroMumbleLight'
   }

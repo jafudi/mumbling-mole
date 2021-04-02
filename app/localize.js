@@ -126,7 +126,9 @@ export function translateEverything() {
   translatePiece('#connect-dialog_title', 'textcontent', {}, 'connectdialog.title');
   translatePiece('#connect-dialog_input_username', 'textcontent', {}, 'connectdialog.username');
   translatePiece('#connect-dialog_input_password', 'textcontent', {}, 'connectdialog.password');
-  translatePiece('#connect-dialog_controls_cancel', 'attribute', {'name': 'value'}, 'connectdialog.cancel');
+  translatePiece('#connect-dialog_select_microphone', 'textcontent', {}, 'connectdialog.microphone');
+  translatePiece('#connect-dialog_audio_output', 'textcontent', {}, 'connectdialog.output');
+  translatePiece('#connect-dialog_headphones_hint', 'textcontent', {}, 'connectdialog.headphones');
   translatePiece('#connect-dialog_controls_connect', 'attribute', {'name': 'value'}, 'connectdialog.connect');
   translatePiece('.connect-dialog.error-dialog .dialog-header', 'textcontent', {}, 'connectdialog.error.title');
   translatePiece('.connect-dialog.error-dialog .reason .refused', 'textcontent', {}, 'connectdialog.error.reason.refused');
@@ -142,9 +144,6 @@ export function translateEverything() {
   translatePiece('.connect-dialog.error-dialog .alternate-password', 'textcontent', {}, 'connectdialog.password');
   translatePiece('.connect-dialog.error-dialog .dialog-submit', 'attribute', {'name': 'value'}, 'connectdialog.error.retry');
   translatePiece('.connect-dialog.error-dialog .dialog-close', 'attribute', {'name': 'value'}, 'connectdialog.error.cancel');
-
-  translatePiece('.join-dialog .dialog-header', 'textcontent', {}, 'joindialog.title');
-  translatePiece('.join-dialog .dialog-submit', 'attribute', {'name': 'value'}, 'joindialog.connect');
 
   translatePiece('#connection-info_title', 'textcontent', {}, 'connectinfo.title');
   translatePiece('#connection-info_server', 'textcontent', {}, 'connectinfo.server');

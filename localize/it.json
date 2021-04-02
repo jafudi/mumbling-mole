@@ -24,10 +24,6 @@
       "cancel": "Annulla"
     }
   },
-  "joindialog": {
-    "title": "Mumble Conferenza vocale",
-    "connect": "Partecipa alla conferenza"
-  },
   "connectinfo": {
     "title": "Informazioni sulla trasmissione audio",
     "server": "Dettagli del server audio",

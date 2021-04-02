@@ -24,10 +24,6 @@
       "cancel": "Annuleer"
     }
   },
-  "joindialog": {
-    "title": "Mumble Spraakconferentie",
-    "connect": "Deelnemen aan de conferentie"
-  },
   "connectinfo": {
     "title": "Audio-overdracht info",
     "server": "Details audioserver",

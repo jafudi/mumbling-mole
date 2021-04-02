@@ -24,10 +24,6 @@
       "cancel": "取消"
     }
   },
-  "joindialog": {
-    "title": "Mumble语音会议",
-    "connect": "参加会议"
-  },
   "connectinfo": {
     "title": "音频传输信息",
     "server": "音频服务器详细信息",

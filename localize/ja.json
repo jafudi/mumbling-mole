@@ -24,10 +24,6 @@
       "cancel": "キャンセル"
     }
   },
-  "joindialog": {
-    "title": "Mumble音声会議",
-    "connect": "会議に参加"
-  },
   "connectinfo": {
     "title": "音声送信情報",
     "server": "サーバーの詳細",

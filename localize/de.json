@@ -5,6 +5,9 @@
     "port": "Port",
     "username": "Nutzername",
     "password": "Passwort",
+    "microphone": "Mikrofon",
+    "output": "Audio-Ausgabe",
+    "headphones": "Bitte Kopfhörer benutzen. Danke.",
     "cancel": "Abbrechen",
     "connect": "Verbinden",
     "error": {
@@ -23,10 +26,6 @@
       "retry": "Wiederholen",
       "cancel": "Abbrechen"
     }
-  },
-  "joindialog": {
-    "title": "Mumble Sprach-Konferenz",
-    "connect": "An der Konferenz teilnehmen"
   },
   "connectinfo": {
     "title": "Infos zur Audio-Übertragung",

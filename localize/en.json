@@ -24,10 +24,6 @@
       "cancel": "Cancel"
     }
   },
-  "joindialog": {
-    "title": "Mumble Voice Conference",
-    "connect": "Join Conference"
-  },
   "connectinfo": {
     "title": "Audio transmission info",
     "server": "Audio server details",
