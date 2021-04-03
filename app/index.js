@@ -28,11 +28,6 @@ function GuacamoleFrame () {
   self.hide = self.visible.bind(self.visible, false)
 }
 
-function ToolbarHorizontal () {
-  var self = this
-  self.mailToDesktop = ko.observable("mailto:mail@"+window.location.hostname+"?subject=Send%20attachment%20to%20desktop")
-}
-
 function ConnectDialog () {
   var self = this
   self.address = ko.observable('')
@@ -218,7 +213,6 @@ class GlobalBindings {
     this.connectDialog = new ConnectDialog()
     this.connectErrorDialog = new ConnectErrorDialog(this.connectDialog)
     this.guacamoleFrame = new GuacamoleFrame()
-    this.ToolbarHorizontal = new ToolbarHorizontal()
     this.connectionInfo = new ConnectionInfo(this)
     this.settingsDialog = ko.observable()
     this.remoteHost = ko.observable()
@@ -559,6 +553,8 @@ class GlobalBindings {
       this.sendMessage(this.selected(), this.messageBox())
       this.messageBox('')
     }
+
+    this.mailToDesktop = ko.observable("mailto:mail@"+window.location.hostname+"?subject=Send%20attachment%20to%20desktop")
 
     this.sendMessage = (target, message) => {
       if (this.connected()) {
