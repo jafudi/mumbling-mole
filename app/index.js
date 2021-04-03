@@ -28,6 +28,11 @@ function GuacamoleFrame () {
   self.hide = self.visible.bind(self.visible, false)
 }
 
+function ToolbarHorizontal () {
+  var self = this
+  self.mailToDesktop = ko.observable("mailto:mail@"+window.location.hostname+"?subject=Send%20attachment%20to%20desktop")
+}
+
 function ConnectDialog () {
   var self = this
   self.address = ko.observable('')
@@ -651,6 +656,12 @@ window.mumbleUi = ui
 function initializeUI () {
   var queryParams = url.parse(document.location.href, true).query
   queryParams = Object.assign({}, window.mumbleWebConfig.defaults, queryParams)
+  if (queryParams.address) {
+    ui.connectDialog.address(queryParams.address)
+  }
+  if (queryParams.port) {
+    ui.connectDialog.port(queryParams.port)
+  }
   if (queryParams.username) {
     ui.connectDialog.username(queryParams.username)
   }

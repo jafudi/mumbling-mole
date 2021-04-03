@@ -238,6 +238,7 @@
         </form>
     </div>
     <!-- /ko -->
+    <!-- ko with: ToolbarHorizontal -->
     <form class="toolbar-horizontal" data-bind="submit: submitMessageBox">
         <img class="tb-mute" alt="Mute my microphone" data-bind="visible: !selfMute(),
             click: function () { requestMute(thisUser()) }"
@@ -253,7 +254,7 @@
              rel="undeaf" src="/svg/audio-output-deafened.svg">
         <input id="message-box" type="text" data-bind="
             attr: { placeholder: messageBoxHint }, textInput: messageBox">
-        <a href="mailto:socialnets@jafudi.com?subject=Send%20attachment%20to%20desktop" style="text-decoration:none"><img alt="Send mail (attachment) to shared desktop"
+        <a data-bind="href: mailToDesktop()" style="text-decoration:none"><img alt="Send mail (attachment) to shared desktop"
              src="/svg/mail-attachment.svg"></a>
         <img class="tb-information" alt="Show information about connection quality" rel="information"
              src="/svg/mumble.svg"
@@ -264,8 +265,8 @@
              rel="Source Code" src="/svg/source-code.svg">
         <a href="mailto:socialnets@jafudi.com?subject=Open%20support%20request" style="text-decoration:none"><img alt="Open a support request"
              src="/svg/system-help.svg"></a>
-
     </form>
+    <!-- /ko -->
 </div>
 </body>
 <script src="index.js"></script>
