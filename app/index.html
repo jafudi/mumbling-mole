@@ -189,6 +189,7 @@
                         <select data-bind='value: voiceMode'>
                             <option id="settings-dialog_cont" value="cont">Continuous</option>
                             <option id="settings-dialog_ptt" value="ptt">Push To Talk</option>
+                        </select>
                     </td>
                 </tr>
                 <tr data-bind="visible: voiceMode() == 'ptt'">
@@ -253,7 +254,7 @@
              rel="undeaf" src="/svg/audio-output-deafened.svg">
         <input id="message-box" type="text" data-bind="
             attr: { placeholder: messageBoxHint }, textInput: messageBox">
-        <a data-bind="href: mailToDesktop()" style="text-decoration:none"><img alt="Send mail (attachment) to shared desktop"
+        <a data-bind="attr: { href: mailToDesktop() }" style="text-decoration:none"><img alt="Send mail (attachment) to shared desktop"
              src="/svg/mail-attachment.svg"></a>
         <img class="tb-information" alt="Show information about connection quality" rel="information"
              src="/svg/mumble.svg"
