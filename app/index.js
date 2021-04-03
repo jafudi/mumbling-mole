@@ -218,6 +218,7 @@ class GlobalBindings {
     this.connectDialog = new ConnectDialog()
     this.connectErrorDialog = new ConnectErrorDialog(this.connectDialog)
     this.guacamoleFrame = new GuacamoleFrame()
+    this.ToolbarHorizontal = new ToolbarHorizontal()
     this.connectionInfo = new ConnectionInfo(this)
     this.settingsDialog = ko.observable()
     this.remoteHost = ko.observable()
