@@ -51,15 +51,15 @@ html, body {
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: cover;
-  text-align:justify;
 }
 
-.guacamole-placeholder h3 span {
+.guacamole-placeholder guacamole-bottomline {
+  text-align:justify;
   position:absolute;
   bottom:36px;
 }
 
-.guacamole-placeholder span {
+.guacamole-placeholder guacamole-bottomline span {
   width:100%;
   display:inline-block;
 }
