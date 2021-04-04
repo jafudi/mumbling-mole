@@ -51,11 +51,17 @@ html, body {
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: cover;
+  text-align:justify;
 }
 
-.guacamole-placeholder marquee {
+.guacamole-placeholder h3 span {
   position:absolute;
-  bottom:0;
+  bottom:36px;
+}
+
+.guacamole-placeholder span {
+  width:100%;
+  display:inline-block;
 }
 
 iframe {
