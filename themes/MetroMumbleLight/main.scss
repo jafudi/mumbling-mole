@@ -57,7 +57,11 @@ html, body {
 }
 
 .guacamole-bottomline {
-  text-align:center;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
   position:absolute;
   bottom:40px;
   font-weight: bold;
