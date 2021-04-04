@@ -26,9 +26,9 @@
 <div id="container" style="display: none" data-bind="visible: true">
     <!-- ko with: guacamoleFrame -->
     <div class="guacamole-placeholder" data-bind="visible: !visible()">
-        <h1>Welcome to PairPac (Beta)</h1>
-        <h2>We enable voice-first hands-on co-creation - everywhere</h2>
-        <h3>Connect your ears, eyes and hands with like-minded people around the world and build cool stuff together</h3>
+        <h1>Welcome to PairPac 🤗</h1>
+        # TODO: move to bottom of page
+        <marquee direction="left" scrollamount="50" behavior="scroll">Connect your ears, eyes and hands with like-minded people around the world and build cool stuff together!</marquee>
     </div>
     <div class="guacamole" onmouseover="document.getElementById('guacframe').focus();" data-bind="visible: visible()">
         <iframe id="guacframe" data-bind="attr: { src: guacSource() }" title="Guacamole Remote Desktop" allow="clipboard-read; clipboard-write"></iframe>
