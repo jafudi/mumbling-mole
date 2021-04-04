@@ -52,12 +52,16 @@ html, body {
   background-position: bottom;
   background-size: cover;
 }
+.guacamole-placeholder h1 {
+  padding: 2px;
+}
 
 .guacamole-bottomline {
-  text-align:justify;
+  text-align:center;
   position:absolute;
-  bottom:36px;
+  bottom:40px;
   font-weight: bold;
+  padding: 2px;
 }
 
 iframe {
