@@ -1,6 +1,6 @@
 {
   "connectdialog": {
-    "title": "Conectar al servidor",
+    "title": "Unirse a la audioconferencia",
     "address": "dirección del servidor",
     "port": "Puerto de servicio",
     "username": "Nombre de usuario",

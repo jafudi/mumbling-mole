@@ -1,6 +1,6 @@
 {
   "connectdialog": {
-    "title": "Connecter au serveur",
+    "title": "Rejoindre la conférence audio",
     "address": "Adresse du serveur",
     "port": "Port de serveur",
     "username": "Nom d'utilisateur",
