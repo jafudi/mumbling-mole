@@ -6,7 +6,7 @@
     "username": "Brukernavn",
     "password": "Passord",
     "microphone": "Mikrofon",
-    "headphones": "Bruk hodetelefoner. Takk skal du ha.",
+    "headphones": "Bruk \uD83C\uDFA7. Takk skal du ha.",
     "connect": "Koble",
     "error": {
       "title": "Tilkobling mislyktes",

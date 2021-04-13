@@ -6,7 +6,7 @@
     "username": "Nom d'utilisateur",
     "password": "Mot de passe",
     "microphone": "Microphone",
-    "headphones": "Veuillez utiliser des écouteurs. Merci.",
+    "headphones": "Veuillez utiliser des \uD83C\uDFA7. Merci.",
     "connect": "Relier",
     "error": {
       "title": "Échec de connexion",

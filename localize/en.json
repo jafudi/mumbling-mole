@@ -6,7 +6,7 @@
     "username": "Username",
     "password": "Password",
     "microphone": "Microphone",
-    "headphones": "Please use headphones. Thank you.",
+    "headphones": "Please use \uD83C\uDFA7. Thank you.",
     "connect": "Connect",
     "error": {
       "title": "Failed to connect",

@@ -7,7 +7,7 @@
     "password": "パスワード",
     "cancel": "キャンセル",
     "microphone": "マイクロフォン",
-    "headphones": "ヘッドホンをご利用ください。ありがとうございました。",
+    "headphones": "\uD83C\uDFA7をご利用ください。ありがとうございました。",
     "error": {
       "title": "接続に失敗した。",
       "reason": {
