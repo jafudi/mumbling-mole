@@ -54,3 +54,4 @@ jspm_packages
 
 /.idea/modules.xml
 /.idea/inspectionProfiles/profiles_settings.xml
+.DS_Store
