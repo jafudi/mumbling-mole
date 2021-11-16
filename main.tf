@@ -8,7 +8,7 @@ provider "docker" {
   }
 }
 
-data "docker_registry_image" "quay" {
+resource "docker_registry_image" "quay" {
   name = "jafudi/mumbling-mole:latest"
 
   build {
