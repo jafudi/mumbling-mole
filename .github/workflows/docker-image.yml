@@ -11,7 +11,7 @@ on:
       - 'lite'
 
 env:
-  TEST_TAG: user/myapp:test
+  TEST_TAG: jafudi/mumbling-mole:test
 
 jobs:
   docker:
