@@ -51,13 +51,9 @@ jobs:
         run: |
           docker run --rm -p 8081:8081 -e MUMBLE_SERVER='localhost:8081' -e GUACPWD='' ${{ env.TEST_TAG }} &
           sleep 10
-          bytes=$(curl -I "localhost:8081"  2>&1 | awk '/Content-Length/ {print $2}')
-          if [[ "$bytes" -gt 5000 ]]; then
-            exit 0
-          else
-            exit 1
-          fi
-
+          dirty=$(curl -I "localhost:8081"  2>&1 | awk '/Content-Length/ {print $2}')
+          clean=${dirty//[ $'\001'-$'\037']}
+          if [[ $clean -gt 5000 ]]; then exit 0; else exit 1; fi
       -
         name: Build and push
         uses: docker/build-push-action@v2
