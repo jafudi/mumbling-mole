@@ -10,7 +10,7 @@
   "author": "Jens Fielenbach <flexpair@icloud.com>",
   "license": "ISC",
   "repository": "jafudi/mumble-web",
-  "homepage": "https://jafudi.net/github-link-in-mumble-web",
+  "homepage": "https://github.com/jafudi/flexpair",
   "files": [
     "dist"
   ],
