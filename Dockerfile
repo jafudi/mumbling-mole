@@ -1,8 +1,8 @@
-FROM alpine:3.14.3
+FROM alpine:edge
 
 COPY ./ /home/node
 
-RUN echo http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories && \
+RUN echo http://nl.alpinelinux.org/alpine/edge/testing/ >> /etc/apk/repositories && \
     apk add --no-cache git nodejs npm tini websockify bash && \
     adduser -D -g 1001 -u 1001 -h /home/node node && \
     mkdir -p /home/node && \
