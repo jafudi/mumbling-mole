@@ -290,7 +290,7 @@ class GlobalBindings {
         password: password,
         tokens: tokens
       }).done(client => {
-        this.guacamoleFrame.guacSource("/guacamole/#/?username="+"active"+"&password="+this.connectDialog.password())
+        this.guacamoleFrame.guacSource("/guacamole/#/?username="+this.connectDialog.username()+"&password="+this.connectDialog.password())
         this.guacamoleFrame.show()
         log(translate('logentry.connected'))
 
