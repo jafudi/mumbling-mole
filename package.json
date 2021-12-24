@@ -35,7 +35,7 @@
     "microphone-stream": "^5.1.0",
     "mumble-client": "github:jafudi/mumble-client",
     "mumble-client-websocket": "github:jafudi/mumble-client-websocket",
-    "node-sass": "^4.14.1",
+    "sass": "^1.25.0",
     "raw-loader": "^4.0.2",
     "regexp-replace-loader": "1.0.1",
     "sass-loader": "^8.0.2",
