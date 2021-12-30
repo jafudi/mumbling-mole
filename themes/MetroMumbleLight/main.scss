@@ -1,29 +1,29 @@
-$black: #000 !default
-$darkgray: #888 !default
-$gray: #a9a9a9 !default
-$lightgray: #d3d3d3 !default
-$bg-color: #eee !default
-$white: #fff !default
+$black: #000 !default;
+$darkgray: #888 !default;
+$gray: #a9a9a9 !default;
+$lightgray: #d3d3d3 !default;
+$bg-color: #eee !default;
+$white: #fff !default;
 
-$font-color: $black !default
-$font-family: Arial, sans-serif !default
-$chat-input-color: $font-color !default
+$font-color: $black !default;
+$font-family: Arial, sans-serif !default;
+$chat-input-color: $font-color !default;
 
-$toolbar-hover-bg-color: $lightgray !default
-$toolbar-hover-border-color: $gray !default
-$toolbar-active-bg-color: $white !default
-$toolbar-active-border-color: $toolbar-hover-bg-color !default
-$dialog-header-color: $white !default
-$dialog-header-bg-color: $black !default
-$dialog-bg-color: $bg-color !default
-$dialog-border-color: $darkgray !default
-$dialog-color: $font-color !default
-$dialog-button-border-color: $darkgray !default
-$dialog-button-bg-color: $white !default
-$dialog-button-color: $dialog-color !default
-$dialog-input-border-color: $darkgray !default
-$dialog-input-bg-color: $white !default
-$dialog-input-color: $dialog-color !default
+$toolbar-hover-bg-color: $lightgray !default;
+$toolbar-hover-border-color: $gray !default;
+$toolbar-active-bg-color: $white !default;
+$toolbar-active-border-color: $toolbar-hover-bg-color !default;
+$dialog-header-color: $white !default;
+$dialog-header-bg-color: $black !default;
+$dialog-bg-color: $bg-color !default;
+$dialog-border-color: $darkgray !default;
+$dialog-color: $font-color !default;
+$dialog-button-border-color: $darkgray !default;
+$dialog-button-bg-color: $white !default;
+$dialog-button-color: $dialog-color !default;
+$dialog-input-border-color: $darkgray !default;
+$dialog-input-bg-color: $white !default;
+$dialog-input-color: $dialog-color !default;
 
 html, body {
   background-color: $bg-color;

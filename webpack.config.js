@@ -1,3 +1,5 @@
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
+
 var theme = '../themes/MetroMumbleLight'
 var path = require('path');
 
@@ -11,7 +13,7 @@ module.exports = {
     config: './app/config.js',
     theme: './app/theme.js'
   },
-  devtool: "",
+  devtool: false,
   output: {
     path: path.join(__dirname, 'dist'),
     chunkFilename: '[chunkhash].js',
@@ -107,5 +109,8 @@ module.exports = {
   target: 'web',
   optimization: {
     minimize: true
-  }
+  },
+	plugins: [
+		new NodePolyfillPlugin()
+	]
 }
