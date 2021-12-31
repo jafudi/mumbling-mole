@@ -38,7 +38,10 @@ module.exports = {
         use: [
           {
             loader: 'file-loader',
-            options: { 'name': '[name].[ext]' }
+            options: {
+              name: '[name].[ext]',
+              esModule: false
+            }
           },
           {
             loader: "extract-loader"
@@ -55,26 +58,54 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          'file-loader',
-          'extract-loader',
-          'css-loader'
+          {
+            loader: 'file-loader',
+            options: {
+              esModule: false
+            }
+          },
+          {
+            loader: "extract-loader"
+          },
+          {
+            loader: "css-loader"
+          }
         ]
       },
       {
         test: /\.scss$/,
         use: [
-          'file-loader?name=[hash].css',
-          'extract-loader',
-          'css-loader',
-          'sass-loader'
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[hash].css',
+              esModule: false
+            }
+          },
+          {
+            loader: "extract-loader"
+          },
+          {
+            loader: "css-loader"
+          },
+          {
+            loader: "sass-loader"
+          }
         ]
       },
       {
         type: 'javascript/auto',
         test: /manifest\.json$|\.xml$/,
         use: [
-          'file-loader',
-          'extract-loader',
+          {
+            loader: 'file-loader',
+            options: {
+              esModule: false
+            }
+          },
+          {
+            loader: "extract-loader"
+          },
           {
             loader: 'regexp-replace-loader',
             options: {
@@ -91,7 +122,12 @@ module.exports = {
       {
         test: /\.(svg|png|ico)$/,
         use: [
-          'file-loader'
+          {
+            loader: 'file-loader',
+            options: {
+              esModule: false
+            }
+          },
         ]
       },
       {
