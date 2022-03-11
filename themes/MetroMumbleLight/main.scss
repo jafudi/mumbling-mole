@@ -47,21 +47,18 @@ html, body {
 }
 
 .guacamole-placeholder {
-  background-image: url('img/SplashScreen.png');
+  background-image: url('img/AdobeStock_74031703.png');
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: cover;
 }
-.guacamole-placeholder h1 {
+.guacamole-placeholder img {
   padding: 2px;
 }
 
 .guacamole-bottomline {
   width: 100%;
   text-align: center;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
   position:absolute;
   bottom:40px;
   font-weight: bold;
