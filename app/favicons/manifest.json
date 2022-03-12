@@ -2,12 +2,12 @@
 	"name": "Mumble",
 	"icons": [
 		{
-			"src": "#require('./android-chrome-192x192.png')",
+			"src": "#require('./favicon192px.png')",
 			"sizes": "192x192",
 			"type": "image\/png"
 		},
 		{
-			"src": "#require('./android-chrome-512x512.png')",
+			"src": "#require('./favicon512px.png')",
 			"sizes": "512x512",
 			"type": "image\/png"
 		}
