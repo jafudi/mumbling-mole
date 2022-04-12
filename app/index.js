@@ -1,6 +1,5 @@
 import 'subworkers'
 import url from 'url'
-import ByteBuffer from 'bytebuffer'
 import MumbleClient from 'mumble-client'
 import WorkerBasedMumbleConnector from './worker-client'
 import BufferQueueNode from 'web-audio-buffer-queue'
@@ -10,17 +9,9 @@ import _dompurify from 'dompurify'
 import keyboardjs from 'keyboardjs'
 
 import { ContinuousVoiceHandler, PushToTalkVoiceHandler, initVoice, enumMicrophones } from './voice'
-import {initialize as localizationInitialize, translateEverything, translate} from './localize';
+import { initialize as localizationInitialize, translateEverything, translate } from './localize';
 
-const dompurify = _dompurify(window)
-
-function sanitize (html) {
-  return dompurify.sanitize(html, {
-    ALLOWED_TAGS: ['br', 'b', 'i', 'u', 'a', 'span', 'p']
-  })
-}
-
-function GuacamoleFrame () {
+function GuacamoleFrame() {
   var self = this
   self.guacSource = ko.observable("/guacamole/")
   self.visible = ko.observable(false)
@@ -28,7 +19,7 @@ function GuacamoleFrame () {
   self.hide = self.visible.bind(self.visible, false)
 }
 
-function ConnectDialog () {
+function ConnectDialog() {
   var self = this
   self.address = ko.observable('')
   self.port = ko.observable('')
@@ -43,7 +34,7 @@ function ConnectDialog () {
   }
 }
 
-function ConnectErrorDialog (connectDialog) {
+function ConnectErrorDialog(connectDialog) {
   var self = this
   self.type = ko.observable(0)
   self.reason = ko.observable('')
@@ -59,7 +50,7 @@ function ConnectErrorDialog (connectDialog) {
 }
 
 class ConnectionInfo {
-  constructor (ui) {
+  constructor(ui) {
     this._ui = ui
     this.visible = ko.observable(false)
     this.serverVersion = ko.observable()
@@ -80,7 +71,7 @@ class ConnectionInfo {
     this.hide = () => this.visible(false)
   }
 
-  update () {
+  update() {
     let client = this._ui.client
 
     this.serverVersion(client.serverVersion)
@@ -107,7 +98,7 @@ class ConnectionInfo {
 }
 
 class SettingsDialog {
-  constructor (settings) {
+  constructor(settings) {
     this.voiceMode = ko.observable(settings.voiceMode)
     this.pttKey = ko.observable(settings.pttKey)
     this.pttKeyDisplay = ko.observable(settings.pttKey)
@@ -125,7 +116,7 @@ class SettingsDialog {
     })
   }
 
-  applyTo (settings) {
+  applyTo(settings) {
     settings.voiceMode = this.voiceMode()
     settings.pttKey = this.pttKey()
     settings.userCountInChannelName(this.userCountInChannelName())
@@ -133,11 +124,11 @@ class SettingsDialog {
     settings.samplesPerPacket = this.samplesPerPacket()
   }
 
-  end () {
+  end() {
     testVoiceHandler = null
   }
 
-  recordPttKey () {
+  recordPttKey() {
     var combo = []
     const keydown = e => {
       combo = e.pressedKeys
@@ -157,7 +148,7 @@ class SettingsDialog {
     this.pttKeyDisplay('> ? <')
   }
 
-  totalBandwidth () {
+  totalBandwidth() {
     return MumbleClient.calcEnforcableBandwidth(
       this.audioBitrate(),
       this.samplesPerPacket(),
@@ -165,7 +156,7 @@ class SettingsDialog {
     )
   }
 
-  positionBandwidth () {
+  positionBandwidth() {
     return this.totalBandwidth() - MumbleClient.calcEnforcableBandwidth(
       this.audioBitrate(),
       this.samplesPerPacket(),
@@ -173,7 +164,7 @@ class SettingsDialog {
     )
   }
 
-  overheadBandwidth () {
+  overheadBandwidth() {
     return MumbleClient.calcEnforcableBandwidth(
       0,
       this.samplesPerPacket(),
@@ -183,7 +174,7 @@ class SettingsDialog {
 }
 
 class Settings {
-  constructor (defaults) {
+  constructor(defaults) {
     const load = key => window.localStorage.getItem('mumble.' + key)
     this.voiceMode = load('voiceMode') || defaults.voiceMode
     this.pttKey = load('pttKey') || defaults.pttKey
@@ -193,7 +184,7 @@ class Settings {
     this.samplesPerPacket = Number(load('samplesPerPacket')) || defaults.samplesPerPacket
   }
 
-  save () {
+  save() {
     const save = (key, val) => window.localStorage.setItem('mumble.' + key, val)
     save('voiceMode', this.voiceMode)
     save('pttKey', this.pttKey)
@@ -205,11 +196,12 @@ class Settings {
 }
 
 class GlobalBindings {
-  constructor (config) {
+  constructor(config) {
     this.config = config
     this.settings = new Settings(config.settings)
     this.connector = new WorkerBasedMumbleConnector()
     this.client = null
+    this.netlifyIdentity = require('netlify-identity-widget');
     this.connectDialog = new ConnectDialog()
     this.connectErrorDialog = new ConnectErrorDialog(this.connectDialog)
     this.guacamoleFrame = new GuacamoleFrame()
@@ -224,7 +216,7 @@ class GlobalBindings {
     this.selected = ko.observable()
     this.selfMute = ko.observable()
     this.selfDeaf = ko.observable()
-    this.audioContext = getAudioContext({latencyHint: 'interactive'})
+    this.audioContext = getAudioContext({ latencyHint: 'interactive' })
 
     this.selfMute.subscribe(mute => {
       if (voiceHandler) {
@@ -290,7 +282,7 @@ class GlobalBindings {
         password: password,
         tokens: tokens
       }).done(client => {
-        this.guacamoleFrame.guacSource("/guacamole/#/?username="+this.connectDialog.username()+"&password="+this.connectDialog.password())
+        this.guacamoleFrame.guacSource("/guacamole/#/?username=" + this.connectDialog.username() + "&password=" + this.connectDialog.password())
         this.guacamoleFrame.show()
         log(translate('logentry.connected'))
 
@@ -302,15 +294,15 @@ class GlobalBindings {
         })
 
         // Register all channels, recursively
-        if(channelName.indexOf("/") != 0) {
-          channelName = "/"+channelName;
+        if (channelName.indexOf("/") != 0) {
+          channelName = "/" + channelName;
         }
         const registerChannel = (channel, channelPath) => {
           this._newChannel(channel)
-          if(channelPath === channelName) {
+          if (channelPath === channelName) {
             client.self.setChannel(channel)
           }
-          channel.children.forEach(ch => registerChannel(ch, channelPath+"/"+ch.name))
+          channel.children.forEach(ch => registerChannel(ch, channelPath + "/" + ch.name))
         }
         registerChannel(client.root, "")
 
@@ -554,7 +546,7 @@ class GlobalBindings {
       this.messageBox('')
     }
 
-    this.mailToDesktop = ko.observable("mailto:mail@"+window.location.hostname+"?subject=Send%20attachment%20to%20desktop")
+    this.mailToDesktop = ko.observable("mailto:mail@" + window.location.hostname + "?subject=Send%20attachment%20to%20desktop")
 
     this.sendMessage = (target, message) => {
       if (this.connected()) {
@@ -593,7 +585,7 @@ class GlobalBindings {
       this.selfMute(false)
       this.selfDeaf(false)
       if (this.connected()) {
-          this.client.setSelfMute(false)
+        this.client.setSelfMute(false)
       }
     }
 
@@ -617,7 +609,7 @@ class GlobalBindings {
         channel.linked(allLinked.indexOf(channel.model) !== -1)
       })
 
-      function findLinks (channel, knownLinks) {
+      function findLinks(channel, knownLinks) {
         knownLinks.push(channel)
         channel.links.forEach(next => {
           if (next && knownLinks.indexOf(next) === -1) {
@@ -632,7 +624,7 @@ class GlobalBindings {
         return knownLinks
       }
 
-      function getAllChannels (channel, channels) {
+      function getAllChannels(channel, channels) {
         channels.push(channel)
         channel.channels().forEach(next => getAllChannels(next, channels))
         return channels
@@ -650,7 +642,20 @@ var ui = new GlobalBindings(window.mumbleWebConfig)
 // Used only for debugging
 window.mumbleUi = ui
 
-function initializeUI () {
+function initializeUI() {
+
+  ui.netlifyIdentity.init({
+    APIUrl: 'https://flexpair.com/.netlify/identity' // Absolute url to endpoint.
+  });
+
+  ui.netlifyIdentity.on('login', user => {
+    console.log('login', user);
+    ui.connectDialog.username(user.user_metadata.full_name);
+    ui.netlifyIdentity.close();
+  });
+
+  ui.netlifyIdentity.open('signup'); // open the modal to the signup tab
+
   var queryParams = url.parse(document.location.href, true).query
   queryParams = Object.assign({}, window.mumbleWebConfig.defaults, queryParams)
   if (queryParams.address) {
@@ -671,22 +676,22 @@ function initializeUI () {
   ko.applyBindings(ui)
 }
 
-function log () {
+function log() {
   console.log.apply(console, arguments)
 }
 
-function compareChannels (c1, c2) {
+function compareChannels(c1, c2) {
   if (c1.position() === c2.position()) {
     return c1.name() === c2.name() ? 0 : c1.name() < c2.name() ? -1 : 1
   }
   return c1.position() - c2.position()
 }
 
-function compareUsers (u1, u2) {
+function compareUsers(u1, u2) {
   return u1.name() === u2.name() ? 0 : u1.name() < u2.name() ? -1 : 1
 }
 
-function userToState () {
+function userToState() {
   var flags = []
   if (this.uid()) {
     flags.push('Authenticated')
