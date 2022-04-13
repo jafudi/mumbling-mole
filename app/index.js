@@ -648,30 +648,23 @@ function initializeUI() {
     APIUrl: 'https://flexpair.com/.netlify/identity' // Absolute url to endpoint.
   });
 
+  var user = ui.netlifyIdentity.currentUser();
+
   ui.netlifyIdentity.on('login', user => {
     console.log('login', user);
     ui.connectDialog.username(user.user_metadata.full_name);
     ui.netlifyIdentity.close();
   });
 
-  ui.netlifyIdentity.open('signup'); // open the modal to the signup tab
+  if (user == null)
+    ui.netlifyIdentity.open('signup'); // open the modal to the signup tab
+  else
+    ui.connectDialog.username(user.user_metadata.full_name)
 
   var queryParams = url.parse(document.location.href, true).query
   queryParams = Object.assign({}, window.mumbleWebConfig.defaults, queryParams)
-  if (queryParams.address) {
-    ui.connectDialog.address(queryParams.address)
-  }
-  if (queryParams.port) {
-    ui.connectDialog.port(queryParams.port)
-  }
-  if (queryParams.username) {
-    ui.connectDialog.username(queryParams.username)
-  }
   if (queryParams.password) {
     ui.connectDialog.password(queryParams.password)
-  }
-  if (queryParams.channelName) {
-    ui.connectDialog.channelName(queryParams.channelName)
   }
   ko.applyBindings(ui)
 }
