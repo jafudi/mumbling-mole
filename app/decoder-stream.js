@@ -12,7 +12,7 @@ const pool = createPool(function () {
 pool.recycle(pool.get())
 
 class DecoderStream extends Transform {
-  constructor () {
+  constructor() {
     super({ objectMode: true })
 
     this._worker = pool.get()
@@ -21,7 +21,7 @@ class DecoderStream extends Transform {
     }
   }
 
-  _onMessage (data) {
+  _onMessage(data) {
     if (data.action === 'decoded') {
       this.push({
         target: data.target,
@@ -36,7 +36,7 @@ class DecoderStream extends Transform {
     }
   }
 
-  _transform (chunk, encoding, callback) {
+  _transform(chunk, encoding, callback) {
     if (chunk.frame) {
       const buffer = toArrayBuffer(chunk.frame)
       this._worker.postMessage({
@@ -56,7 +56,7 @@ class DecoderStream extends Transform {
     callback()
   }
 
-  _final (callback) {
+  _final(callback) {
     this._worker.postMessage({ id: this._id++, action: 'reset' })
     this._finalCallback = () => {
       pool.recycle(this._worker)

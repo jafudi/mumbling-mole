@@ -11,7 +11,7 @@ import Worker from './worker'
  * Only stuff which we need in mumble-web is proxied, i.e. this is not a generic solution.
  */
 class WorkerBasedMumbleConnector {
-  constructor () {
+  constructor() {
     this._worker = new Worker()
     this._worker.addEventListener('message', this._onMessage.bind(this))
     this._reqId = 1
@@ -21,7 +21,7 @@ class WorkerBasedMumbleConnector {
     this._voiceStreams = {}
   }
 
-  _postMessage (msg, transfer) {
+  _postMessage(msg, transfer) {
     try {
       this._worker.postMessage(msg, transfer)
     } catch (err) {
@@ -30,7 +30,7 @@ class WorkerBasedMumbleConnector {
     }
   }
 
-  _call (id, method, payload, transfer) {
+  _call(id, method, payload, transfer) {
     let reqId = this._reqId++
     console.debug(method, id, payload)
     this._postMessage({
@@ -44,26 +44,26 @@ class WorkerBasedMumbleConnector {
     return reqId
   }
 
-  _query (id, method, payload, transfer) {
+  _query(id, method, payload, transfer) {
     let reqId = this._call(id, method, payload, transfer)
     return new Promise((resolve, reject) => {
       this._requests[reqId] = [resolve, reject]
     })
   }
 
-  _addCall (proxy, name, id) {
+  _addCall(proxy, name, id) {
     let self = this
     proxy[name] = function () {
       self._call(id, name, Array.from(arguments))
     }
   }
 
-  connect (host, args) {
+  connect(host, args) {
     return this._query({}, '_connect', { host: host, args: args })
       .then(id => this._client(id))
   }
 
-  _client (id) {
+  _client(id) {
     let client = this._clients[id]
     if (!client) {
       client = new WorkerBasedMumbleClient(this, id)
@@ -72,12 +72,12 @@ class WorkerBasedMumbleConnector {
     return client
   }
 
-  _onMessage (ev) {
+  _onMessage(ev) {
     let data = ev.data
     if (data.reqId != null) {
       console.debug(data)
       let { reqId, result, error } = data
-      let [ resolve, reject ] = this._requests[reqId]
+      let [resolve, reject] = this._requests[reqId]
       delete this._requests[reqId]
       if (result) {
         resolve(result)
@@ -119,7 +119,7 @@ class WorkerBasedMumbleConnector {
 }
 
 class WorkerBasedMumbleClient extends EventEmitter {
-  constructor (connector, clientId) {
+  constructor(connector, clientId) {
     super()
     this._connector = connector
     this._id = clientId
@@ -148,7 +148,7 @@ class WorkerBasedMumbleClient extends EventEmitter {
       _createVoiceStream.apply(this, args)
 
       return new Writable({
-        write (chunk, encoding, callback) {
+        write(chunk, encoding, callback) {
           chunk = toArrayBuffer(chunk)
           connector._postMessage({
             voiceId: voiceId,
@@ -156,7 +156,7 @@ class WorkerBasedMumbleClient extends EventEmitter {
           })
           callback()
         },
-        final (callback) {
+        final(callback) {
           connector._postMessage({
             voiceId: voiceId
           })
@@ -181,7 +181,7 @@ class WorkerBasedMumbleClient extends EventEmitter {
     }
   }
 
-  _user (id) {
+  _user(id) {
     let user = this._users[id]
     if (!user) {
       user = new WorkerBasedMumbleUser(this._connector, this, id)
@@ -190,7 +190,7 @@ class WorkerBasedMumbleClient extends EventEmitter {
     return user
   }
 
-  _channel (id) {
+  _channel(id) {
     let channel = this._channels[id]
     if (!channel) {
       channel = new WorkerBasedMumbleChannel(this._connector, this, id)
@@ -199,7 +199,7 @@ class WorkerBasedMumbleClient extends EventEmitter {
     return channel
   }
 
-  _dispatchEvent (name, args) {
+  _dispatchEvent(name, args) {
     if (name === 'newChannel') {
       args[0] = this._channel(args[0])
     } else if (name === 'newUser') {
@@ -214,7 +214,7 @@ class WorkerBasedMumbleClient extends EventEmitter {
     this.emit.apply(this, args)
   }
 
-  _setProp (name, value) {
+  _setProp(name, value) {
     if (name === 'root') {
       name = '_rootId'
     }
@@ -227,25 +227,25 @@ class WorkerBasedMumbleClient extends EventEmitter {
     this[name] = value
   }
 
-  get root () {
+  get root() {
     return this._channel(this._rootId)
   }
 
-  get channels () {
+  get channels() {
     return Object.values(this._channels)
   }
 
-  get users () {
+  get users() {
     return Object.values(this._users)
   }
 
-  get self () {
+  get self() {
     return this._user(this._selfId)
   }
 }
 
 class WorkerBasedMumbleChannel extends EventEmitter {
-  constructor (connector, client, channelId) {
+  constructor(connector, client, channelId) {
     super()
     this._connector = connector
     this._client = client
@@ -255,7 +255,7 @@ class WorkerBasedMumbleChannel extends EventEmitter {
     connector._addCall(this, 'sendMessage', id)
   }
 
-  _dispatchEvent (name, args) {
+  _dispatchEvent(name, args) {
     if (name === 'update') {
       let [props] = args
       Object.entries(props).forEach((entry) => {
@@ -277,7 +277,7 @@ class WorkerBasedMumbleChannel extends EventEmitter {
     this.emit.apply(this, args)
   }
 
-  _setProp (name, value) {
+  _setProp(name, value) {
     if (name === 'parent') {
       name = '_parentId'
     }
@@ -287,19 +287,19 @@ class WorkerBasedMumbleChannel extends EventEmitter {
     this[name] = value
   }
 
-  get parent () {
+  get parent() {
     if (this._parentId != null) {
       return this._client._channel(this._parentId)
     }
   }
 
-  get children () {
+  get children() {
     return Object.values(this._client._channels).filter((it) => it.parent === this)
   }
 }
 
 class WorkerBasedMumbleUser extends EventEmitter {
-  constructor (connector, client, userId) {
+  constructor(connector, client, userId) {
     super()
     this._connector = connector
     this._client = client
@@ -314,7 +314,7 @@ class WorkerBasedMumbleUser extends EventEmitter {
     }
   }
 
-  _dispatchEvent (name, args) {
+  _dispatchEvent(name, args) {
     if (name === 'update') {
       let [actor, props] = args
       Object.entries(props).forEach((entry) => {
@@ -341,14 +341,14 @@ class WorkerBasedMumbleUser extends EventEmitter {
     this.emit.apply(this, args)
   }
 
-  _setProp (name, value) {
+  _setProp(name, value) {
     if (name === 'channel') {
       name = '_channelId'
     }
     this[name] = value
   }
 
-  get channel () {
+  get channel() {
     return this._client._channels[this._channelId]
   }
 }

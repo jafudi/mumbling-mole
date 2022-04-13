@@ -10,7 +10,7 @@ const pool = createPool(function () {
 pool.recycle(pool.get())
 
 class EncoderStream extends Transform {
-  constructor (codec) {
+  constructor(codec) {
     super({ objectMode: true })
 
     this._codec = codec
@@ -21,7 +21,7 @@ class EncoderStream extends Transform {
     }
   }
 
-  _onMessage (data) {
+  _onMessage(data) {
     if (data.reset) {
       pool.recycle(this._worker)
       this._finalCallback()
@@ -35,7 +35,7 @@ class EncoderStream extends Transform {
     }
   }
 
-  _transform (chunk, encoding, callback) {
+  _transform(chunk, encoding, callback) {
     var buffer = chunk.pcm.slice().buffer
     this._worker.postMessage({
       action: 'encode' + this._codec,
@@ -48,7 +48,7 @@ class EncoderStream extends Transform {
     callback()
   }
 
-  _final (callback) {
+  _final(callback) {
     this._worker.postMessage({ action: 'reset' })
     this._finalCallback = callback
   }

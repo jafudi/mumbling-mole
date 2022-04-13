@@ -25,19 +25,21 @@ $dialog-input-border-color: $darkgray !default;
 $dialog-input-bg-color: $white !default;
 $dialog-input-color: $dialog-color !default;
 
-html, body {
+html,
+body {
   background-color: $bg-color;
   color: $font-color;
   font-family: $font-family;
   margin: 0;
   overflow: hidden;
-  height: 100%
+  height: 100%;
 }
 #container {
   height: 100%;
 }
 
-.guacamole, .guacamole-placeholder {
+.guacamole,
+.guacamole-placeholder {
   display: block;
   float: left;
   margin-top: 2px;
@@ -59,8 +61,8 @@ html, body {
 .guacamole-bottomline {
   width: 100%;
   text-align: center;
-  position:absolute;
-  bottom:40px;
+  position: absolute;
+  bottom: 40px;
   font-weight: bold;
   padding: 2px;
 }
@@ -107,7 +109,8 @@ form {
   padding: 0;
 }
 
-.tb-information.disabled, .tb-record {
+.tb-information.disabled,
+.tb-record {
   filter: grayscale(100%);
 }
 .dialog-header {
@@ -125,7 +128,8 @@ form {
 .dialog-submit {
   float: right;
 }
-.dialog-close, .dialog-submit {
+.dialog-close,
+.dialog-submit {
   width: 45%;
   font-size: 15px;
   border: 1px $dialog-button-border-color solid;
@@ -136,7 +140,7 @@ form {
   cursor: pointer;
 }
 .connect-dialog table {
-  width: 100%
+  width: 100%;
 }
 .connect-dialog td {
   text-align: left;
@@ -175,7 +179,8 @@ form {
   width: 100%;
   margin: 0px;
 }
-.connect-dialog input[type=text], select {
+.connect-dialog input[type='text'],
+select {
   font-size: 15px;
   border: 1px $dialog-input-border-color solid;
   border-radius: 3px;
@@ -184,7 +189,7 @@ form {
   padding: 2px;
   width: calc(100% - 8px);
 }
-.connect-dialog input[type=password] {
+.connect-dialog input[type='password'] {
   font-size: 15px;
   border: 1px $dialog-input-border-color solid;
   border-radius: 3px;
@@ -202,10 +207,9 @@ form {
   }
 }
 
-
 /* Mobile view */
 
-@media only screen and (max-width: 600px) and (min-width: 320px) and (min-height: 600px)  {
+@media only screen and (max-width: 600px) and (min-width: 320px) and (min-height: 600px) {
   .dialog {
     min-width: 350px;
   }

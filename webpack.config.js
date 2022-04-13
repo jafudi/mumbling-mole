@@ -147,7 +147,7 @@ module.exports = {
   optimization: {
     minimize: true
   },
-	plugins: [
-		new NodePolyfillPlugin()
-	]
+  plugins: [
+    new NodePolyfillPlugin()
+  ]
 }

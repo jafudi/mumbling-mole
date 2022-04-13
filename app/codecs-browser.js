@@ -7,7 +7,7 @@ export const celt = [
 ]
 export const opus = true
 
-export function getDuration (codec, buffer) {
+export function getDuration(codec, buffer) {
   if (codec === 'Opus') {
     return OpusDecoder.getNumberOfSamples(buffer, 48000) / 48
   } else {
@@ -15,10 +15,10 @@ export function getDuration (codec, buffer) {
   }
 }
 
-export function createDecoderStream (user) {
+export function createDecoderStream(user) {
   return new DecoderStream()
 }
 
-export function createEncoderStream (codec) {
+export function createEncoderStream(codec) {
   return new EncoderStream(codec)
 }

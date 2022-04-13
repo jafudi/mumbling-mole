@@ -3,12 +3,12 @@ name: Build an push to DockerHub
 on:
   push:
     branches:
-      - 'lite'
+      - "lite"
     tags:
-      - '*'
+      - "*"
   pull_request:
     branches:
-      - 'lite'
+      - "lite"
 
 env:
   TEST_TAG: jafudi/mumbling-mole:test
@@ -17,37 +17,30 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Checkout
+      - name: Checkout
         uses: actions/checkout@v2
-      -
-        name: Set up QEMU
+      - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
-      -
-        name: Set up Docker Buildx
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-      -
-        name: Docker meta
+      - name: Docker meta
         id: meta
         uses: docker/metadata-action@v3
         with:
           images: jafudi/mumbling-mole
-      -
-        name: Login to DockerHub
+      - name: Login to DockerHub
         if: github.event_name != 'pull_request'
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Build and export to Docker
+      - name: Build and export to Docker
         uses: docker/build-push-action@v2
         with:
           context: .
           load: true
           tags: ${{ env.TEST_TAG }}
-      -
-        name: Test that web server is serving actual content 
+      - name: Test that web server is serving actual content
         run: |
           docker run --rm -p 8081:8081 -e MUMBLE_SERVER='localhost:8081' -e GUACPWD='' ${{ env.TEST_TAG }} &
           sleep 10
@@ -55,8 +48,7 @@ jobs:
           clean=${dirty//[ $'\001'-$'\037']}
           echo "$clean bytes returned"
           if [[ $clean -gt 5000 ]]; then exit 0; else exit 1; fi
-      -
-        name: Build and push
+      - name: Build and push
         uses: docker/build-push-action@v2
         with:
           context: .

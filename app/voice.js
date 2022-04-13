@@ -5,7 +5,7 @@ import keyboardjs from 'keyboardjs'
 import DropStream from 'drop-stream'
 
 class VoiceHandler extends Writable {
-  constructor (client, settings) {
+  constructor(client, settings) {
     super({ objectMode: true })
     this._client = client
     this._settings = settings
@@ -13,14 +13,14 @@ class VoiceHandler extends Writable {
     this._mute = false
   }
 
-  setMute (mute) {
+  setMute(mute) {
     this._mute = mute
     if (mute) {
       this._stopOutbound()
     }
   }
 
-  _getOrCreateOutbound () {
+  _getOrCreateOutbound() {
     if (this._mute) {
       throw new Error('tried to send audio while self-muted')
     }
@@ -39,7 +39,7 @@ class VoiceHandler extends Writable {
     return this._outbound
   }
 
-  _stopOutbound () {
+  _stopOutbound() {
     if (this._outbound) {
       this.emit('stopped_talking')
       this._outbound.end()
@@ -47,18 +47,18 @@ class VoiceHandler extends Writable {
     }
   }
 
-  _final (callback) {
+  _final(callback) {
     this._stopOutbound()
     callback()
   }
 }
 
 export class ContinuousVoiceHandler extends VoiceHandler {
-  constructor (client, settings) {
+  constructor(client, settings) {
     super(client, settings)
   }
 
-  _write (data, _, callback) {
+  _write(data, _, callback) {
     if (this._mute) {
       callback()
     } else {
@@ -68,7 +68,7 @@ export class ContinuousVoiceHandler extends VoiceHandler {
 }
 
 export class PushToTalkVoiceHandler extends VoiceHandler {
-  constructor (client, settings) {
+  constructor(client, settings) {
     super(client, settings)
     this._key = settings.pttKey
     this._pushed = false
@@ -80,7 +80,7 @@ export class PushToTalkVoiceHandler extends VoiceHandler {
     keyboardjs.bind(this._key, this._keydown_handler, this._keyup_handler)
   }
 
-  _write (data, _, callback) {
+  _write(data, _, callback) {
     if (this._pushed && !this._mute) {
       this._getOrCreateOutbound().write(data, callback)
     } else {
@@ -88,7 +88,7 @@ export class PushToTalkVoiceHandler extends VoiceHandler {
     }
   }
 
-  _final (callback) {
+  _final(callback) {
     super._final(e => {
       keyboardjs.unbind(this._key, this._keydown_handler, this._keyup_handler)
       callback(e)
@@ -135,7 +135,7 @@ export function enumMicrophones() {
     .catch(handleError);
 }
 
-export function initVoice (onData, onUserMediaError) {
+export function initVoice(onData, onUserMediaError) {
 
   const audioSource = audioInputSelect.value;
 
@@ -153,7 +153,7 @@ export function initVoice (onData, onUserMediaError) {
       onUserMediaError(err)
     } else {
       theUserMedia = userMedia
-      var micStream = new MicrophoneStream(userMedia, { objectMode: true})
+      var micStream = new MicrophoneStream(userMedia, { objectMode: true })
       micStream.on('data', data => {
         onData(Buffer.from(data.getChannelData(0).buffer))
       })

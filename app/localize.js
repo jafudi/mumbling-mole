@@ -30,7 +30,7 @@ var _data = {};
  * @return Promise<Map<string,string>>
  * @author svartoyg
  */
-async function retrieveData (language) {
+async function retrieveData(language) {
   let json
   try {
     json = (await import(`../localize/${language}.json`)).default
@@ -42,7 +42,7 @@ async function retrieveData (language) {
   return map
 }
 
-function flatten (tree, prefix, result) {
+function flatten(tree, prefix, result) {
   for (const [key, value] of Object.entries(tree)) {
     if (typeof value === 'string') {
       result[prefix + key] = value
@@ -58,7 +58,7 @@ function flatten (tree, prefix, result) {
  * @param {string} [languageFallback]
  * @author svartoyg
  */
-export async function initialize (languageDefault, languageFallback = 'en') {
+export async function initialize(languageDefault, languageFallback = 'en') {
   _languageFallback = languageFallback;
   _languageDefault = languageDefault;
   for (const language of [_languageFallback, _languageDefault]) {
@@ -82,7 +82,7 @@ export async function initialize (languageDefault, languageFallback = 'en') {
  * @return {string}
  * @author svartoyg
  */
-export function translate (key, languageChosen = _languageDefault) {
+export function translate(key, languageChosen = _languageDefault) {
   let result = undefined;
   for (const language of [languageChosen, _languageFallback]) {
     if (_data.hasOwnProperty(language) && (_data[language] !== undefined) && _data[language].hasOwnProperty(key)) {
@@ -128,7 +128,7 @@ export function translateEverything() {
   translatePiece('#connect-dialog_input_password', 'textcontent', {}, 'connectdialog.password');
   translatePiece('#connect-dialog_select_microphone', 'textcontent', {}, 'connectdialog.microphone');
   translatePiece('#connect-dialog_headphones', 'textcontent', {}, 'connectdialog.headphones');
-  translatePiece('#connect-dialog_controls_connect', 'attribute', {'name': 'value'}, 'connectdialog.connect');
+  translatePiece('#connect-dialog_controls_connect', 'attribute', { 'name': 'value' }, 'connectdialog.connect');
   translatePiece('.connect-dialog.error-dialog .dialog-header', 'textcontent', {}, 'connectdialog.error.title');
   translatePiece('.connect-dialog.error-dialog .reason .refused', 'textcontent', {}, 'connectdialog.error.reason.refused');
   translatePiece('.connect-dialog.error-dialog .reason .version', 'textcontent', {}, 'connectdialog.error.reason.version');
@@ -141,8 +141,8 @@ export function translateEverything() {
   translatePiece('.connect-dialog.error-dialog .reason .server', 'textcontent', {}, 'connectdialog.error.reason.server');
   translatePiece('.connect-dialog.error-dialog .alternate-username', 'textcontent', {}, 'connectdialog.username');
   translatePiece('.connect-dialog.error-dialog .alternate-password', 'textcontent', {}, 'connectdialog.password');
-  translatePiece('.connect-dialog.error-dialog .dialog-submit', 'attribute', {'name': 'value'}, 'connectdialog.error.retry');
-  translatePiece('.connect-dialog.error-dialog .dialog-close', 'attribute', {'name': 'value'}, 'connectdialog.error.cancel');
+  translatePiece('.connect-dialog.error-dialog .dialog-submit', 'attribute', { 'name': 'value' }, 'connectdialog.error.retry');
+  translatePiece('.connect-dialog.error-dialog .dialog-close', 'attribute', { 'name': 'value' }, 'connectdialog.error.cancel');
 
   translatePiece('#connection-info_title', 'textcontent', {}, 'connectinfo.title');
   translatePiece('#connection-info_server', 'textcontent', {}, 'connectinfo.server');
@@ -156,6 +156,6 @@ export function translateEverything() {
   translatePiece('#settings-dialog_ptt_key', 'textcontent', {}, 'settingsdialog.ptt_key');
   translatePiece('#settings-dialog_audio_quality', 'textcontent', {}, 'settingsdialog.audio_quality');
   translatePiece('#settings-dialog_packet', 'textcontent', {}, 'settingsdialog.packet');
-  translatePiece('#settings-dialog_close', 'attribute', {'name': 'value'}, 'settingsdialog.close');
-  translatePiece('#settings-dialog_submit', 'attribute', {'name': 'value'}, 'settingsdialog.submit');
+  translatePiece('#settings-dialog_close', 'attribute', { 'name': 'value' }, 'settingsdialog.close');
+  translatePiece('#settings-dialog_submit', 'attribute', { 'name': 'value' }, 'settingsdialog.submit');
 }

@@ -2,7 +2,7 @@ import Promise from 'promise'
 import websocketStream from 'websocket-stream'
 import MumbleClient from 'mumble-client'
 
-function connect (address, options, callback) {
+function connect(address, options, callback) {
   return new Promise((resolve, reject) => {
     var ws = websocketStream(address, ['binary'])
       .on('error', reject)
