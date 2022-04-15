@@ -282,7 +282,10 @@ class GlobalBindings {
         password: password,
         tokens: tokens
       }).done(client => {
-        this.guacamoleFrame.guacSource("/guacamole/#/?username=" + this.connectDialog.username() + "&password=" + this.connectDialog.password())
+
+
+        var user_roles = this.netlifyIdentity.currentUser().app_metadata.roles;
+        this.guacamoleFrame.guacSource("/guacamole/#/?username=" + user_roles[0] + "&password=" + this.connectDialog.password())
         this.guacamoleFrame.show()
         log(translate('logentry.connected'))
 
@@ -645,7 +648,8 @@ window.mumbleUi = ui
 function initializeUI() {
 
   ui.netlifyIdentity.init({
-    APIUrl: 'https://flexpair.com/.netlify/identity' // Absolute url to endpoint.
+    APIUrl: 'https://flexpair.com/.netlify/identity', // Absolute url to endpoint.
+    locale: navigator.language.substring(0,2)
   });
 
   var user = ui.netlifyIdentity.currentUser();
@@ -654,6 +658,12 @@ function initializeUI() {
     console.log('login', user);
     ui.connectDialog.username(user.user_metadata.full_name);
     ui.netlifyIdentity.close();
+  });
+
+  ui.netlifyIdentity.on('close', () => {
+    if (!ui.connectDialog.username()) {
+      ui.netlifyIdentity.open('login'); // open the modal to the login tab
+    }
   });
 
   if (user == null)
