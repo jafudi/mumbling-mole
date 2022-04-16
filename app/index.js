@@ -656,7 +656,7 @@ function initializeUI() {
 
   ui.netlifyIdentity.on('login', user => {
     console.log('login', user);
-    ui.connectDialog.username(user.user_metadata.full_name);
+    ui.connectDialog.username(user.user_metadata.full_name.replace(/[\s]+/g, "_"));
     ui.netlifyIdentity.close();
   });
 
@@ -669,7 +669,7 @@ function initializeUI() {
   if (user == null)
     ui.netlifyIdentity.open('signup'); // open the modal to the signup tab
   else
-    ui.connectDialog.username(user.user_metadata.full_name)
+    ui.connectDialog.username(user.user_metadata.full_name.replace(/[\s]+/g, "_"))
 
   var queryParams = url.parse(document.location.href, true).query
   queryParams = Object.assign({}, window.mumbleWebConfig.defaults, queryParams)
