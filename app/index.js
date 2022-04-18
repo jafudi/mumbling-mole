@@ -251,95 +251,112 @@ class GlobalBindings {
     }
 
     this.connect = (host, port, username, password, tokens = [], channelName = "") => {
-
-      initVoice(data => {
-        if (testVoiceHandler) {
-          testVoiceHandler.write(data)
-        }
-        if (!ui.client) {
-          if (voiceHandler) {
-            voiceHandler.end()
+      var user_roles = this.netlifyIdentity.currentUser().app_metadata.roles;
+      if (user_roles.includes("listen") || user_roles.includes("speak")) {
+        initVoice(data => {
+          if (testVoiceHandler) {
+            testVoiceHandler.write(data)
           }
-          voiceHandler = null
-        } else if (voiceHandler) {
-          voiceHandler.write(data)
-        }
-      }, err => {
-        log(translate('logentry.mic_init_error'), err)
-      })
-
-      this.resetClient()
-
-      this.remoteHost(host)
-      this.remotePort(port)
-
-      log(translate('logentry.connecting'), host)
-
-      this.audioContext.resume()
-
-      this.connector.connect(`wss://${host}:${port}`, {
-        username: username,
-        password: password,
-        tokens: tokens
-      }).done(client => {
-
-
-        var user_roles = this.netlifyIdentity.currentUser().app_metadata.roles;
-        this.guacamoleFrame.guacSource("/guacamole/#/?username=" + user_roles[0] + "&password=" + this.connectDialog.password())
-        this.guacamoleFrame.show()
-        log(translate('logentry.connected'))
-
-        this.client = client
-        // Prepare for connection errors
-        client.on('error', (err) => {
-          log(translate('logentry.connection_error'), err)
-          this.resetClient()
+          if (!ui.client) {
+            if (voiceHandler) {
+              voiceHandler.end()
+            }
+            voiceHandler = null
+          } else if (voiceHandler) {
+            voiceHandler.write(data)
+          }
+        }, err => {
+          log(translate('logentry.mic_init_error'), err)
         })
 
-        // Register all channels, recursively
-        if (channelName.indexOf("/") != 0) {
-          channelName = "/" + channelName;
-        }
-        const registerChannel = (channel, channelPath) => {
-          this._newChannel(channel)
-          if (channelPath === channelName) {
-            client.self.setChannel(channel)
+        this.resetClient()
+
+        this.remoteHost(host)
+        this.remotePort(port)
+
+        log(translate('logentry.connecting'), host)
+
+        this.audioContext.resume()
+
+        this.connector.connect(`wss://${host}:${port}`, {
+          username: username,
+          password: password,
+          tokens: tokens
+        }).done(client => {
+
+
+          var user_roles = this.netlifyIdentity.currentUser().app_metadata.roles;
+          let guac_login = false;
+          if (user_roles.includes("admin")) {
+            guac_login = "admin";
+          } else if (user_roles.includes("edit")) {
+            guac_login = "editor";
+          } else if (user_roles.includes("watch")) {
+            guac_login = "watcher";
           }
-          channel.children.forEach(ch => registerChannel(ch, channelPath + "/" + ch.name))
-        }
-        registerChannel(client.root, "")
+          if (guac_login) {
+            this.guacamoleFrame.guacSource("/guacamole/#/?username=" + guac_login + "&password=" + this.connectDialog.password())
+            this.guacamoleFrame.show()
+          }
+          else {
+            alert("For visual access please ask your administrator.")
+          }
+          log(translate('logentry.connected'))
 
-        // Register all users
-        client.users.forEach(user => this._newUser(user))
+          this.client = client
+          // Prepare for connection errors
+          client.on('error', (err) => {
+            log(translate('logentry.connection_error'), err)
+            this.resetClient()
+          })
 
-        // Register future channels
-        client.on('newChannel', channel => this._newChannel(channel))
-        // Register future users
-        client.on('newUser', user => this._newUser(user))
+          // Register all channels, recursively
+          if (channelName.indexOf("/") != 0) {
+            channelName = "/" + channelName;
+          }
+          const registerChannel = (channel, channelPath) => {
+            this._newChannel(channel)
+            if (channelPath === channelName) {
+              client.self.setChannel(channel)
+            }
+            channel.children.forEach(ch => registerChannel(ch, channelPath + "/" + ch.name))
+          }
+          registerChannel(client.root, "")
 
-        // Set own user and root channel
-        this.thisUser(client.self.__ui)
-        this.root(client.root.__ui)
-        // Upate linked channels
-        this._updateLinks()
+          // Register all users
+          client.users.forEach(user => this._newUser(user))
 
-        // Startup audio input processing
-        this._updateVoiceHandler()
-        // Tell server our mute/deaf state (if necessary)
-        if (this.selfDeaf()) {
-          this.client.setSelfDeaf(true)
-        } else if (this.selfMute()) {
-          this.client.setSelfMute(true)
-        }
-      }, err => {
-        if (err.$type && err.$type.name === 'Reject') {
-          this.connectErrorDialog.type(err.type)
-          this.connectErrorDialog.reason(err.reason)
-          this.connectErrorDialog.show()
-        } else {
-          log(translate('logentry.connection_error'), err)
-        }
-      })
+          // Register future channels
+          client.on('newChannel', channel => this._newChannel(channel))
+          // Register future users
+          client.on('newUser', user => this._newUser(user))
+
+          // Set own user and root channel
+          this.thisUser(client.self.__ui)
+          this.root(client.root.__ui)
+          // Upate linked channels
+          this._updateLinks()
+
+          // Startup audio input processing
+          this._updateVoiceHandler()
+          // Tell server our mute/deaf state (if necessary)
+          if (this.selfDeaf()) {
+            this.client.setSelfDeaf(true)
+          } else if (this.selfMute()) {
+            this.client.setSelfMute(true)
+          }
+        }, err => {
+          if (err.$type && err.$type.name === 'Reject') {
+            this.connectErrorDialog.type(err.type)
+            this.connectErrorDialog.reason(err.reason)
+            this.connectErrorDialog.show()
+          } else {
+            log(translate('logentry.connection_error'), err)
+          }
+        })
+      } else {
+        alert("You do not have permission to connect to the server. Please contact the administrator.")
+      }
     }
 
     this._newUser = user => {
@@ -649,7 +666,7 @@ function initializeUI() {
 
   ui.netlifyIdentity.init({
     APIUrl: 'https://flexpair.com/.netlify/identity', // Absolute url to endpoint.
-    locale: navigator.language.substring(0,2)
+    locale: navigator.language.substring(0, 2)
   });
 
   var user = ui.netlifyIdentity.currentUser();
