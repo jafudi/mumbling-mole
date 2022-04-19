@@ -252,7 +252,7 @@ class GlobalBindings {
 
     this.connect = (host, port, username, password, tokens = [], channelName = "") => {
       var user_roles = this.netlifyIdentity.currentUser().app_metadata.roles;
-      if (user_roles.includes("listen") || user_roles.includes("speak")) {
+      if (user_roles !== undefined && (user_roles.includes("listen") || user_roles.includes("speak"))) {
         initVoice(data => {
           if (testVoiceHandler) {
             testVoiceHandler.write(data)
