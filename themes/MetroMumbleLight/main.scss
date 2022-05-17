@@ -49,7 +49,7 @@ body {
 }
 
 .guacamole-placeholder {
-  background-image: url('img/AdobeStock_74031703.png');
+  background-image: url("img/AdobeStock_74031703.png");
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: cover;
@@ -179,7 +179,7 @@ form {
   width: 100%;
   margin: 0px;
 }
-.connect-dialog input[type='text'],
+.connect-dialog input[type="text"],
 select {
   font-size: 15px;
   border: 1px $dialog-input-border-color solid;
@@ -189,7 +189,7 @@ select {
   padding: 2px;
   width: calc(100% - 8px);
 }
-.connect-dialog input[type='password'] {
+.connect-dialog input[type="password"] {
   font-size: 15px;
   border: 1px $dialog-input-border-color solid;
   border-radius: 3px;

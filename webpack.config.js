@@ -1,24 +1,21 @@
-const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 
-var theme = '../themes/MetroMumbleLight'
-var path = require('path');
+var theme = "../themes/MetroMumbleLight";
+var path = require("path");
 
 module.exports = {
-  mode: 'production',
+  mode: "production",
   entry: {
-    index: [
-      './app/index.js',
-      './app/index.html'
-    ],
-    config: './app/config.js',
-    theme: './app/theme.js'
+    index: ["./app/index.js", "./app/index.html"],
+    config: "./app/config.js",
+    theme: "./app/theme.js",
   },
   devtool: false,
   output: {
-    path: path.join(__dirname, 'dist'),
-    chunkFilename: '[chunkhash].js',
-    filename: '[name].js',
-    publicPath: ""
+    path: path.join(__dirname, "dist"),
+    chunkFilename: "[chunkhash].js",
+    filename: "[name].js",
+    publicPath: "",
   },
   module: {
     rules: [
@@ -26,128 +23,124 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
           options: {
-            presets: ['@babel/preset-env'],
-            plugins: ['@babel/plugin-transform-runtime']
-          }
-        }
+            presets: ["@babel/preset-env"],
+            plugins: ["@babel/plugin-transform-runtime"],
+          },
+        },
       },
       {
         test: /\.html$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              name: '[name].[ext]',
-              esModule: false
-            }
+              name: "[name].[ext]",
+              esModule: false,
+            },
           },
           {
-            loader: "extract-loader"
+            loader: "extract-loader",
           },
           {
-            loader: 'html-loader',
+            loader: "html-loader",
             options: {
-              attrs: ['img:src', 'link:href'],
-              root: theme
-            }
-          }
-        ]
+              attrs: ["img:src", "link:href"],
+              root: theme,
+            },
+          },
+        ],
       },
       {
         test: /\.css$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              esModule: false
-            }
+              esModule: false,
+            },
           },
           {
-            loader: "extract-loader"
+            loader: "extract-loader",
           },
           {
-            loader: "css-loader"
-          }
-        ]
+            loader: "css-loader",
+          },
+        ],
       },
       {
         test: /\.scss$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              name: '[hash].css',
-              esModule: false
-            }
+              name: "[hash].css",
+              esModule: false,
+            },
           },
           {
-            loader: "extract-loader"
+            loader: "extract-loader",
           },
           {
-            loader: "css-loader"
+            loader: "css-loader",
           },
           {
-            loader: "sass-loader"
-          }
-        ]
+            loader: "sass-loader",
+          },
+        ],
       },
       {
-        type: 'javascript/auto',
+        type: "javascript/auto",
         test: /manifest\.json$|\.xml$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              esModule: false
-            }
+              esModule: false,
+            },
           },
           {
-            loader: "extract-loader"
+            loader: "extract-loader",
           },
           {
-            loader: 'regexp-replace-loader',
+            loader: "regexp-replace-loader",
             options: {
               match: {
                 pattern: "#require\\('([^']*)'\\)",
-                flags: 'g'
+                flags: "g",
               },
-              replaceWith: '"+require("$1")+"'
-            }
+              replaceWith: '"+require("$1")+"',
+            },
           },
-          'raw-loader'
-        ]
+          "raw-loader",
+        ],
       },
       {
         test: /\.(svg|png|ico)$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              esModule: false
-            }
+              esModule: false,
+            },
           },
-        ]
+        ],
       },
       {
         test: /worker\.js$/,
-        use: { loader: 'worker-loader' }
+        use: { loader: "worker-loader" },
       },
       {
-        enforce: 'post',
+        enforce: "post",
         test: /mumble-streams\/lib\/data.js/,
-        use: [
-          'transform-loader?brfs'
-        ]
-      }
-    ]
+        use: ["transform-loader?brfs"],
+      },
+    ],
   },
-  target: 'web',
+  target: "web",
   optimization: {
-    minimize: true
+    minimize: true,
   },
-  plugins: [
-    new NodePolyfillPlugin()
-  ]
-}
+  plugins: [new NodePolyfillPlugin()],
+};

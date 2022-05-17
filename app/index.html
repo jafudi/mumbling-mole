@@ -1,266 +1,431 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="apple-touch-icon" sizes="180x180" href="favicons/favicon180px.png">
-    <link rel="icon" type="image/png" href="favicons/favicon32px.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="favicons/favicon16px.png" sizes="16x16">
-    <link rel="manifest" href="favicons/manifest.json">
-    <meta name="apple-mobile-web-app-title" content="Mumble">
-    <meta name="application-name" content="Mumble">
-    <meta name="theme-color" content="#ffffff">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="favicons/favicon180px.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="favicons/favicon32px.png"
+      sizes="32x32"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="favicons/favicon16px.png"
+      sizes="16x16"
+    />
+    <link rel="manifest" href="favicons/manifest.json" />
+    <meta name="apple-mobile-web-app-title" content="Mumble" />
+    <meta name="application-name" content="Mumble" />
+    <meta name="theme-color" content="#ffffff" />
 
     <script src="config.js"></script>
     <script src="config.local.js"></script>
     <script src="theme.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="loading-container" data-bind="css: { loaded: true }">
-        <div class="loading-circle" data-bind="css: { loaded: true }"></div>
+      <div class="loading-circle" data-bind="css: { loaded: true }"></div>
     </div>
     <div id="container" style="display: none" data-bind="visible: true">
-        <!-- ko with: guacamoleFrame -->
-        <div class="guacamole-placeholder" data-bind="visible: !visible()">
-            <img src="/svg/SyncopateBoldFlexPAIR.svg" alt="Flexpair logo">
+      <!-- ko with: guacamoleFrame -->
+      <div class="guacamole-placeholder" data-bind="visible: !visible()">
+        <img src="/svg/SyncopateBoldFlexPAIR.svg" alt="Flexpair logo" />
+      </div>
+      <div
+        class="guacamole"
+        onmouseover="document.getElementById('guacframe').focus();"
+        data-bind="visible: visible()"
+      >
+        <iframe
+          id="guacframe"
+          data-bind="attr: { src: guacSource() }"
+          title="Guacamole Remote Desktop"
+          allow="clipboard-read; clipboard-write"
+        ></iframe>
+      </div>
+      <!-- /ko -->
+      <!-- ko with: connectDialog -->
+      <div class="connect-dialog dialog" data-bind="visible: visible()">
+        <div id="connect-dialog_title" class="dialog-header">
+          Join audio conference
         </div>
-        <div class="guacamole" onmouseover="document.getElementById('guacframe').focus();"
-            data-bind="visible: visible()">
-            <iframe id="guacframe" data-bind="attr: { src: guacSource() }" title="Guacamole Remote Desktop"
-                allow="clipboard-read; clipboard-write"></iframe>
-        </div>
-        <!-- /ko -->
-        <!-- ko with: connectDialog -->
-        <div class="connect-dialog dialog" data-bind="visible: visible()">
-            <div id="connect-dialog_title" class="dialog-header">
-                Join audio conference
-            </div>
-            <form data-bind="submit: connect">
-                <table>
-                    <tr data-bind="if: $root.config.connectDialog.username">
-                        <td><label for="username" id="connect-dialog_input_username">Username</label></td>
-                        <td><input id="username" type="text" data-bind="value: username" required readonly></td>
-                    </tr>
-                    <tr data-bind="if: $root.config.connectDialog.password">
-                        <td><label for="password" id="connect-dialog_input_password">Password</label></td>
-                        <td><input id="password" type="password" autocomplete="off" data-bind="value: password"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="audioSource" id="connect-dialog_select_microphone">Microphone</label></td>
-                        <td><select id="audioSource"></select></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td id="connect-dialog_headphones">Please use headphones. Thank you.</td>
-                    </tr>
-                </table>
-                <div class="dialog-footer">
-                    <input class="dialog-close" type="button" value="Cancel" disabled>
-                    <input id="connect-dialog_controls_connect" class="dialog-submit" type="submit" value="Connect">
-                </div>
-            </form>
-        </div>
-        <!-- /ko -->
-        <!-- ko with: connectErrorDialog -->
-        <div class="connect-dialog error-dialog dialog" data-bind="visible: visible()">
-            <div class="dialog-header">
-                Failed to connect
-            </div>
-            <form data-bind="submit: connect">
-                <table>
-                    <tr class="reason">
-                        <td colspan=2>
-                            <!-- ko if: type() == 0 || type() == 8 -->
-                            <span class="refused">
-                                The connection has been refused.
-                            </span>
-                            <!-- /ko -->
-                            <!-- ko if: type() == 1 -->
-                            <span class="version">
-                                The server uses an incompatible version.
-                            </span>
-                            <!-- /ko -->
-                            <!-- ko if: type() == 2 -->
-                            <span class="username">
-                                Your user name was rejected. Maybe try a different one?
-                            </span>
-                            <!-- /ko -->
-                            <!-- ko if: type() == 3 -->
-                            <span class="userpassword">
-                                The given password is incorrect.
-                                The user name you have chosen requires a special one.
-                            </span>
-                            <!-- /ko -->
-                            <!-- ko if: type() == 4 -->
-                            <span class="serverpassword">
-                                The given password is incorrect.
-                            </span>
-                            <!-- /ko -->
-                            <!-- ko if: type() == 5 -->
-                            <span class="username-in-use">
-                                The user name you have chosen is already in use.
-                            </span>
-                            <!-- /ko -->
-                            <!-- ko if: type() == 6 -->
-                            <span class="full">
-                                The server is full.
-                            </span>
-                            <!-- /ko -->
-                            <!-- ko if: type() == 7 -->
-                            <span class="clientcert">
-                                The server requires you to provide a client certificate
-                                which is not supported by this web application.
-                            </span>
-                            <!-- /ko -->
-                            <br>
-                            <span class="server">
-                                The server reports:
-                            </span>
-                            <br>
-                            "<span class="connect-error-reason" data-bind="text: reason"></span>"
-                        </td>
-                    </tr>
-                    <tr data-bind="if: type() == 2 || type() == 3 || type() == 5">
-                        <td class="alternate-username">Username</td>
-                        <td><input id="alternate-username" type="text" data-bind="value: username" required readonly></td>
-                    </tr>
-                    <tr data-bind="if: type() == 3 || type() == 4">
-                        <td class="alternate-password">Password</td>
-                        <td><input id="alternate-password" type="password" autocomplete="off"
-                                data-bind="value: password" required>
-                        </td>
-                    </tr>
-                </table>
-                <div class="dialog-footer">
-                    <input class="dialog-submit" type="submit" value="Retry">
-                </div>
-            </form>
-        </div>
-        <!-- /ko -->
-        <!-- ko with: connectionInfo -->
-        <div class="connection-info-dialog dialog" data-bind="visible: visible">
-            <div id="connection-info_title" class="dialog-header">
-                Audio transmission info
-            </div>
-            <div class="dialog-content">
-                <h3 id="connection-info_server">Audio server details</h3>
-                <!-- ko with: serverVersion -->
-                Murmur version <span data-bind="text: release"></span>
-                <br>on
-                <span data-bind="text: os"></span>
-                <span data-bind="text: osVersion"></span>
-                <br>
-                <!-- /ko -->
-                <!-- ko if: !serverVersion() -->
-                Unknown
-                <!-- /ko -->
-                Bandwidth limited to
-                <span data-bind="text: (maxBandwidth()/1000).toFixed(1)"></span> kbits/s
-
-                <h3 id="connection-info_webapp">Statistics for this web app</h3>
-                Sending <span data-bind="text: (currentBandwidth()/1000).toFixed(1)"></span> kbits/s
-                (<span data-bind="text: (currentBitrate()/1000).toFixed(1)"></span> kbits/s payload)
-                <br>
-                <span data-bind="text: latencyMs().toFixed(2)"></span> ms average latency
-                (<span data-bind="text: latencyDeviation().toFixed(2)"></span> deviation)
-
-                <h3 id="connection-info_native">Desktop client / mobile app</h3>
-                <a href="https://www.mumble.info/downloads/" target="_blank">Offical download page</a>
-            </div>
-            <div class="dialog-footer">
-                <input class="dialog-close" type="button" data-bind="click: hide" value="OK">
-            </div>
-        </div>
-        <!-- /ko -->
-        <!-- ko with: settingsDialog -->
-        <div class="settings-dialog dialog" data-bind="visible: $data">
-            <div id="settings-dialog_title" class="dialog-header">
-                Audio settings
-            </div>
-            <form data-bind="submit: $root.applySettings">
-                <table>
-                    <tr>
-                        <td id="settings-dialog_transmission">Transmission</td>
-                        <td>
-                            <select data-bind='value: voiceMode'>
-                                <option id="settings-dialog_cont" value="cont">Continuous</option>
-                                <option id="settings-dialog_ptt" value="ptt">Push To Talk</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr data-bind="visible: voiceMode() == 'ptt'">
-                        <td id="settings-dialog_ptt_key">PTT Key</td>
-                        <td>
-                            <input type="button" data-bind="value: pttKeyDisplay, click: recordPttKey">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td id="settings-dialog_audio_quality">Audio Quality</td>
-                        <td><span data-bind="text: (audioBitrate()/1000).toFixed(1)"></span> kbit/s</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <input type="range" min="8000" max="96000" step="8"
-                                data-bind="value: audioBitrate, valueUpdate: 'input'">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td id="settings-dialog_packet">Audio per packet</td>
-                        <td><span data-bind="text: msPerPacket"></span> ms</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <input type="range" min="10" max="60" step="10"
-                                data-bind="value: msPerPacket, valueUpdate: 'input'">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="bandwidth-info">
-                            <span data-bind="text: (totalBandwidth()/1000).toFixed(1)"></span>
-                            kbit/s
-                            (Audio
-                            <span data-bind="text: (audioBitrate()/1000).toFixed(1)"></span>,
-                            Position
-                            <span data-bind="text: (positionBandwidth()/1000).toFixed(1)"></span>,
-                            Overhead
-                            <span data-bind="text: (overheadBandwidth()/1000).toFixed(1)"></span>)
-                        </td>
-                    </tr>
-                </table>
-                <div class="dialog-footer">
-                    <input id="settings-dialog_close" class="dialog-close" type="button"
-                        data-bind="click: $root.closeSettings" value="Cancel">
-                    <input id="settings-dialog_submit" class="dialog-submit" type="submit" value="Apply">
-                </div>
-            </form>
-        </div>
-        <!-- /ko -->
-        <form class="toolbar-horizontal" data-bind="submit: submitMessageBox">
-            <img class="tb-mute" alt="Mute my microphone" data-bind="visible: !selfMute(),
-            click: function () { requestMute(thisUser()) }" rel="mute" src="/svg/audio-input-microphone.svg">
-            <img class="tb-unmute tb-active" alt="Unmute my microphone" data-bind="visible: selfMute,
-            click: function () { requestUnmute(thisUser()) }" rel="unmute" src="/svg/audio-input-microphone-muted.svg">
-            <img class="tb-deaf" alt="Turn off sound" data-bind="visible: !selfDeaf(),
-            click: function () { requestDeaf(thisUser()) }" rel="deaf" src="/svg/audio-output.svg">
-            <img class="tb-undeaf tb-active" alt="Turn sound back on" data-bind="visible: selfDeaf,
-            click: function () { requestUndeaf(thisUser()) }" rel="undeaf" src="/svg/audio-output-deafened.svg">
-            <input id="message-box" type="text" data-bind="
-            attr: { placeholder: messageBoxHint }, textInput: messageBox">
-            <a data-bind="attr: { href: mailToDesktop() }" style="text-decoration:none"><img
-                    alt="Send mail (attachment) to shared desktop" src="/svg/mail-attachment.svg"></a>
-            <img class="tb-information" alt="Show information about connection quality" rel="information"
-                src="/svg/mumble.svg" data-bind="click: connectionInfo.show">
-            <img class="tb-settings" alt="Open audio settings dialog" data-bind="click: openSettings" rel="settings"
-                src="/svg/config_basic.svg">
-            <img class="tb-sourcecode" alt="Navigate to source code on Github" data-bind="click: openSourceCode"
-                rel="Source Code" src="/svg/source-code.svg">
-            <a href="mailto:flexpair@icloud.com?subject=Open%20support%20request" style="text-decoration:none"><img
-                    alt="Open a support request" src="/svg/system-help.svg"></a>
+        <form data-bind="submit: connect">
+          <table>
+            <tr data-bind="if: $root.config.connectDialog.username">
+              <td>
+                <label for="username" id="connect-dialog_input_username"
+                  >Username</label
+                >
+              </td>
+              <td>
+                <input
+                  id="username"
+                  type="text"
+                  data-bind="value: username"
+                  required
+                  readonly
+                />
+              </td>
+            </tr>
+            <tr data-bind="if: $root.config.connectDialog.password">
+              <td>
+                <label for="password" id="connect-dialog_input_password"
+                  >Password</label
+                >
+              </td>
+              <td>
+                <input
+                  id="password"
+                  type="password"
+                  autocomplete="off"
+                  data-bind="value: password"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label for="audioSource" id="connect-dialog_select_microphone"
+                  >Microphone</label
+                >
+              </td>
+              <td><select id="audioSource"></select></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td id="connect-dialog_headphones">
+                Please use headphones. Thank you.
+              </td>
+            </tr>
+          </table>
+          <div class="dialog-footer">
+            <input class="dialog-close" type="button" value="Cancel" disabled />
+            <input
+              id="connect-dialog_controls_connect"
+              class="dialog-submit"
+              type="submit"
+              value="Connect"
+            />
+          </div>
         </form>
-    </div>
-</body>
-<script src="index.js"></script>
+      </div>
+      <!-- /ko -->
+      <!-- ko with: connectErrorDialog -->
+      <div
+        class="connect-dialog error-dialog dialog"
+        data-bind="visible: visible()"
+      >
+        <div class="dialog-header">Failed to connect</div>
+        <form data-bind="submit: connect">
+          <table>
+            <tr class="reason">
+              <td colspan="2">
+                <!-- ko if: type() == 0 || type() == 8 -->
+                <span class="refused"> The connection has been refused. </span>
+                <!-- /ko -->
+                <!-- ko if: type() == 1 -->
+                <span class="version">
+                  The server uses an incompatible version.
+                </span>
+                <!-- /ko -->
+                <!-- ko if: type() == 2 -->
+                <span class="username">
+                  Your user name was rejected. Maybe try a different one?
+                </span>
+                <!-- /ko -->
+                <!-- ko if: type() == 3 -->
+                <span class="userpassword">
+                  The given password is incorrect. The user name you have chosen
+                  requires a special one.
+                </span>
+                <!-- /ko -->
+                <!-- ko if: type() == 4 -->
+                <span class="serverpassword">
+                  The given password is incorrect.
+                </span>
+                <!-- /ko -->
+                <!-- ko if: type() == 5 -->
+                <span class="username-in-use">
+                  The user name you have chosen is already in use.
+                </span>
+                <!-- /ko -->
+                <!-- ko if: type() == 6 -->
+                <span class="full"> The server is full. </span>
+                <!-- /ko -->
+                <!-- ko if: type() == 7 -->
+                <span class="clientcert">
+                  The server requires you to provide a client certificate which
+                  is not supported by this web application.
+                </span>
+                <!-- /ko -->
+                <br />
+                <span class="server"> The server reports: </span>
+                <br />
+                "<span
+                  class="connect-error-reason"
+                  data-bind="text: reason"
+                ></span
+                >"
+              </td>
+            </tr>
+            <tr data-bind="if: type() == 2 || type() == 3 || type() == 5">
+              <td class="alternate-username">Username</td>
+              <td>
+                <input
+                  id="alternate-username"
+                  type="text"
+                  data-bind="value: username"
+                  required
+                  readonly
+                />
+              </td>
+            </tr>
+            <tr data-bind="if: type() == 3 || type() == 4">
+              <td class="alternate-password">Password</td>
+              <td>
+                <input
+                  id="alternate-password"
+                  type="password"
+                  autocomplete="off"
+                  data-bind="value: password"
+                  required
+                />
+              </td>
+            </tr>
+          </table>
+          <div class="dialog-footer">
+            <input class="dialog-submit" type="submit" value="Retry" />
+          </div>
+        </form>
+      </div>
+      <!-- /ko -->
+      <!-- ko with: connectionInfo -->
+      <div class="connection-info-dialog dialog" data-bind="visible: visible">
+        <div id="connection-info_title" class="dialog-header">
+          Audio transmission info
+        </div>
+        <div class="dialog-content">
+          <h3 id="connection-info_server">Audio server details</h3>
+          <!-- ko with: serverVersion -->
+          Murmur version <span data-bind="text: release"></span> <br />on
+          <span data-bind="text: os"></span>
+          <span data-bind="text: osVersion"></span>
+          <br />
+          <!-- /ko -->
+          <!-- ko if: !serverVersion() -->
+          Unknown
+          <!-- /ko -->
+          Bandwidth limited to
+          <span data-bind="text: (maxBandwidth()/1000).toFixed(1)"></span>
+          kbits/s
 
+          <h3 id="connection-info_webapp">Statistics for this web app</h3>
+          Sending
+          <span data-bind="text: (currentBandwidth()/1000).toFixed(1)"></span>
+          kbits/s (<span
+            data-bind="text: (currentBitrate()/1000).toFixed(1)"
+          ></span>
+          kbits/s payload)
+          <br />
+          <span data-bind="text: latencyMs().toFixed(2)"></span> ms average
+          latency (<span data-bind="text: latencyDeviation().toFixed(2)"></span>
+          deviation)
+
+          <h3 id="connection-info_native">Desktop client / mobile app</h3>
+          <a href="https://www.mumble.info/downloads/" target="_blank"
+            >Offical download page</a
+          >
+        </div>
+        <div class="dialog-footer">
+          <input
+            class="dialog-close"
+            type="button"
+            data-bind="click: hide"
+            value="OK"
+          />
+        </div>
+      </div>
+      <!-- /ko -->
+      <!-- ko with: settingsDialog -->
+      <div class="settings-dialog dialog" data-bind="visible: $data">
+        <div id="settings-dialog_title" class="dialog-header">
+          Audio settings
+        </div>
+        <form data-bind="submit: $root.applySettings">
+          <table>
+            <tr>
+              <td id="settings-dialog_transmission">Transmission</td>
+              <td>
+                <select data-bind="value: voiceMode">
+                  <option id="settings-dialog_cont" value="cont">
+                    Continuous
+                  </option>
+                  <option id="settings-dialog_ptt" value="ptt">
+                    Push To Talk
+                  </option>
+                </select>
+              </td>
+            </tr>
+            <tr data-bind="visible: voiceMode() == 'ptt'">
+              <td id="settings-dialog_ptt_key">PTT Key</td>
+              <td>
+                <input
+                  type="button"
+                  data-bind="value: pttKeyDisplay, click: recordPttKey"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td id="settings-dialog_audio_quality">Audio Quality</td>
+              <td>
+                <span data-bind="text: (audioBitrate()/1000).toFixed(1)"></span>
+                kbit/s
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <input
+                  type="range"
+                  min="8000"
+                  max="96000"
+                  step="8"
+                  data-bind="value: audioBitrate, valueUpdate: 'input'"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td id="settings-dialog_packet">Audio per packet</td>
+              <td><span data-bind="text: msPerPacket"></span> ms</td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <input
+                  type="range"
+                  min="10"
+                  max="60"
+                  step="10"
+                  data-bind="value: msPerPacket, valueUpdate: 'input'"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" class="bandwidth-info">
+                <span
+                  data-bind="text: (totalBandwidth()/1000).toFixed(1)"
+                ></span>
+                kbit/s (Audio
+                <span data-bind="text: (audioBitrate()/1000).toFixed(1)"></span
+                >, Position
+                <span
+                  data-bind="text: (positionBandwidth()/1000).toFixed(1)"
+                ></span
+                >, Overhead
+                <span
+                  data-bind="text: (overheadBandwidth()/1000).toFixed(1)"
+                ></span
+                >)
+              </td>
+            </tr>
+          </table>
+          <div class="dialog-footer">
+            <input
+              id="settings-dialog_close"
+              class="dialog-close"
+              type="button"
+              data-bind="click: $root.closeSettings"
+              value="Cancel"
+            />
+            <input
+              id="settings-dialog_submit"
+              class="dialog-submit"
+              type="submit"
+              value="Apply"
+            />
+          </div>
+        </form>
+      </div>
+      <!-- /ko -->
+      <form class="toolbar-horizontal" data-bind="submit: submitMessageBox">
+        <img
+          class="tb-mute"
+          alt="Mute my microphone"
+          data-bind="visible: !selfMute(),
+            click: function () { requestMute(thisUser()) }"
+          rel="mute"
+          src="/svg/audio-input-microphone.svg"
+        />
+        <img
+          class="tb-unmute tb-active"
+          alt="Unmute my microphone"
+          data-bind="visible: selfMute,
+            click: function () { requestUnmute(thisUser()) }"
+          rel="unmute"
+          src="/svg/audio-input-microphone-muted.svg"
+        />
+        <img
+          class="tb-deaf"
+          alt="Turn off sound"
+          data-bind="visible: !selfDeaf(),
+            click: function () { requestDeaf(thisUser()) }"
+          rel="deaf"
+          src="/svg/audio-output.svg"
+        />
+        <img
+          class="tb-undeaf tb-active"
+          alt="Turn sound back on"
+          data-bind="visible: selfDeaf,
+            click: function () { requestUndeaf(thisUser()) }"
+          rel="undeaf"
+          src="/svg/audio-output-deafened.svg"
+        />
+        <input
+          id="message-box"
+          type="text"
+          data-bind="
+            attr: { placeholder: messageBoxHint }, textInput: messageBox"
+        />
+        <a
+          data-bind="attr: { href: mailToDesktop() }"
+          style="text-decoration: none"
+          ><img
+            alt="Send mail (attachment) to shared desktop"
+            src="/svg/mail-attachment.svg"
+        /></a>
+        <img
+          class="tb-information"
+          alt="Show information about connection quality"
+          rel="information"
+          src="/svg/mumble.svg"
+          data-bind="click: connectionInfo.show"
+        />
+        <img
+          class="tb-settings"
+          alt="Open audio settings dialog"
+          data-bind="click: openSettings"
+          rel="settings"
+          src="/svg/config_basic.svg"
+        />
+        <img
+          class="tb-sourcecode"
+          alt="Navigate to source code on Github"
+          data-bind="click: openSourceCode"
+          rel="Source Code"
+          src="/svg/source-code.svg"
+        />
+        <a
+          href="mailto:flexpair@icloud.com?subject=Open%20support%20request"
+          style="text-decoration: none"
+          ><img alt="Open a support request" src="/svg/system-help.svg"
+        /></a>
+      </form>
+    </div>
+  </body>
+  <script src="index.js"></script>
 </html>
