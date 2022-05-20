@@ -48,7 +48,7 @@
     "to-arraybuffer": "1.0.1",
     "transform-loader": "0.2.4",
     "web-audio-buffer-queue": "1.1.0",
-    "webpack": "5.66.0",
+    "webpack": "5.72.1",
     "webpack-cli": "4.9.2",
     "websocket-stream": "3.3.3",
     "worker-loader": "3.0.8",
