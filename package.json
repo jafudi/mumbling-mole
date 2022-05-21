@@ -33,7 +33,7 @@
     "keyboardjs": "2.6.4",
     "knockout": "3.5.1",
     "libopus.js": "0.0.1",
-    "microphone-stream": "5.3.1",
+    "microphone-stream": "6.0.1",
     "mumble-client": "jafudi/mumble-client#master",
     "mumble-client-websocket": "jafudi/mumble-client-websocket#master",
     "node-polyfill-webpack-plugin": "1.1.4",
