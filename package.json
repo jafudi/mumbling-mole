@@ -42,7 +42,7 @@
     "regexp-replace-loader": "1.0.1",
     "reuse-pool": "1.0.2",
     "sass": "1.48.0",
-    "sass-loader": "8.0.2",
+    "sass-loader": "13.0.0",
     "stream-chunker": "1.2.8",
     "subworkers": "1.0.1",
     "to-arraybuffer": "1.0.1",
