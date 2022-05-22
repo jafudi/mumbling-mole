@@ -35,7 +35,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and export to Docker
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           context: .
           load: true
@@ -49,7 +49,7 @@ jobs:
           echo "$clean bytes returned"
           if [[ $clean -gt 5000 ]]; then exit 0; else exit 1; fi
       - name: Build and push
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
