@@ -51,7 +51,7 @@
     "web-audio-buffer-queue": "1.1.0",
     "webpack": "5.66.0",
     "webpack-cli": "4.9.2",
-    "websocket-stream": "3.3.3",
+    "websocket-stream": "5.5.2",
     "worker-loader": "3.0.8"
   }
 }
