@@ -15,10 +15,10 @@
     "dist"
   ],
   "devDependencies": {
-    "@babel/core": "7.18.0",
-    "@babel/plugin-transform-runtime": "7.18.0",
-    "@babel/preset-env": "7.18.0",
-    "@babel/runtime": "7.18.0",
+    "@babel/core": "7.18.2",
+    "@babel/plugin-transform-runtime": "7.18.2",
+    "@babel/preset-env": "7.18.2",
+    "@babel/runtime": "7.18.3",
     "audio-context": "1.0.3",
     "babel-loader": "8.2.5",
     "brfs": "2.0.2",
