@@ -19,6 +19,7 @@
     "@babel/plugin-transform-runtime": "7.18.2",
     "@babel/preset-env": "7.18.2",
     "@babel/runtime": "7.18.3",
+    "anchorme": "^2.1.2",
     "audio-context": "1.0.3",
     "babel-loader": "8.2.5",
     "brfs": "2.0.2",
@@ -37,7 +38,7 @@
     "mumble-client-codecs-browser": "^1.2.0",
     "mumble-client-websocket": "github:johni0702/mumble-client-websocket#5b0ed8d",
     "netlify-identity-widget": "jafudi/netlify-identity-widget#master",
-    "node-polyfill-webpack-plugin": "1.1.4",
+    "node-polyfill-webpack-plugin": "^1.1.4",
     "promise": "8.1.0",
     "raw-loader": "4.0.2",
     "regexp-replace-loader": "1.0.1",
@@ -51,9 +52,8 @@
     "web-audio-buffer-queue": "1.1.0",
     "webpack": "5.72.1",
     "webpack-cli": "4.9.2",
+    "webrtc-adapter": "^7.7.0",
     "websocket-stream": "5.5.2",
-    "worker-loader": "3.0.8",
-    "anchorme": "^2.1.2",
-    "webrtc-adapter": "^7.7.0"
+    "worker-loader": "3.0.8"
   }
 }
