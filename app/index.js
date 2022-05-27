@@ -12,7 +12,6 @@ import mumbleConnect from "mumble-client-websocket";
 import anchorme from "anchorme";
 import getAudioContext from "audio-context";
 
-
 import {
   ContinuousVoiceHandler,
   PushToTalkVoiceHandler,
@@ -305,7 +304,7 @@ class GlobalBindings {
     this.selfMute = ko.observable(this.config.defaults.startMute);
     this.selfDeaf = ko.observable(this.config.defaults.startDeaf);
     this.audioContext = getAudioContext({ latencyHint: "interactive" });
-    this.avatarView = ko.observable();origin/master
+    this.avatarView = ko.observable();
 
     this.selfMute.subscribe((mute) => {
       if (voiceHandler) {
@@ -391,16 +390,19 @@ class GlobalBindings {
 
           this.remoteHost(host);
           this.remotePort(port);
-    
+
           log(translate("logentry.connecting"), host);
 
           this.audioContext.resume();
 
           if (!this._delayedMicNode) {
-            this._micNode = this.audioContext.createMediaStreamSource(this._micStream);
+            this._micNode = this.audioContext.createMediaStreamSource(
+              this._micStream
+            );
             this._delayNode = this.audioContext.createDelay();
             this._delayNode.delayTime.value = 0.15;
-            this._delayedMicNode = this.audioContext.createMediaStreamDestination();
+            this._delayedMicNode =
+              this.audioContext.createMediaStreamDestination();
           }
 
           // TODO: token
@@ -455,18 +457,21 @@ class GlobalBindings {
                 client.on("newUser", (user) => this._newUser(user));
 
                 // Handle messages
-                client.on("message", (sender, message, users, channels, trees) => {
-                  sender = sender || { __ui: "Server" };
-                  ui.log.push({
-                    type: "chat-message",
-                    user: sender.__ui,
-                    channel: channels.length > 0,
-                    message: anchorme({
-                      input: sanitize(message),
-                      options: anchormeOptions,
-                    }),
-                  });
-                });
+                client.on(
+                  "message",
+                  (sender, message, users, channels, trees) => {
+                    sender = sender || { __ui: "Server" };
+                    ui.log.push({
+                      type: "chat-message",
+                      user: sender.__ui,
+                      channel: channels.length > 0,
+                      message: anchorme({
+                        input: sanitize(message),
+                        options: anchormeOptions,
+                      }),
+                    });
+                  }
+                );
 
                 // Log permission denied error messages
                 client.on("denied", (type) => {
@@ -510,7 +515,14 @@ class GlobalBindings {
                 ) {
                   log(translate("logentry.connection_fallback_mode"));
                   this.webrtc = false;
-                  this.connect(username, host, port, tokens, password, channelName);
+                  this.connect(
+                    username,
+                    host,
+                    port,
+                    tokens,
+                    password,
+                    channelName
+                  );
                 } else {
                   log(translate("logentry.connection_error"), err);
                 }
