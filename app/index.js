@@ -574,10 +574,6 @@ class GlobalBindings {
           case "linked_channel":
             if (!ui.channel().linked()) return false;
             break;
-          case "minimal_only":
-            if (!this.minimalView()) return false;
-            if (this.thisUser().channel() !== ui.channel()) return false;
-            break;
           case "never":
           default:
             return false;
@@ -1028,15 +1024,6 @@ class GlobalBindings {
       var homepage = require("../package.json").homepage;
       window.open(homepage, "_blank").focus();
     };
-
-    this.updateSize = () => {
-      this.minimalView(window.innerWidth < 320);
-      if (this.minimalView()) {
-        this.toolbarHorizontal(window.innerWidth < window.innerHeight);
-      } else {
-        this.toolbarHorizontal(!this.settings.toolbarVertical);
-      }
-    };
   }
 }
 var ui = new GlobalBindings(window.mumbleWebConfig);
@@ -1118,9 +1105,6 @@ function initializeUI() {
     req.send();
   }
   ko.applyBindings(ui);
-
-  window.onresize = () => ui.updateSize();
-  ui.updateSize();
 }
 
 function log() {
