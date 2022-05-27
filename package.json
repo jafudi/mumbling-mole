@@ -34,6 +34,8 @@
     "libopus.js": "0.0.1",
     "microphone-stream": "5.3.1",
     "mumble-client": "jafudi/mumble-client#master",
+    "mumble-client-codecs-browser": "^1.2.0",
+    "mumble-client-websocket": "github:johni0702/mumble-client-websocket#5b0ed8d",
     "netlify-identity-widget": "jafudi/netlify-identity-widget#master",
     "node-polyfill-webpack-plugin": "1.1.4",
     "promise": "8.1.0",
@@ -50,6 +52,8 @@
     "webpack": "5.72.1",
     "webpack-cli": "4.9.2",
     "websocket-stream": "5.5.2",
-    "worker-loader": "3.0.8"
+    "worker-loader": "3.0.8",
+    "anchorme": "^2.1.2",
+    "webrtc-adapter": "^7.7.0"
   }
 }

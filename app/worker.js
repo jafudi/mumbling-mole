@@ -1,7 +1,10 @@
 import { Transform, PassThrough } from "stream";
-import mumbleConnect from "./mumble-websocket.js";
 import toArrayBuffer from "to-arraybuffer";
 import chunker from "stream-chunker";
+import mumbleConnect from "mumble-client-websocket";
+import CodecsBrowser from "mumble-client-codecs-browser";
+
+// Polyfill nested webworkers for https://bugs.chromium.org/p/chromium/issues/detail?id=31666
 import "subworkers";
 
 let nextClientId = 1;
@@ -70,7 +73,6 @@ function pushProp(id, obj, prop, transform) {
 
 function setupOutboundVoice(voiceId, samplesPerPacket, stream) {
   let resampler = new PassThrough();
-
   let buffer2Float32Array = new Transform({
     transform(data, _, callback) {
       callback(
@@ -134,7 +136,7 @@ function setupUser(id, user) {
 
     let target;
 
-    // We want to do as little on the UI thread as possible, so do resampling here as well
+    // We want to do as little on the UI thread as possible
     var resampler = new PassThrough();
 
     // Pipe stream into resampler
@@ -167,7 +169,7 @@ function setupUser(id, user) {
         });
       });
 
-    return [voiceId];
+    return [voiceId, stream.target];
   });
   registerEventProxy(id, user, "remove");
 
@@ -180,6 +182,9 @@ function setupUser(id, user) {
     "suppress",
     "selfMute",
     "selfDeaf",
+    "texture",
+    "textureHash",
+    "comment",
   ];
   for (let prop of props) {
     pushProp(id, user, prop);
@@ -220,6 +225,7 @@ function setupClient(id, client) {
 
   pushProp(id, client, "root", (it) => it.id);
   pushProp(id, client, "self", (it) => it.id);
+  pushProp(id, client, "welcomeMessage");
   pushProp(id, client, "serverVersion");
   pushProp(id, client, "maxBandwidth");
 }
@@ -227,7 +233,7 @@ function setupClient(id, client) {
 function onMessage(data) {
   let { reqId, method, payload } = data;
   if (method === "_connect") {
-    payload.args.codecs = require("./codecs-browser.js");
+    payload.args.codecs = CodecsBrowser;
     mumbleConnect(payload.host, payload.args)
       .then((client) => {
         let id = nextClientId++;

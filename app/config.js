@@ -29,7 +29,10 @@ window.mumbleWebConfig = {
     port: "443/murmur",
     username: "",
     password: "",
+    webrtc: "auto", // whether to enable (true), disable (false) or auto-detect ('auto') WebRTC support
     // General
     theme: "MetroMumbleLight",
+    startMute: false,
+    startDeaf: false,
   },
 };
