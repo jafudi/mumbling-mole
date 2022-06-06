@@ -1,9 +1,21 @@
 version: '3'
 
+networks:
+  guacamole_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/24
+        # gateway is then 172.18.0.1 by convention
+
 services:
 
   murmur:
     image: goofball222/murmur
+    networks:
+      guacamole_net:
+        ipv4_address: 172.18.0.5
     container_name: murmur
     ports:
       - "${MURMUR_PORT:-64738}:${MURMUR_PORT:-64738}"
@@ -20,6 +32,9 @@ services:
     build:
       context: ../
       dockerfile: Dockerfile
+    networks:
+      guacamole_net:
+        ipv4_address: 172.18.0.6
     container_name: mumble_web_container
     ports:
       - "8081:8081"
