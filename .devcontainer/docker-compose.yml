@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+
+  murmur:
+    image: goofball222/murmur
+    container_name: murmur
+    ports:
+      - "${MURMUR_PORT:-64738}:${MURMUR_PORT:-64738}"
+      - "${MURMUR_PORT:-64738}:${MURMUR_PORT:-64738}/udp"
+    volumes:
+      - ./murmur_config:/opt/murmur/config
+      - ./murmur_data:/opt/murmur/data
+      - ./murmur_log:/opt/murmur/log
+      - ./letsencrypt:/opt/murmur/cert
+    environment:
+      - TZ=UTC
+
+  mumble:
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    container_name: mumble_web_container
+    ports:
+      - "8081:8081"
+    depends_on:
+      - murmur
+    environment:
+      - MUMBLE_SERVER=murmur:${MURMUR_PORT:-64738}
+      - GUACPWD=${MURMUR_PASSWORD-}
+
+    # Overrides default command so things don't shut down after the process ends.
+    entrypoint: /usr/local/share/docker-init.sh
+    command: sleep infinity
+    # Uncomment the next four lines if you will use a ptrace-based debuggers like C++, Go, and Rust.
+    # cap_add:
+    #  - SYS_PTRACE
+    # security_opt:
+    #   - seccomp:unconfined
+
+    # Uncomment the next line to use a non-root user for all processes.
+    # user: vscode
+
+    # Use "forwardPorts" in **devcontainer.json** to forward an app port locally. 
+    # (Adding the "ports" property to this file will not forward from a Codespace.)
