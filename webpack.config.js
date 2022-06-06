@@ -4,7 +4,7 @@ var theme = "../themes/MetroMumbleLight";
 var path = require("path");
 
 module.exports = {
-  mode: "production",
+  mode: "development",
   entry: {
     index: ["./app/index.js", "./app/index.html"],
     config: "./app/config.js",
