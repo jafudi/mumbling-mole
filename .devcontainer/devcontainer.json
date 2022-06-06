@@ -10,10 +10,6 @@
 	"remoteEnv": {
 		"LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
 	},
-
-	"containerEnv": {
-		"MUMBLE_SERVER": "murmur:8081"
-	},
 	
 	// Set *default* container specific settings.json values on container create.
 	"settings": {},
