@@ -6,7 +6,7 @@
 	"service": "nginx",
 	"workspaceFolder": "/workspace",
 
-	"initializeCommand": "curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot-nginx/certbot_nginx/_internal/tls_configs/options-ssl-nginx.conf > ./conf.d/options-ssl-nginx.conf",
+	"initializeCommand": "curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot-nginx/certbot_nginx/_internal/tls_configs/options-ssl-nginx.conf > ./nginx/conf.d/options-ssl-nginx.conf",
 
 	// Use this environment variable if you need to bind mount your local source code into a new container.
 	"remoteEnv": {
