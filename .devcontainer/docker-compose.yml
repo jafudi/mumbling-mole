@@ -9,5 +9,5 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./letsencrypt:/etc/letsencrypt:ro
-    command: /bin/bash -c "nginx -g 'daemon off;'"
+    # command: /bin/bash -c "nginx -g 'daemon off;'"
 
