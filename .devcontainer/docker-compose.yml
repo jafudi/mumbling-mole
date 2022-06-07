@@ -1,14 +1,5 @@
 version: '3'
 
-networks:
-  guacamole_net:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.18.0.0/24
-        # gateway is then 172.18.0.1 by convention
-
 services:
 
   nginx:
@@ -20,10 +11,5 @@ services:
       - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf:ro
       # - ./nginx/conf.d/options-ssl-nginx.conf:/etc/nginx/conf.d/options-ssl-nginx.conf:ro
       - ./letsencrypt:/etc/letsencrypt:ro
-    networks:
-      guacamole_net:
-        ipv4_address: 172.18.0.7
-    extra_hosts:
-      - "gateway:172.18.0.1"
     command: /bin/bash -c "nginx -g 'daemon off;'"
 
