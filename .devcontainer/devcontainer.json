@@ -3,7 +3,7 @@
 {
 	"name": "Docker from Docker Compose",
 	"dockerComposeFile": "docker-compose.yml",
-	"service": "guacamole",
+	"service": "nginx",
 	"workspaceFolder": "/workspace",
 
 	// "initializeCommand": "curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot-nginx/certbot_nginx/_internal/tls_configs/options-ssl-nginx.conf > ./nginx/conf.d/options-ssl-nginx.conf",
