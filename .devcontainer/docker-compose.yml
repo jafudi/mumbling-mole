@@ -54,7 +54,7 @@ services:
       POSTGRES_PASSWORD: WillNotBeUsed
       GUACAMOLE_HOME: /var/tmp/config_dir
     volumes:
-      - ./${GUAC_SUBFOLDER-}:/var/tmp/config_dir
+      - ./${GUAC_SUBFOLDER:-guaca_config}:/var/tmp/config_dir
     image: guacamole/guacamole:${GUACAMOLE_VERSION:-latest}
     networks:
       guacamole_net:
