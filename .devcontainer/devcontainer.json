@@ -3,7 +3,7 @@
 {
 	"name": "Docker from Docker Compose",
 	"dockerComposeFile": "docker-compose.yml",
-	"service": "mumble",
+	"service": "nginx",
 	"workspaceFolder": "/workspace",
 
 	// Use this environment variable if you need to bind mount your local source code into a new container.
@@ -26,5 +26,5 @@
 	// "postCreateCommand": "websockify --ssl-target --web=/home/node/dist 8081 localhost:8081",
 
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "node"
+	// "remoteUser": "node"
 }
