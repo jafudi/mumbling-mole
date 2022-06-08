@@ -19,12 +19,10 @@
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
 		"ms-azuretools.vscode-docker"
-	],
+	]
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": ["443:443"],
-
-	"overrideCommand": true
+	//"forwardPorts": [443]
 
 	// Uncomment the next line to run commands after the container is created - for example installing curl.
 	// "postCreateCommand": "websockify --ssl-target --web=/home/node/dist 8081 localhost:8081",
