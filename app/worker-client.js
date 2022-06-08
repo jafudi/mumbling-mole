@@ -74,6 +74,7 @@ class WorkerBasedMumbleConnector {
   }
 
   _client(id) {
+    log("Need a client now.")
     let client = this._clients[id];
     if (!client) {
       client = new WorkerBasedMumbleClient(this, id);
