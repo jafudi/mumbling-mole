@@ -55,9 +55,11 @@ class WorkerBasedMumbleConnector {
     log("WorkerBasedMumbleConnector sending query...");
     let reqId = this._call(id, method, payload, transfer);
     log("WorkerBasedMumbleConnector got a reqId.");
-    return new Promise((resolve, reject) => {
+    let aPromise = new Promise((resolve, reject) => {
       this._requests[reqId] = [resolve, reject];
     });
+    log("Created a promise.");
+    return aPromise
   }
 
   _addCall(proxy, name, id) {
