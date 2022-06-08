@@ -6,6 +6,10 @@ import toArrayBuffer from "to-arraybuffer";
 import ByteBuffer from "bytebuffer";
 import Worker from "./worker";
 
+function log() {
+  console.log.apply(console, arguments);
+}
+
 /**
  * Creates proxy MumbleClients to a real ones running on a web worker.
  * Only stuff which we need in mumble-web is proxied, i.e. this is not a generic solution.
@@ -50,6 +54,7 @@ class WorkerBasedMumbleConnector {
   _query(id, method, payload, transfer) {
     log("WorkerBasedMumbleConnector sending query...");
     let reqId = this._call(id, method, payload, transfer);
+    log("WorkerBasedMumbleConnector got a reqId.");
     return new Promise((resolve, reject) => {
       this._requests[reqId] = [resolve, reject];
     });
@@ -74,6 +79,7 @@ class WorkerBasedMumbleConnector {
       client = new WorkerBasedMumbleClient(this, id);
       this._clients[id] = client;
     }
+    log("Created a client.")
     return client;
   }
 
