@@ -81,7 +81,9 @@ services:
       - TZ=UTC
 
   mumble:
-    image: jafudi/mumbling-mole:${MUMBLING_MOLE_VERSION:-latest}
+    build:
+       context: ../
+       dockerfile: Dockerfile
     networks:
       guacamole_net:
         ipv4_address: 172.18.0.6
