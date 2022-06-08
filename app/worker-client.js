@@ -48,6 +48,7 @@ class WorkerBasedMumbleConnector {
   }
 
   _query(id, method, payload, transfer) {
+    log("WorkerBasedMumbleConnector sending query...");
     let reqId = this._call(id, method, payload, transfer);
     return new Promise((resolve, reject) => {
       this._requests[reqId] = [resolve, reject];
