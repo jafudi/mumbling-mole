@@ -116,7 +116,6 @@ services:
         ipv4_address: 172.18.0.7
     extra_hosts:
       - "gateway:172.18.0.1"
-    command: /bin/bash -c "nginx -g 'daemon off;'"
 
   # imap:
   #   image: antespi/docker-imap-devel
