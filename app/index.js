@@ -322,6 +322,14 @@ class GlobalBindings {
             })
             .done(
               (client) => {
+                this.client = client;
+                log(translate("logentry.connected"));
+                // Prepare for connection errors
+                client.on("error", (err) => {
+                  log(translate("logentry.connection_error"), err);
+                  this.resetClient();
+                });
+
                 var user_roles =
                   this.netlifyIdentity.currentUser().app_metadata.roles;
                 let guac_login = false;
@@ -343,14 +351,6 @@ class GlobalBindings {
                 } else {
                   alert("For visual access please ask your administrator.");
                 }
-                log(translate("logentry.connected"));
-
-                this.client = client;
-                // Prepare for connection errors
-                client.on("error", (err) => {
-                  log(translate("logentry.connection_error"), err);
-                  this.resetClient();
-                });
 
                 // Register all channels, recursively
                 if (channelName.indexOf("/") != 0) {
