@@ -242,12 +242,12 @@ export function translateEverything() {
     { name: "value" },
     "connectdialog.error.retry"
   );
-  translatePiece(
-    ".connect-dialog.error-dialog .dialog-close",
-    "attribute",
-    { name: "value" },
-    "connectdialog.error.cancel"
-  );
+  // translatePiece(
+  //   ".connect-dialog.error-dialog .dialog-close",
+  //   "attribute",
+  //   { name: "value" },
+  //   "connectdialog.error.cancel"
+  // );
 
   translatePiece(
     "#connection-info_title",
