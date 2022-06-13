@@ -71,9 +71,7 @@ class WorkerBasedMumbleConnector {
 
   connect(host, args) {
     return this._query({}, "_connect", { host: host, args: args }).then((id) =>
-      this._client(id), function(reason) {
-        console.log(reason); // Error!
-      }
+      this._client(id)
     );
   }
 

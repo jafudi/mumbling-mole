@@ -320,86 +320,84 @@ class GlobalBindings {
               password: password,
               tokens: tokens,
             })
-            .done(
-              (client) => {
-                this.client = client;
-                log(translate("logentry.connected"));
-                // Prepare for connection errors
-                client.on("error", (err) => {
-                  log(translate("logentry.connection_error"), err);
-                  this.resetClient();
-                });
+            .then((client) => {
+              this.client = client;
+              log(translate("logentry.connected"));
+              // Prepare for connection errors
+              client.on("error", (err) => {
+                log(translate("logentry.connection_error"), err);
+                this.resetClient();
+              });
 
-                var user_roles =
-                  this.netlifyIdentity.currentUser().app_metadata.roles;
-                let guac_login = false;
-                if (user_roles.includes("admin")) {
-                  guac_login = "admin";
-                } else if (user_roles.includes("edit")) {
-                  guac_login = "editor";
-                } else if (user_roles.includes("watch")) {
-                  guac_login = "watcher";
-                }
-                if (guac_login) {
-                  this.guacamoleFrame.guacSource(
-                    "/guacamole/#/?username=" +
-                      guac_login +
-                      "&password=" +
-                      this.connectDialog.password()
-                  );
-                  this.guacamoleFrame.show();
-                } else {
-                  alert("For visual access please ask your administrator.");
-                }
-
-                // Register all channels, recursively
-                if (channelName.indexOf("/") != 0) {
-                  channelName = "/" + channelName;
-                }
-                const registerChannel = (channel, channelPath) => {
-                  this._newChannel(channel);
-                  if (channelPath === channelName) {
-                    client.self.setChannel(channel);
-                  }
-                  channel.children.forEach((ch) =>
-                    registerChannel(ch, channelPath + "/" + ch.name)
-                  );
-                };
-                registerChannel(client.root, "");
-
-                // Register all users
-                client.users.forEach((user) => this._newUser(user));
-
-                // Register future channels
-                client.on("newChannel", (channel) => this._newChannel(channel));
-                // Register future users
-                client.on("newUser", (user) => this._newUser(user));
-
-                // Set own user and root channel
-                this.thisUser(client.self.__ui);
-                this.root(client.root.__ui);
-                // Upate linked channels
-                this._updateLinks();
-
-                // Startup audio input processing
-                this._updateVoiceHandler();
-                // Tell server our mute/deaf state (if necessary)
-                if (this.selfDeaf()) {
-                  this.client.setSelfDeaf(true);
-                } else if (this.selfMute()) {
-                  this.client.setSelfMute(true);
-                }
-              },
-              (err) => {
-                if (err.$type && err.$type.name === "Reject") {
-                  this.connectErrorDialog.type(err.type);
-                  this.connectErrorDialog.reason(err.reason);
-                  this.connectErrorDialog.show();
-                } else {
-                  log(translate("logentry.connection_error"), err);
-                }
+              var user_roles =
+                this.netlifyIdentity.currentUser().app_metadata.roles;
+              let guac_login = false;
+              if (user_roles.includes("admin")) {
+                guac_login = "admin";
+              } else if (user_roles.includes("edit")) {
+                guac_login = "editor";
+              } else if (user_roles.includes("watch")) {
+                guac_login = "watcher";
               }
-            );
+              if (guac_login) {
+                this.guacamoleFrame.guacSource(
+                  "/guacamole/#/?username=" +
+                    guac_login +
+                    "&password=" +
+                    this.connectDialog.password()
+                );
+                this.guacamoleFrame.show();
+              } else {
+                alert("For visual access please ask your administrator.");
+              }
+
+              // Register all channels, recursively
+              if (channelName.indexOf("/") != 0) {
+                channelName = "/" + channelName;
+              }
+              const registerChannel = (channel, channelPath) => {
+                this._newChannel(channel);
+                if (channelPath === channelName) {
+                  client.self.setChannel(channel);
+                }
+                channel.children.forEach((ch) =>
+                  registerChannel(ch, channelPath + "/" + ch.name)
+                );
+              };
+              registerChannel(client.root, "");
+
+              // Register all users
+              client.users.forEach((user) => this._newUser(user));
+
+              // Register future channels
+              client.on("newChannel", (channel) => this._newChannel(channel));
+              // Register future users
+              client.on("newUser", (user) => this._newUser(user));
+
+              // Set own user and root channel
+              this.thisUser(client.self.__ui);
+              this.root(client.root.__ui);
+              // Upate linked channels
+              this._updateLinks();
+
+              // Startup audio input processing
+              this._updateVoiceHandler();
+              // Tell server our mute/deaf state (if necessary)
+              if (this.selfDeaf()) {
+                this.client.setSelfDeaf(true);
+              } else if (this.selfMute()) {
+                this.client.setSelfMute(true);
+              }
+            })
+            .catch((err) => {
+              if (err.$type && err.$type.name === "Reject") {
+                this.connectErrorDialog.type(err.type);
+                this.connectErrorDialog.reason(err.reason);
+                this.connectErrorDialog.show();
+              } else {
+                log(translate("logentry.connection_error"), err);
+              }
+            });
         } else {
           alert(
             "Please set the sample rate of your audio devices to 48 kHz on system level in order to proceed."
