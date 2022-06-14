@@ -32,7 +32,7 @@ services:
       POSTGRES_DB: guacamole_db
       POSTGRES_HOST_AUTH_METHOD: trust
       POSTGRES_USER: guacamole_user
-    image: postgres:14.1
+    image: postgres:14.3
     networks:
       guacamole_net:
         ipv4_address: 172.18.0.3
