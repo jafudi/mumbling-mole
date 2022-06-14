@@ -15,10 +15,22 @@ mumble-web is an HTML5 [Mumble] client that runs directly in your browser. This 
 
 ## Installing
 
+A live demo is running [here](https://voice.johni0702.de/?address=voice.johni0702.de&port=443/demo) (or [without WebRTC](https://voice.johni0702.de/?address=voice.johni0702.de&port=443/demo&webrtc=false)).
+
+The Mumble protocol uses TCP for control and UDP for voice.
+Running in a browser, both are unavailable to this client.
+Instead Websockets are used for control and WebRTC is used for voice (using Websockets as fallback if the server does not support WebRTC).
+
+In WebRTC mode (default) only the Opus codec is supported.
+
+In fallback mode, when WebRTC is not supported by the server, only the Opus and CELT Alpha codecs are supported.
+This is accomplished with libopus, libcelt (0.7.1) and libsamplerate, compiled to JS via emscripten.
+Performance is expected to be less reliable (especially on low-end devices) than in WebRTC mode and loading time will be significantly increased.
+
 ### Download
 
 mumble-web can either be installed directly from npm with `npm install -g mumble-web`
-or from git:
+or from git (recommended because the npm version may be out of date):
 
 ```
 git clone https://github.com/johni0702/mumble-web
@@ -35,38 +47,14 @@ Either way you will end up with a `dist` folder that contains the static page.
 
 ### Setup
 
-At the time of writing this there do not seem to be any Mumble servers
-which natively support Websockets. To use this client with any standard mumble
-server, websockify must be set up (preferably on the same machine that the
-Mumble server is running on).
+At the time of writing this there do not seem to be any Mumble servers which natively support Websockets+WebRTC.
+[Grumble](https://github.com/mumble-voip/grumble) natively supports Websockets and can run mumble-web in fallback mode but not (on its own) in WebRTC mode.
+To use this client with any standard mumble server in WebRTC mode, [mumble-web-proxy] must be set up (preferably on the same machine that the Mumble server is running on).
 
-You can install websockify via your package manager `apt install websockify` or
-manually from the [websockify GitHub page]. Note that while some versions might
-function better than others, the python version generally seems to be the best.
+Additionally you will need some web server to serve static files and terminate the secure websocket connection (mumble-web-proxy only supports insecure ones).
 
-There are two basic ways you can use websockify with mumble-web:
-
-- Standalone, use websockify for both, websockets and serving static files
-- Proxied, let your favorite web server serve static files and proxy websocket connections to websockify
-
-#### Standalone
-
-This is the simplest but at the same time least flexible configuration. Replace `<mumbleserver>` with the URI of your mumble server. If `websockify` is running on the same machine as `mumble-server`, use `localhost`.
-
-```
-websockify --cert=mycert.crt --key=mykey.key --ssl-only --ssl-target --web=path/to/dist 443 <mumbleserver>:64738
-```
-
-#### Proxied
-
-This configuration allows you to run websockify on a machine that already has
-another webserver running. Replace `<mumbleserver>` with the URI of your mumble server. If `websockify` is running on the same machine as `mumble-server`, use `localhost`.
-
-```
-websockify --ssl-target 64737 <mumbleserver>:64738
-```
-
-Here are two web server configuration files (one for [NGINX](https://www.nginx.com/) and one for [Caddy server](https://caddyserver.com/)) which will serve the mumble-web interface at `https://voice.example.com` and allow the websocket to connect at `wss://voice.example.com/demo` (similar to the demo server). Replace `<websockify>` with the URI to the machine where `websockify` is running. If `websockify` is running on the same machine as your web server, use `localhost`.
+Here are two web server configuration files (one for [NGINX](https://www.nginx.com/) and one for [Caddy server](https://caddyserver.com/)) which will serve the mumble-web interface at `https://voice.example.com` and allow the websocket to connect at `wss://voice.example.com/demo` (similar to the demo server).
+Replace `<proxybox>` with the host name of the machine where `mumble-web-proxy` is running. If `mumble-web-proxy` is running on the same machine as your web server, use `localhost`.
 
 - NGINX configuration file
 
@@ -81,7 +69,7 @@ server {
                 root /path/to/dist;
         }
         location /demo {
-                proxy_pass http://<websockify>:64737;
+                proxy_pass http://<proxybox>:64737;
                 proxy_http_version 1.1;
                 proxy_set_header Upgrade $http_upgrade;
                 proxy_set_header Connection $connection_upgrade;
@@ -104,11 +92,20 @@ http://voice.example.com {
 https://voice.example.com {
   tls "/etc/letsencrypt/live/voice.example.com/fullchain.pem" "/etc/letsencrypt/live/voice.example.com/privkey.pem"
   root /path/to/dist
-  proxy /demo http://<websockify>:64737 {
+  proxy /demo http://<proxybox>:64737 {
     websocket
   }
 }
 ```
+
+To run `mumble-web-proxy`, execute the following command. Replace `<mumbleserver>` with the host name of your Mumble server (the one you connect to using the normal Mumble client).
+Note that even if your Mumble server is running on the same machine as your `mumble-web-proxy`, you should use the external name because (by default, for disabling see its README) `mumble-web-proxy` will try to verify the certificate provided by the Mumble server and fail if it does not match the given host name.
+
+```
+mumble-web-proxy --listen-ws 64737 --server <mumbleserver>:64738
+```
+
+If your mumble-web-proxy is running behind a NAT or firewall, take note of the respective section in its README.
 
 Make sure that your Mumble server is running. You may now open `https://voice.example.com` in a web browser. You will be prompted for server details: choose either `address: voice.example.com/demo` with `port: 443` or `address: voice.example.com` with `port: 443/demo`. You may prefill these values by appending `?address=voice.example.com/demo&port=443`. Choose a username, and click `Connect`: you should now be able to talk and use the chat.
 
@@ -145,6 +142,7 @@ You can overwrite those by editing the `config.local.js` file within your `dist`
 
 ## Themes
 
+
 The default theme of mumble-web tries to mimic the excellent [MetroMumble]Light theme.
 mumble-web also includes a dark version, named MetroMumbleDark, which is heavily inspired by [MetroMumble]'s dark version.
 
@@ -153,10 +151,13 @@ E.g. [this](https://voice.johni0702.de/?address=voice.johni0702.de&port=443/demo
 
 Custom themes can be created by deriving them from the MetroMumbleLight/Dark themes just like the MetroMumbleDark theme is derived from the MetroMumbleLight theme.
 
+
 ## License
 
 ISC
 
-[Mumble]: https://wiki.mumble.info/wiki/Main_Page
-[websockify GitHub page]: https://github.com/novnc/websockify
-[MetroMumble]: https://github.com/xPoke/MetroMumble
+[mumble]: https://wiki.mumble.info/wiki/Main_Page
+[mumble-web-proxy]: https://github.com/johni0702/mumble-web-proxy
+[metromumble]: https://github.com/xPoke/MetroMumble
+[matrix]: https://matrix.org
+

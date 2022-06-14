@@ -1,3 +1,8 @@
+// getUserMedia helper by @HenrikJoreteg used for navigator.getUserMedia shim
+// https://github.com/otalk/getUserMedia/releases/tag/2.0.1
+
+var adapter = require("webrtc-adapter");
+
 module.exports = function (constraints, cb) {
   var error;
   var haveOpts = arguments.length === 2;
@@ -13,7 +18,9 @@ module.exports = function (constraints, cb) {
     constraints = defaultOpts;
   }
 
-  // treat lack of browser support like an error
+  // Safari supports 'MediaDevices.getUserMedia()' now
+  // which is used below, therefore it does not matter
+  // that 'navigator.getUserMedia' is undefined
   if (typeof navigator === "undefined") {
     // throw proper error per spec
     error = new Error("MediaStreamError");

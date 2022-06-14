@@ -18,16 +18,17 @@
 
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
-		"ms-azuretools.vscode-docker"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [443],
 
-	"onCreateCommand": "apt-get -y install git",
+	"overrideCommand": true
+
+	// "onCreateCommand": "apt-get -y install git",
 
 	// Uncomment the next line to run commands after the container is created - for example installing curl.
-	"postCreateCommand": "/bin/bash -c \"nginx -g 'daemon off;'\""
+	// "postCreateCommand": "/bin/bash -c \"nginx -g 'daemon off;'\""
 
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	// "remoteUser": "node"

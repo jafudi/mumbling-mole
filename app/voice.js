@@ -3,6 +3,8 @@ import MicrophoneStream from "microphone-stream";
 import getUserMedia from "./getusermedia";
 import keyboardjs from "keyboardjs";
 import DropStream from "drop-stream";
+import { WorkerBasedMumbleClient } from "./worker-client";
+
 
 class VoiceHandler extends Writable {
   constructor(client, settings) {
@@ -31,10 +33,14 @@ class VoiceHandler extends Writable {
         return this._outbound;
       }
 
-      // Note: the samplesPerPacket argument is handled in worker.js and not passed on
-      this._outbound = this._client.createVoiceStream(
-        this._settings.samplesPerPacket
-      );
+      if (this._client instanceof WorkerBasedMumbleClient) {
+        // Note: the samplesPerPacket argument is handled in worker.js and not passed on
+        this._outbound = this._client.createVoiceStream(
+          this._settings.samplesPerPacket
+        );
+      } else {
+        this._outbound = this._client.createVoiceStream();
+      }
 
       this.emit("started_talking");
     }

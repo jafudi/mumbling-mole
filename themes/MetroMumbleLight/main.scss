@@ -72,6 +72,18 @@ iframe {
   height: 100%;
 }
 
+.avatar-view {
+  position: absolute;
+  z-index: 200;
+  max-width: 90%;
+  max-height: 90%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
 .toolbar-horizontal {
   display: flex;
   flex-flow: row nowrap;
@@ -108,9 +120,12 @@ form {
   margin: 0;
   padding: 0;
 }
-
+.message-content p {
+  margin: 0;
+}
 .tb-information.disabled,
-.tb-record {
+.tb-record,
+.tb-comment {
   filter: grayscale(100%);
 }
 .dialog-header {
@@ -175,10 +190,16 @@ form {
 .settings-dialog table select {
   width: 100%;
 }
-.settings-dialog table input {
-  width: 100%;
-  margin: 0px;
+
+.settings-dialog table input[type="checkbox"] {
+  width: auto;
+  margin: auto;
 }
+
+.settings-dialog .mic-volume {
+  height: 100%;
+}
+
 .connect-dialog input[type="text"],
 select {
   font-size: 15px;
@@ -208,7 +229,6 @@ select {
 }
 
 /* Mobile view */
-
 @media only screen and (max-width: 600px) and (min-width: 320px) and (min-height: 600px) {
   .dialog {
     min-width: 350px;
