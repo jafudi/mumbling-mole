@@ -18,11 +18,12 @@
 
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
-		"ms-azuretools.vscode-docker"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [443]
+	"forwardPorts": [443],
+
+	"overrideCommand": true
 
 	// "onCreateCommand": "apt-get -y install git",
 
