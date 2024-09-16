@@ -20,7 +20,7 @@
     "@babel/preset-env": "7.18.2",
     "@babel/runtime": "7.18.3",
     "audio-context": "1.0.3",
-    "babel-loader": "8.2.5",
+    "babel-loader": "8.4.1",
     "brfs": "2.0.2",
     "bytebuffer": "5.0.1",
     "css-loader": "3.6.0",
