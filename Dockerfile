@@ -5,12 +5,7 @@ COPY ./ /home/node
 RUN apk update && \
     apk upgrade && \
     apk add --no-cache git tini bash python3 py3-pip && \
-    pip install --no-cache-dir websockify && \
-    adduser -D -g 1001 -u 1001 -h /home/node node && \
-    mkdir -p /home/node && \
-    mkdir -p /home/node/.npm-global && \
-    mkdir -p /home/node/app  && \
-    chown -R node: /home/node
+    pip install --no-cache-dir websockify
 
 USER node
 
