@@ -1,13 +1,11 @@
-FROM alpine:3.17
+FROM node:16-alpine
 
-# Set up the package repositories to ensure correct versions
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/v3.17/main" > /etc/apk/repositories && \
-    echo "http://dl-cdn.alpinelinux.org/alpine/v3.17/community" >> /etc/apk/repositories
+COPY ./ /home/node
 
-# Install necessary packages with specific versions
 RUN apk update && \
     apk upgrade && \
-    apk add --no-cache git nodejs=~16 npm=~8 tini websockify bash && \
+    apk add --no-cache git tini bash python3 py3-pip && \
+    pip install --no-cache-dir websockify && \
     adduser -D -g 1001 -u 1001 -h /home/node node && \
     mkdir -p /home/node && \
     mkdir -p /home/node/.npm-global && \
