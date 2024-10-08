@@ -6,9 +6,6 @@ RUN apk update && \
     apk add --no-cache git tini bash python3 py3-pip && \
     pip install --no-cache-dir websockify
 
-# Set the working directory
-WORKDIR /home/node
-
 # Copy your application code
 COPY ./ /home/node
 
@@ -19,12 +16,11 @@ RUN chown -R node:node /home/node
 ENV PATH=/home/node/.npm-global/bin:/home/node:$PATH
 ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 
-# Install dependencies and build the project as root
-RUN npm install && npm run build
-RUN apk del gcc git
-
 # Change to the node user
 USER node
+
+# Install dependencies and build the project as root
+RUN npm run build
 
 EXPOSE 8081
 
