@@ -6,11 +6,14 @@ RUN apk update && \
     apk add --no-cache git tini bash python3 py3-pip && \
     pip install --no-cache-dir websockify
 
+# Set the working directory
+WORKDIR /home/node
+
 # Copy your application code
-COPY ./ /home/node
+COPY ./ .
 
 # Change ownership of the application files
-RUN chown -R node:node /home/node
+RUN chown -R node:node .
 
 # Not sure whether or why this step is necessary
 ENV PATH=/home/node/.npm-global/bin:/home/node:$PATH
@@ -24,6 +27,6 @@ RUN npm run build
 
 EXPOSE 8081
 
-RUN chmod +x /home/node/docker-entrypoint.sh
+RUN chmod +x ./docker-entrypoint.sh
 
 ENTRYPOINT ["/sbin/tini", "--", "docker-entrypoint.sh"]
