@@ -745,7 +745,7 @@ window.mumbleUi = ui;
 function initializeUI() {
   ui.netlifyIdentity.init({
     APIUrl: "https://welcome.flexpair.com/.netlify/identity", // Absolute url to endpoint.
-    locale: navigator.language.substring(0, 2),
+    locale: "en",
   });
 
   var user = ui.netlifyIdentity.currentUser();
