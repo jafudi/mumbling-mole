@@ -783,6 +783,9 @@ function initializeUI() {
     ui.connectDialog.password(queryParams.password);
   }
   ko.applyBindings(ui);
+  window.addEventListener('beforeunload', () => {
+    ui.netlifyIdentity.logout();
+  });
 }
 
 function log() {
