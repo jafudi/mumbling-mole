@@ -36,7 +36,7 @@
     "mumble-client": "jafudi/mumble-client#master",
     "netlify-identity-widget": "jafudi/netlify-identity-widget#master",
     "node-polyfill-webpack-plugin": "1.1.4",
-    "promise": "8.1.0",
+    "promise": "8.3.0",
     "raw-loader": "4.0.2",
     "regexp-replace-loader": "1.0.1",
     "reuse-pool": "1.0.2",
