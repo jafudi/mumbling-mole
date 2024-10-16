@@ -29,7 +29,7 @@
     "extract-loader": "5.1.0",
     "file-loader": "6.2.0",
     "html-loader": "0.5.5",
-    "keyboardjs": "2.6.4",
+    "keyboardjs": "2.7.0",
     "knockout": "3.5.1",
     "libopus.js": "0.0.1",
     "microphone-stream": "5.3.1",
