@@ -256,6 +256,7 @@ class GlobalBindings {
 
     this.logoutUser = () => {
       this.netlifyIdentity.logout();
+      location.reload()
     };
 
     this.applySettings = () => {
