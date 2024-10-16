@@ -254,6 +254,10 @@ class GlobalBindings {
       this.settingsDialog(new SettingsDialog(this.settings));
     };
 
+    this.logoutUser = () => {
+      this.netlifyIdentity.logout();
+    };
+
     this.applySettings = () => {
       const settingsDialog = this.settingsDialog();
 
@@ -783,9 +787,6 @@ function initializeUI() {
     ui.connectDialog.password(queryParams.password);
   }
   ko.applyBindings(ui);
-  window.addEventListener('beforeunload', () => {
-    ui.netlifyIdentity.logout();
-  });
 }
 
 function log() {
