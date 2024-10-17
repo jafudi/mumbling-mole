@@ -40,7 +40,7 @@
     "raw-loader": "4.0.2",
     "regexp-replace-loader": "1.0.1",
     "reuse-pool": "1.0.2",
-    "sass": "1.52.3",
+    "sass": "1.80.2",
     "sass-loader": "13.0.0",
     "stream-chunker": "1.2.8",
     "subworkers": "1.0.1",
